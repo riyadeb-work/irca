@@ -1,0 +1,15 @@
+RewriteEngine On
+
+# 1. If someone explicitly types the .html extension, redirect to the clean URL
+#    e.g. /menu.html -> /menu  (302/301 redirect, visible in the browser bar)
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+([^.]+)\.html[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# 2. Internally serve the .html file when the clean URL is requested
+#    e.g. request for /menu actually serves menu.html, but the URL bar still shows /menu
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^([^.]+)$ $1.html [NC,L]
+
+# Optional: make "index" the default for the root folder (usually automatic, but explicit is safer)
+DirectoryIndex index.html

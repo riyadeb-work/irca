@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Faculty | Ichapur Rupsa Cultural Association</title>
+  <meta name="description" content="Meet the teaching faculty of Ichapur Rupsa Cultural Association.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Baloo+Da+2:wght@500;600;700;800&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#1C1A24',
+            maroon: { DEFAULT: '#7A1F2B', dark:'#5A1620', light:'#9C3040' },
+            gold: { DEFAULT: '#C9972A', light:'#E4C266', dark:'#9C731D' },
+            cream: '#F6EEDF',
+            paper: '#FBF7EE',
+            teal: { DEFAULT:'#0E5C56', dark:'#0A423D' },
+          },
+          fontFamily: {
+            display: ['"Baloo Da 2"','sans-serif'],
+            bangla: ['"Tiro Bangla"','serif'],
+            body: ['"Mukta"','sans-serif'],
+          },
+          boxShadow: {
+            soft: '0 10px 30px -12px rgba(28,26,36,0.25)',
+            modal: '0 25px 60px -15px rgba(28,26,36,0.55)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html{scroll-behavior:smooth;}
+    body{font-family:'Mukta',sans-serif;background:#FBF7EE;color:#1C1A24;}
+    .font-display{font-family:'Baloo Da 2',sans-serif;}
+    .font-bangla{font-family:'Tiro Bangla',serif;}
+
+    ::selection{background:#C9972A;color:#1C1A24;}
+
+    .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+    .reveal.in{opacity:1; transform:translateY(0);}
+
+    .glow-pulse{ box-shadow:0 0 0 0 rgba(201,151,42,.5); animation:pulse 2.6s infinite; }
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(201,151,42,.45);}
+      70%{box-shadow:0 0 0 14px rgba(201,151,42,0);}
+      100%{box-shadow:0 0 0 0 rgba(201,151,42,0);}
+    }
+
+    .card-hover{ transition: transform .35s ease, box-shadow .35s ease; }
+    .card-hover:hover{ transform: translateY(-6px); box-shadow: 0 18px 40px -16px rgba(28,26,36,.35); }
+
+    .nav-link{position:relative;}
+    .nav-link::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:#C9972A;transition:width .3s ease;}
+    .nav-link:hover::after{width:100%;}
+    .nav-link.active::after{width:100%;}
+    .nav-link.active{color:#7A1F2B;}
+
+    .scallop-cream{
+      background: radial-gradient(circle at 10px -6px, transparent 14px, #F6EEDF 15px) 0 0/24px 24px repeat-x;
+    }
+
+    /* Custom Scrollbar for Modal */
+    .modal-scroll::-webkit-scrollbar { width: 6px; }
+    .modal-scroll::-webkit-scrollbar-track { background: transparent; }
+    .modal-scroll::-webkit-scrollbar-thumb { background: #E4C266; border-radius: 10px; }
+  </style>
+</head>
+<body class="antialiased pb-16 lg:pb-0">
+
+<!-- ============ TOP BAR ============ -->
+<div class="bg-ink text-cream/80 text-xs sm:text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+    <p class="font-body tracking-wide">Regd. No. S00025885 of 2021–22</p>
+    <div class="hidden sm:flex items-center gap-4">
+      <a href="tel:+913325920161" class="hover:text-gold transition-colors">Office: 033 2592 0161</a>
+      <span class="opacity-40">|</span>
+      <a href="tel:+918420998994" class="hover:text-gold transition-colors">Mob: 84209 98994</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<header id="navbar" class="sticky top-0 z-50 bg-paper/90 backdrop-blur border-b border-maroon/10 transition-shadow">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between h-[72px]">
+      <a href="/" class="flex items-center gap-3 group">
+        <img src="./images/logo_transparent.png" alt="IRCA Logo" class="w-11 h-11 object-contain drop-shadow-[0_2px_6px_rgba(28,26,36,0.35)]">
+        <span class="leading-tight">
+          <span class="block font-display font-bold text-maroon text-[15px] sm:text-lg tracking-tight">Ichapur Rupsa</span>
+          <span class="block font-body text-[11px] sm:text-xs text-ink/60 tracking-[0.15em] uppercase">Cultural Association</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 font-body font-medium text-[15px] text-ink/80">
+        <a href="/#timetable" class="nav-link hover:text-maroon transition-colors nav-link">Classes</a>
+        <a href="/faculty" class="nav-link hover:text-maroon transition-colors">Faculty</a>
+        <a href="/#courses" class="nav-link hover:text-maroon transition-colors">Courses</a>
+        <a href="/#gallery" class="nav-link hover:text-maroon transition-colors">Gallery</a>
+      </nav>
+
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="/#register" class="inline-flex items-center gap-2 bg-maroon hover:bg-maroon-dark text-cream font-display font-semibold text-sm px-5 py-2.5 rounded-full shadow-soft transition-colors glow-pulse">
+          Register Now
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MOBILE BOTTOM APP NAV ============ -->
+<nav id="mobileBottomNav" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-paper border-t border-maroon/10 shadow-[0_-8px_24px_-12px_rgba(28,26,36,0.25)]" style="padding-bottom:env(safe-area-inset-bottom);">
+  <div class="grid grid-cols-5">
+    <a href="/#timetable" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      <span class="text-[10px] font-body font-medium">Classes</span>
+    </a>
+    <a href="/faculty" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-3.87-5"/></svg>
+      <span class="text-[10px] font-body font-medium">Faculty</span>
+    </a>
+    <a href="/#courses" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+      <span class="text-[10px] font-body font-medium">Courses</span>
+    </a>
+    <a href="/#gallery" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+      <span class="text-[10px] font-body font-medium">Gallery</span>
+    </a>
+    <a href="/#register" class="flex flex-col items-center justify-center gap-1 py-2.5 text-maroon">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M9 8h1m5 12H7a2 2 0 01-2-2V6a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V18a2 2 0 01-2 2z"/></svg>
+      <span class="text-[10px] font-body font-semibold">Register</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<section class="relative overflow-hidden bg-ink">
+  <div class="absolute inset-0 opacity-[0.14]" style="background-image:radial-gradient(circle at 1px 1px, #C9972A 1px, transparent 1px); background-size:26px 26px;"></div>
+  <div class="absolute -right-24 -top-24 w-[420px] h-[420px] rounded-full bg-maroon/30 blur-3xl"></div>
+  <div class="absolute -left-32 bottom-0 w-[380px] h-[380px] rounded-full bg-teal/20 blur-3xl"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 pt-14 pb-20 sm:pt-20 sm:pb-28 text-center">
+    <div class="reveal in">
+      <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-gold bg-gold/10 px-3 py-1 rounded-full mb-4">Faculty</span>
+      <h1 class="font-display font-extrabold text-cream leading-[1.05] text-[2.6rem] sm:text-6xl">
+        Meet our Experts
+      </h1>
+      <p class="mt-6 text-cream/70 text-base sm:text-lg font-body max-w-2xl mx-auto leading-relaxed">
+        Our faculty comprises dedicated practitioners, seasoned stage performers, and industry professionals. They provide real-world experience, personalized guidance, and support to all our students week after week.
+      </p>
+    </div>
+  </div>
+  <div class="scallop-cream"></div>
+</section>
+
+<!-- ============ FACULTY GRID ============ -->
+<section class="bg-cream py-16 pb-28">
+  <div class="max-w-7xl mx-auto px-4">
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+
+      <!-- Faculty 1 -->
+      <div class="card-hover reveal bg-paper rounded-[2rem] border border-maroon/10 overflow-hidden flex flex-col faculty-card shadow-sm">
+        <div class="w-full aspect-square sm:aspect-[4/5] bg-maroon/10 relative overflow-hidden">
+          <img src="images/faculty/f01_sujit.jpg" alt="সুজিত" class="w-full h-full object-cover object-top fac-img">
+        </div>
+        <div class="p-6 sm:p-8 flex flex-col flex-grow relative">
+          <h3 class="font-display font-extrabold text-ink text-2xl fac-name">সুজিত</h3>
+          <p class="text-maroon text-sm font-body font-bold mt-1 fac-title uppercase tracking-wide">ক্লাসিক্যাল শিক্ষক</p>
+
+          <!-- Hidden details -->
+          <div class="hidden fac-details font-body text-ink/80 leading-relaxed text-sm sm:text-base space-y-4">
+            <p><strong>Musical Journey & Training:</strong><br>My first guru was my mother, Srimati Rita Chakraborty. My second guru was Prof. Gobinda Banerjee (semi-classical and modern). My third guru was Pandit Kumar Roy of Kirana Gharana (Kheyal), and my fourth guru was Pandit Uday Bhawalkar from ITC-SRA (Dhrupad).</p>
+            <p class="bg-maroon/10 text-maroon px-4 py-2 rounded-xl inline-block font-semibold mt-2">মঙ্গলবার ক্লাস করেন</p>
+          </div>
+
+          <button class="mt-6 pt-5 border-t border-maroon/10 text-teal hover:text-teal-dark font-display font-bold flex items-center justify-between w-full transition-colors view-btn group">
+            <span>View Full Details</span>
+            <span class="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center group-hover:bg-teal group-hover:text-cream transition-colors"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Faculty 2 -->
+      <div class="card-hover reveal bg-paper rounded-[2rem] border border-maroon/10 overflow-hidden flex flex-col faculty-card shadow-sm" style="transition-delay: .05s;">
+        <div class="w-full aspect-square sm:aspect-[4/5] bg-maroon/10 relative overflow-hidden">
+          <img src="images/faculty/f02_arijit.jpg" alt="Arijit Chakraborty" class="w-full h-full object-cover object-top fac-img">
+        </div>
+        <div class="p-6 sm:p-8 flex flex-col flex-grow relative">
+          <h3 class="font-display font-extrabold text-ink text-2xl fac-name">Arijit Chakraborty</h3>
+          <p class="text-teal text-sm font-body font-bold mt-1 fac-title uppercase tracking-wide">সেমি ক্লাসিক্যাল ও আধুনিক শিক্ষক</p>
+
+          <div class="hidden fac-details font-body text-ink/80 leading-relaxed text-sm sm:text-base space-y-3">
+            <ul class="list-disc pl-5 space-y-1">
+              <li>Zee Bangla Sa Re Ga Ma Pa supporting vocals</li>
+              <li>Akash 8 (Akash a superstar reality show champion)</li>
+              <li>Tara TV "The Rising Star" reality show finalist</li>
+              <li>All India Radio Singer</li>
+            </ul>
+            <p class="bg-teal/10 text-teal px-4 py-2 rounded-xl inline-block font-semibold mt-2">শনিবার ক্লাস করেন</p>
+          </div>
+
+          <button class="mt-6 pt-5 border-t border-maroon/10 text-teal hover:text-teal-dark font-display font-bold flex items-center justify-between w-full transition-colors view-btn group">
+            <span>View Full Details</span>
+            <span class="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center group-hover:bg-teal group-hover:text-cream transition-colors"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Faculty 3 -->
+      <div class="card-hover reveal bg-paper rounded-[2rem] border border-maroon/10 overflow-hidden flex flex-col faculty-card shadow-sm" style="transition-delay: .1s;">
+        <div class="w-full aspect-square sm:aspect-[4/5] bg-maroon/10 relative overflow-hidden">
+          <img src="images/faculty/f03_goutam.jpg" alt="গৌতম চ্যাটার্জি" class="w-full h-full object-cover object-top fac-img">
+        </div>
+        <div class="p-6 sm:p-8 flex flex-col flex-grow relative">
+          <h3 class="font-display font-extrabold text-ink text-2xl fac-name">গৌতম চ্যাটার্জি</h3>
+          <p class="text-gold-dark text-sm font-body font-bold mt-1 fac-title uppercase tracking-wide">কর্ণধার, IRCA ও তবলা শিল্পী</p>
+
+          <div class="hidden fac-details font-body text-ink/80 leading-relaxed text-sm sm:text-base space-y-4">
+            <p><strong>Professional Background:</strong><br>ইছাপুর রূপসা কালচারাল এসোসিয়েশন (IRCA) এর কর্ণধার ও প্রথিতযশা তবলা শিল্পী। থিয়েটার ও বড় ও ছোট পর্দায় ২০১০-২০১৬ সাল পর্যন্ত সুনামের সাথে অভিনয় করেছেন।</p>
+            <p><strong>The IRCA Journey:</strong><br>২০১৬ সালে 'মিলনী মিউজিকাল গ্রুপ' দিয়ে যাত্রা শুরু করেন। পরবর্তীতে সেই প্রচেষ্টাই "ইছাপুর রূপসা কালচারাল এসোসিয়েশন" নামে আজকের এই বৃহৎ ও সুপ্রতিষ্ঠিত সংস্থায় রূপান্তরিত হয়। অসংখ্য বৃহৎ পরিসরের সাংস্কৃতিক অনুষ্ঠান সুচারুভাবে পরিচালনার ক্ষেত্রে তার দক্ষতা অনস্বীকার্য।</p>
+          </div>
+
+          <button class="mt-6 pt-5 border-t border-maroon/10 text-teal hover:text-teal-dark font-display font-bold flex items-center justify-between w-full transition-colors view-btn group">
+            <span>View Full Details</span>
+            <span class="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center group-hover:bg-teal group-hover:text-cream transition-colors"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Faculty 4 -->
+      <div class="card-hover reveal bg-paper rounded-[2rem] border border-maroon/10 overflow-hidden flex flex-col faculty-card shadow-sm">
+        <div class="w-full aspect-square sm:aspect-[4/5] bg-maroon/10 relative overflow-hidden">
+          <img src="images/faculty/f04_putul.jpg" alt="Putul Mandal" class="w-full h-full object-cover object-top fac-img">
+        </div>
+        <div class="p-6 sm:p-8 flex flex-col flex-grow relative">
+          <h3 class="font-display font-extrabold text-ink text-2xl fac-name">Putul Mandal</h3>
+          <p class="text-maroon text-sm font-body font-bold mt-1 fac-title uppercase tracking-wide">Folk Music Teacher</p>
+
+          <div class="hidden fac-details font-body text-ink/80 leading-relaxed text-sm sm:text-base space-y-4">
+            <p>Gandhrav ঘরানা bisharad, রবীন্দ্র ভারতী তে M-music. <br>Radio, Tv, W.B.Tatha cendra, APP এর সাথে যুক্ত।</p>
+            <p>বাংলা lokogan, ভক্তি গীতি এবং অন্যান্য গানের সাথে যুক্ত।</p>
+          </div>
+
+          <button class="mt-6 pt-5 border-t border-maroon/10 text-teal hover:text-teal-dark font-display font-bold flex items-center justify-between w-full transition-colors view-btn group">
+            <span>View Full Details</span>
+            <span class="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center group-hover:bg-teal group-hover:text-cream transition-colors"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Faculty 5 -->
+      <div class="card-hover reveal bg-paper rounded-[2rem] border border-maroon/10 overflow-hidden flex flex-col faculty-card shadow-sm" style="transition-delay: .05s;">
+        <div class="w-full aspect-square sm:aspect-[4/5] bg-maroon/10 relative overflow-hidden">
+          <img src="images/faculty/f05_bholanath.jpg" alt="Bholanath Sarkar" class="w-full h-full object-cover object-top fac-img">
+        </div>
+        <div class="p-6 sm:p-8 flex flex-col flex-grow relative">
+          <h3 class="font-display font-extrabold text-ink text-2xl fac-name">Bholanath Sarkar</h3>
+          <p class="text-teal text-sm font-body font-bold mt-1 fac-title uppercase tracking-wide">Guitar Instructor</p>
+
+          <div class="hidden fac-details font-body text-ink/80 leading-relaxed text-sm sm:text-base space-y-4">
+            <p><strong>Professional Experience:</strong><br>Passionate and experienced guitar instructor with over 35 years of experience teaching Acoustic, Electric and Bass guitar to students of all ages.</p>
+            <p><strong>Core Skills & Styles:</strong><br>Acoustic, Electric, Western Rock, Classical, Pop, Bollywood, and Tollywood songs.</p>
+            <p><strong>Technical Expertise:</strong><br>Music Theory, Sight Reading, Tablature, Ear Training, Improvisation.</p>
+            <p><strong>Education & Certifications:</strong><br>Grade 4 Trinity College London school certification.</p>
+          </div>
+
+          <button class="mt-6 pt-5 border-t border-maroon/10 text-teal hover:text-teal-dark font-display font-bold flex items-center justify-between w-full transition-colors view-btn group">
+            <span>View Full Details</span>
+            <span class="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center group-hover:bg-teal group-hover:text-cream transition-colors"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Faculty 6 -->
+      <div class="card-hover reveal bg-paper rounded-[2rem] border border-maroon/10 overflow-hidden flex flex-col faculty-card shadow-sm" style="transition-delay: .1s;">
+        <div class="w-full aspect-square sm:aspect-[4/5] bg-maroon/10 relative overflow-hidden">
+          <img src="images/faculty/f06_arup.jpg" alt="IRCA Senior Faculty" class="w-full h-full object-cover object-top fac-img">
+        </div>
+        <div class="p-6 sm:p-8 flex flex-col flex-grow relative">
+          <h3 class="font-display font-extrabold text-ink text-2xl fac-name">Arup Kumar Mukherjee</h3>
+          <p class="text-gold-dark text-sm font-body font-bold mt-1 fac-title uppercase tracking-wide">Rabindra, Nazrul & Bhav Sangeet</p>
+
+          <div class="hidden fac-details font-body text-ink/80 leading-relaxed text-sm sm:text-base space-y-4">
+            <p><strong>Background:</strong><br>SANGEET VISHARAD (PKK CHANDIGARH). Ex-Artist AIR Kolkata, Doordarshan Kendra Kolkata & Lucknow.</p>
+            <p><strong>Playback Singing (Film):</strong><br>Manab Premik Nimai (Dir. Saroj Roy), Ranakhetra (Dir. Haranath Chakraborty), Yasoda (Dir. Sisir Saha).</p>
+            <p><strong>Telefilms & TV:</strong><br>Kolkata TV National Network: Dristidan (Dir. Arun Guhakhakurta), Muktika Upay.<br>Tara Channel: Aktan Bahugan (Dir. Avijit Dasgupta), Natungan (Dir. Sneha Chakraborty).</p>
+            <p><strong>Discography:</strong><br>CD released from Clarion Audio and "Mon Unmom" CD from Shyamalok.</p>
+          </div>
+
+          <button class="mt-6 pt-5 border-t border-maroon/10 text-teal hover:text-teal-dark font-display font-bold flex items-center justify-between w-full transition-colors view-btn group">
+            <span>View Full Details</span>
+            <span class="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center group-hover:bg-teal group-hover:text-cream transition-colors"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Faculty 7 -->
+      <div class="card-hover reveal bg-paper rounded-[2rem] border border-maroon/10 overflow-hidden flex flex-col faculty-card shadow-sm">
+        <div class="w-full aspect-square sm:aspect-[4/5] bg-maroon/10 relative overflow-hidden">
+          <img src="images/faculty/f07_swapna.jpg" alt="Swapna Chatterjee" class="w-full h-full object-cover object-top fac-img">
+        </div>
+        <div class="p-6 sm:p-8 flex flex-col flex-grow relative">
+          <h3 class="font-display font-extrabold text-ink text-2xl fac-name">Swapna Chatterjee</h3>
+          <p class="text-maroon text-sm font-body font-bold mt-1 fac-title uppercase tracking-wide">Dance Teacher</p>
+
+          <div class="hidden fac-details font-body text-ink/80 leading-relaxed text-sm sm:text-base space-y-4">
+            <p><strong>Affiliations & Certifications:</strong><br>Bangiya Sangeet Parishad, Prayag Sangeet Samiti (Allahabad), Sangeet Prabhakar.</p>
+            <p><strong>Dance Specializations:</strong><br>Dedicated teacher at IRCA specializing in Rabindra Nritya, Nazrul Nritya, Kathak, and various Creative Dance forms.</p>
+          </div>
+
+          <button class="mt-6 pt-5 border-t border-maroon/10 text-teal hover:text-teal-dark font-display font-bold flex items-center justify-between w-full transition-colors view-btn group">
+            <span>View Full Details</span>
+            <span class="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center group-hover:bg-teal group-hover:text-cream transition-colors"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Faculty 8 -->
+      <div class="card-hover reveal bg-paper rounded-[2rem] border border-maroon/10 overflow-hidden flex flex-col faculty-card shadow-sm" style="transition-delay: .05s;">
+        <div class="w-full aspect-square sm:aspect-[4/5] bg-maroon/10 relative overflow-hidden">
+          <img src="images/faculty/f08_sharmistha.jpg" alt="Sharmistha Chatterjee" class="w-full h-full object-cover object-top fac-img">
+        </div>
+        <div class="p-6 sm:p-8 flex flex-col flex-grow relative">
+          <h3 class="font-display font-extrabold text-ink text-2xl fac-name">Sharmistha Chatterjee</h3>
+          <p class="text-teal text-sm font-body font-bold mt-1 fac-title uppercase tracking-wide">Dance Teacher</p>
+
+          <div class="hidden fac-details font-body text-ink/80 leading-relaxed text-sm sm:text-base space-y-4">
+            <p><strong>Certifications:</strong><br>Prayag Sangeet Samiti (Prabhakar).</p>
+            <p><strong>Dance Specializations:</strong><br>Expert in Kathak, Rabindra Nritya, Nazrul Nritya, and Creative Dance routines for stage performances.</p>
+            <p><strong>Extra-Curricular Expertise:</strong><br>10 years of experience acting in theatre productions and short films, bringing strong expressional value (Abhinaya) into dance.</p>
+          </div>
+
+          <button class="mt-6 pt-5 border-t border-maroon/10 text-teal hover:text-teal-dark font-display font-bold flex items-center justify-between w-full transition-colors view-btn group">
+            <span>View Full Details</span>
+            <span class="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center group-hover:bg-teal group-hover:text-cream transition-colors"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Faculty 9 -->
+      <div class="card-hover reveal bg-paper rounded-[2rem] border border-maroon/10 overflow-hidden flex flex-col faculty-card shadow-sm" style="transition-delay: .1s;">
+        <div class="w-full aspect-square sm:aspect-[4/5] bg-maroon/10 relative overflow-hidden">
+          <img src="images/faculty/f09_sritama.jpg" alt="Sritama Banerjee" class="w-full h-full object-cover object-top fac-img">
+        </div>
+        <div class="p-6 sm:p-8 flex flex-col flex-grow relative">
+          <h3 class="font-display font-extrabold text-ink text-2xl fac-name">Sritama Banerjee</h3>
+          <p class="text-gold-dark text-sm font-body font-bold mt-1 fac-title uppercase tracking-wide">Drawing Teacher</p>
+
+          <div class="hidden fac-details font-body text-ink/80 leading-relaxed text-sm sm:text-base space-y-4">
+            <p><strong>Certifications:</strong><br>Prabhakar in Visual Arts.</p>
+            <p><strong>Class Details:</strong><br>Conducts the weekly drawing and sketching batch every Sunday morning at 10:00 AM, focusing on foundations, colors, and composition.</p>
+          </div>
+
+          <button class="mt-6 pt-5 border-t border-maroon/10 text-teal hover:text-teal-dark font-display font-bold flex items-center justify-between w-full transition-colors view-btn group">
+            <span>View Full Details</span>
+            <span class="w-8 h-8 rounded-full bg-teal/10 flex items-center justify-center group-hover:bg-teal group-hover:text-cream transition-colors"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="w-4 h-4"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ FACULTY MODAL ============ -->
+<div id="facultyModal" class="fixed inset-0 z-[100] bg-ink/80 backdrop-blur-sm p-4 sm:p-6 hidden items-center justify-center opacity-0 transition-opacity duration-300">
+  <div class="bg-paper w-full max-w-4xl rounded-3xl overflow-hidden relative shadow-modal flex flex-col sm:flex-row max-h-[95vh] sm:max-h-[85vh] transform scale-95 transition-transform duration-300" id="modalContent">
+
+    <!-- Close button -->
+    <button id="closeModalBtn" class="absolute top-4 right-4 z-10 w-10 h-10 bg-paper/80 backdrop-blur rounded-full flex items-center justify-center text-ink hover:text-maroon hover:bg-paper transition-colors shadow-sm border border-maroon/10">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+
+    <!-- Modal Image - Fixed aspect ratio & object-top to prevent head cut off -->
+    <div class="w-full sm:w-[45%] lg:w-1/2 min-h-[320px] sm:min-h-full shrink-0 bg-maroon/5 relative">
+      <img id="modalImg" src="" alt="Faculty" class="absolute inset-0 w-full h-full object-cover object-top">
+    </div>
+
+    <!-- Modal Content -->
+    <div class="p-6 sm:p-8 lg:p-12 overflow-y-auto modal-scroll w-full flex-grow">
+      <p id="modalTitle" class="text-maroon font-body font-bold text-xs sm:text-sm tracking-[0.15em] uppercase mb-2">Title Here</p>
+      <h2 id="modalName" class="font-display font-extrabold text-3xl sm:text-4xl text-ink leading-tight">Name Here</h2>
+
+      <div class="w-12 h-1 bg-gold mt-6 mb-8 rounded-full"></div>
+
+      <div id="modalDetails" class="font-body text-ink/80 leading-relaxed text-sm sm:text-base space-y-4">
+        <!-- Details injected here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact" class="bg-ink text-cream/70 pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-3 mb-4">
+        <img src="./images/logo_transparent.png" alt="IRCA Logo" class="w-11 h-11 object-contain">
+        <span class="font-display font-bold text-cream">Ichapur Rupsa<br><span class="text-xs font-body font-normal text-cream/50">Cultural Association</span></span>
+      </div>
+      <p class="text-sm font-body leading-relaxed text-cream/55">Regd. No. S00025885 of 2021–22. A cultural school nurturing music, dance, drama, art and instrument learners of Ichapur.</p>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Explore</h4>
+      <ul class="space-y-2.5 text-sm font-body">
+        <li><a href="/#timetable" class="hover:text-gold transition-colors">Regular Classes</a></li>
+        <li><a href="/faculty" class="hover:text-gold transition-colors">Faculty</a></li>
+        <li><a href="/gallery" class="coming-soon-link hover:text-gold transition-colors">Gallery</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Registration</h4>
+      <ul class="space-y-2.5 text-sm font-body">
+        <li><a href="/student-registration" class="coming-soon-link hover:text-gold transition-colors">Student Admission Form</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Visit / Contact</h4>
+      <ul class="space-y-3 text-sm font-body">
+        <li class="flex gap-2"><span>📍</span><span>Ichapur Battola, Netaji Road, Sangeeta Apartment, Ground Floor</span></li>
+        <li class="flex gap-2"><span>📞</span><a href="tel:+913325920161" class="hover:text-gold transition-colors">Office: 033 2592 0161</a></li>
+        <li class="flex gap-2"><span>📱</span><a href="tel:+918420998994" class="hover:text-gold transition-colors">Mob: 84209 98994</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 mt-12 pt-6 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-body text-cream/40">
+    <p>© <span id="year"></span> Ichapur Rupsa Cultural Association. All rights reserved.</p>
+    <p class="font-bangla text-cream/50">সুস্থ সংস্কৃতি, সুন্দর সমাজ, সমৃদ্ধ আগামী</p>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp button -->
+<a href="https://wa.me/918420998994" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" class="fixed right-4 lg:right-6 bottom-[calc(88px+env(safe-area-inset-bottom))] lg:bottom-6 z-40 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-soft hover:scale-105 transition-transform">
+  <svg viewBox="0 0 32 32" class="w-8 h-8" fill="#fff"><path d="M16.004 2.667c-7.363 0-13.333 5.97-13.333 13.333 0 2.353.617 4.56 1.694 6.474L2.667 29.333l7.03-1.845a13.26 13.26 0 006.307 1.605h.006c7.363 0 13.333-5.97 13.333-13.333S23.367 2.667 16.004 2.667zm0 24.02a11.09 11.09 0 01-5.653-1.548l-.406-.24-4.174 1.095 1.114-4.07-.264-.418a11.05 11.05 0 01-1.7-5.906c0-6.13 4.99-11.12 11.09-11.12 2.964 0 5.75 1.155 7.845 3.253a11.02 11.02 0 013.245 7.85c0 6.13-4.99 11.104-11.097 11.104zm6.086-8.31c-.334-.167-1.977-.976-2.283-1.087-.306-.112-.529-.167-.751.167-.223.334-.862 1.087-1.057 1.31-.195.223-.39.25-.723.084-.334-.167-1.409-.52-2.684-1.657-.992-.885-1.663-1.978-1.858-2.312-.195-.334-.02-.514.147-.68.15-.15.334-.39.5-.585.167-.195.223-.334.334-.557.112-.223.056-.418-.028-.585-.084-.167-.751-1.81-1.029-2.479-.271-.65-.546-.562-.751-.573l-.64-.011c-.223 0-.585.084-.892.418s-1.169 1.142-1.169 2.785 1.197 3.23 1.364 3.453c.167.223 2.355 3.596 5.706 5.043.797.344 1.419.55 1.904.703.8.254 1.529.218 2.105.132.642-.096 1.977-.808 2.255-1.588.279-.78.279-1.448.195-1.588-.084-.14-.306-.223-.64-.39z"/></svg>
+</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile Menu Toggle
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const iconMenu = document.getElementById('iconMenu');
+  const iconClose = document.getElementById('iconClose');
+
+  if (menuBtn) {
+    menuBtn.addEventListener('click', () => {
+      // Using optional chaining (?.) just in case the button exists but the menus don't
+      mobileMenu?.classList.toggle('hidden');
+      iconMenu?.classList.toggle('hidden');
+      iconClose?.classList.toggle('hidden');
+    });
+  }
+
+  // Scroll Shadow
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 8) navbar.classList.add('shadow-soft'); else navbar.classList.remove('shadow-soft');
+  });
+
+  // Reveal Animations
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Modal Logic
+  const modal = document.getElementById('facultyModal');
+  const modalContent = document.getElementById('modalContent');
+  const closeBtn = document.getElementById('closeModalBtn');
+
+  function openModal(card) {
+    const name = card.querySelector('.fac-name').innerHTML;
+    const title = card.querySelector('.fac-title').innerHTML;
+    const imgSrc = card.querySelector('.fac-img').src;
+    const details = card.querySelector('.fac-details').innerHTML;
+
+    document.getElementById('modalName').innerHTML = name;
+    document.getElementById('modalTitle').innerHTML = title;
+    document.getElementById('modalImg').src = imgSrc;
+    document.getElementById('modalDetails').innerHTML = details;
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    // small timeout to allow display:flex to apply before opacity transition
+    setTimeout(() => {
+      modal.classList.remove('opacity-0');
+      modalContent.classList.remove('scale-95');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }, 10);
+  }
+
+  function closeModal() {
+    modal.classList.add('opacity-0');
+    modalContent.classList.add('scale-95');
+    document.body.style.overflow = '';
+
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }, 300); // Matches duration-300
+  }
+
+  document.querySelectorAll('.view-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const card = e.target.closest('.faculty-card');
+      openModal(card);
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+  });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ichapur Rupsa Cultural Association | সংস্কৃতি হোক আমাদের পরিচয়</title>
+  <meta name="description" content="Ichapur Rupsa Cultural Association (IRCA) — music, dance, drawing & instrument classes, auditions, events and competitions in Ichapur, West Bengal.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Baloo+Da+2:wght@500;600;700;800&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#1C1A24',
+            maroon: { DEFAULT: '#7A1F2B', dark:'#5A1620', light:'#9C3040' },
+            gold: { DEFAULT: '#C9972A', light:'#E4C266', dark:'#9C731D' },
+            cream: '#F6EEDF',
+            paper: '#FBF7EE',
+            teal: { DEFAULT:'#0E5C56', dark:'#0A423D' },
+          },
+          fontFamily: {
+            display: ['"Baloo Da 2"','sans-serif'],
+            bangla: ['"Tiro Bangla"','serif'],
+            body: ['"Mukta"','sans-serif'],
+          },
+          boxShadow: {
+            soft: '0 10px 30px -12px rgba(28,26,36,0.25)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html{scroll-behavior:smooth;}
+    body{font-family:'Mukta',sans-serif;background:#FBF7EE;color:#1C1A24;}
+    .font-display{font-family:'Baloo Da 2',sans-serif;}
+    .font-bangla{font-family:'Tiro Bangla',serif;}
+
+    ::selection{background:#C9972A;color:#1C1A24;}
+
+    /* Alpona line-drawing motif */
+    .alpona-draw path{
+      stroke-dasharray: 1400;
+      stroke-dashoffset: 1400;
+      animation: draw 3.2s ease forwards;
+    }
+    .alpona-draw path:nth-child(2){animation-delay:.2s;}
+    .alpona-draw path:nth-child(3){animation-delay:.4s;}
+    .alpona-draw path:nth-child(4){animation-delay:.6s;}
+    @keyframes draw{to{stroke-dashoffset:0;}}
+
+    @media (prefers-reduced-motion: reduce){
+      .alpona-draw path{animation:none; stroke-dashoffset:0;}
+      *{animation-duration:.01ms !important; transition-duration:.01ms !important;}
+    }
+
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+    .reveal.in{opacity:1; transform:translateY(0);}
+
+    /* Diya/gold glow pulse for CTA */
+    .glow-pulse{ box-shadow:0 0 0 0 rgba(201,151,42,.5); animation:pulse 2.6s infinite; }
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(201,151,42,.45);}
+      70%{box-shadow:0 0 0 14px rgba(201,151,42,0);}
+      100%{box-shadow:0 0 0 0 rgba(201,151,42,0);}
+    }
+
+    .tape-border{
+      background-image: repeating-linear-gradient(45deg, transparent 0 10px, rgba(201,151,42,.35) 10px 11px);
+    }
+
+    .marquee-track{ animation: marquee 22s linear infinite; }
+    @keyframes marquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+
+    .card-hover{ transition: transform .35s ease, box-shadow .35s ease; }
+    .card-hover:hover{ transform: translateY(-6px); box-shadow: 0 18px 40px -16px rgba(28,26,36,.35); }
+
+    .nav-link{position:relative;}
+    .nav-link::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:#C9972A;transition:width .3s ease;}
+    .nav-link:hover::after{width:100%;}
+
+    .num-badge{ font-family:'Baloo Da 2',sans-serif; }
+
+    .scallop{
+      height:22px;
+      background: radial-gradient(circle at 10px -6px, transparent 14px, #7A1F2B 15px) 0 0/24px 24px repeat-x;
+    }
+    .scallop-cream{
+      background: radial-gradient(circle at 10px -6px, transparent 14px, #F6EEDF 15px) 0 0/24px 24px repeat-x;
+    }
+  </style>
+</head>
+<body class="antialiased pb-16 lg:pb-0">
+
+<!-- ============ TOP BAR ============ -->
+<div class="bg-ink text-cream/80 text-xs sm:text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+    <p class="font-body tracking-wide">Regd. No. S00025885 of 2021–22</p>
+    <div class="hidden sm:flex items-center gap-4">
+      <a href="tel:+913325920161" class="hover:text-gold transition-colors">Office: 033 2592 0161</a>
+      <span class="opacity-40">|</span>
+      <a href="tel:+918420998994" class="hover:text-gold transition-colors">Mob: 84209 98994</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<header id="navbar" class="sticky top-0 z-50 bg-paper/90 backdrop-blur border-b border-maroon/10 transition-shadow">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between h-[72px]">
+      <a href="/" class="flex items-center gap-3 group">
+        <img src="./images/logo_transparent.png" alt="IRCA Logo" class="w-11 h-11 object-contain drop-shadow-[0_2px_6px_rgba(28,26,36,0.35)]">
+        <span class="leading-tight">
+          <span class="block font-display font-bold text-maroon text-[15px] sm:text-lg tracking-tight">Ichapur Rupsa</span>
+          <span class="block font-body text-[11px] sm:text-xs text-ink/60 tracking-[0.15em] uppercase">Cultural Association</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 font-body font-medium text-[15px] text-ink/80">
+        <a href="/#timetable" class="nav-link hover:text-maroon transition-colors nav-link">Classes</a>
+        <a href="/faculty" class="nav-link hover:text-maroon transition-colors">Faculty</a>
+        <a href="/#courses" class="nav-link hover:text-maroon transition-colors">Courses</a>
+        <a href="/#gallery" class="nav-link hover:text-maroon transition-colors">Gallery</a>
+      </nav>
+
+      <div class="hidden lg:flex items-center gap-3">
+        <a href="/#register" class="inline-flex items-center gap-2 bg-maroon hover:bg-maroon-dark text-cream font-display font-semibold text-sm px-5 py-2.5 rounded-full shadow-soft transition-colors glow-pulse">
+          Register Now
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MOBILE BOTTOM APP NAV ============ -->
+<nav id="mobileBottomNav" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-paper border-t border-maroon/10 shadow-[0_-8px_24px_-12px_rgba(28,26,36,0.25)]" style="padding-bottom:env(safe-area-inset-bottom);">
+  <div class="grid grid-cols-5">
+    <a href="/#timetable" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      <span class="text-[10px] font-body font-medium">Classes</span>
+    </a>
+    <a href="/faculty" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-3.87-5"/></svg>
+      <span class="text-[10px] font-body font-medium">Faculty</span>
+    </a>
+    <a href="/#courses" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+      <span class="text-[10px] font-body font-medium">Courses</span>
+    </a>
+    <a href="/#gallery" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+      <span class="text-[10px] font-body font-medium">Gallery</span>
+    </a>
+    <a href="/#register" class="flex flex-col items-center justify-center gap-1 py-2.5 text-maroon">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M9 8h1m5 12H7a2 2 0 01-2-2V6a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V18a2 2 0 01-2 2z"/></svg>
+      <span class="text-[10px] font-body font-semibold">Register</span>
+    </a>
+  </div>
+</nav>
+<!-- ============ HERO ============ -->
+<section id="home" class="relative overflow-hidden bg-ink">
+  <div class="absolute inset-0 opacity-[0.14]" style="background-image:radial-gradient(circle at 1px 1px, #C9972A 1px, transparent 1px); background-size:26px 26px;"></div>
+  <div class="absolute -right-24 -top-24 w-[420px] h-[420px] rounded-full bg-maroon/30 blur-3xl"></div>
+  <div class="absolute -left-32 bottom-0 w-[380px] h-[380px] rounded-full bg-teal/20 blur-3xl"></div>
+
+  <div class="relative max-w-7xl mx-auto px-4 pt-14 pb-20 sm:pt-20 sm:pb-28 grid lg:grid-cols-[1.1fr_.9fr] gap-12 items-center">
+    <div class="reveal in">
+      <p class="font-bangla text-gold text-lg sm:text-xl mb-3 tracking-wide">সংস্কৃতি হোক আমাদের পরিচয়, সঙ্গীত হোক আমাদের শক্তি</p>
+      <h1 class="font-display font-extrabold text-cream leading-[1.05] text-[2.6rem] sm:text-6xl lg:text-[3.6rem]">
+        Where Ichapur<br class="hidden sm:block"> learns to
+        <span class="relative inline-block text-gold">
+          perform
+          <svg class="absolute left-0 -bottom-2 w-full h-3" viewBox="0 0 200 12" preserveAspectRatio="none"><path d="M2 9 C 50 2, 150 2, 198 9" stroke="#C9972A" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+        </span>.
+      </h1>
+      <p class="mt-6 text-cream/70 text-base sm:text-lg font-body max-w-lg leading-relaxed">
+        A community cultural school for classical & modern music, dance, acting, drawing and instruments — plus real pathways into auditions, festivals and competitions.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#register" class="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-ink font-display font-bold px-6 py-3.5 rounded-full shadow-soft transition-colors">
+          Enrol for a Class
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <a href="#courses" class="inline-flex items-center gap-2 border border-cream/30 hover:border-gold text-cream font-display font-semibold px-6 py-3.5 rounded-full transition-colors">
+          Browse Courses
+        </a>
+      </div>
+
+      <div class="mt-10 flex flex-wrap gap-x-8 gap-y-4">
+        <div><span class="font-display font-extrabold text-2xl text-gold">12+</span><span class="block text-cream/60 text-xs font-body uppercase tracking-wide">Disciplines taught</span></div>
+        <div><span class="font-display font-extrabold text-2xl text-gold">6</span><span class="block text-cream/60 text-xs font-body uppercase tracking-wide">Classes every week</span></div>
+        <div><span class="font-display font-extrabold text-2xl text-gold">2021</span><span class="block text-cream/60 text-xs font-body uppercase tracking-wide">Registered association</span></div>
+      </div>
+    </div>
+
+    <!-- Logo showcase -->
+    <div class="relative flex justify-center reveal in" style="transition-delay:.15s">
+      <div class="relative w-full max-w-md aspect-square flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full bg-gold/10 blur-2xl"></div>
+        <img src="./images/logo_circular.png" alt="IRCA Logo" class="relative w-full h-full max-w-[340px] max-h-[340px] object-contain drop-shadow-[0_12px_30px_rgba(0,0,0,0.35)]">
+      </div>
+    </div>
+  </div>
+  <div class="scallop-cream"></div>
+</section>
+
+<!-- ============ MARQUEE STRIP ============ -->
+<div class="bg-cream border-y border-maroon/10 py-3 overflow-hidden">
+  <div class="flex whitespace-nowrap marquee-track font-bangla text-maroon/70 text-sm sm:text-base">
+    <div class="flex shrink-0">
+      <span class="mx-6">শাস্ত্রীয় সঙ্গীত</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">রবীন্দ্র ও নজরুল সঙ্গীত</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">নৃত্য</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">গিটার ও কীবোর্ড</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">তবলা তালিম</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">আবৃত্তি ও অভিনয়</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">ব্যান্ড রিহার্সাল</span><span class="mx-6 text-gold">✦</span>
+    </div>
+    <div class="flex shrink-0" aria-hidden="true">
+      <span class="mx-6">শাস্ত্রীয় সঙ্গীত</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">রবীন্দ্র ও নজরুল সঙ্গীত</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">নৃত্য</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">গিটার ও কীবোর্ড</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">তবলা তালিম</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">আবৃত্তি ও অভিনয়</span><span class="mx-6 text-gold">✦</span>
+      <span class="mx-6">ব্যান্ড রিহার্সাল</span><span class="mx-6 text-gold">✦</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ABOUT ============ -->
+<section class="max-w-7xl mx-auto px-4 py-20 grid lg:grid-cols-2 gap-12 items-center">
+  <div class="reveal">
+    <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-teal bg-teal/10 px-3 py-1 rounded-full">About IRCA</span>
+    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-4 leading-tight">A cultural home in the heart of Ichapur</h2>
+    <p class="mt-5 text-ink/70 font-body leading-relaxed">
+      Ichapur Rupsa Cultural Association (IRCA) is a registered community institution nurturing classical and contemporary art forms — music, dance, drawing, recitation and theatre — for learners of every age. Beyond the classroom, IRCA builds real bridges to auditions, festivals and competitions across film, television, theatre and fashion.
+    </p>
+    <p class="mt-3 font-bangla text-maroon/80 text-lg">সুস্থ সংস্কৃতি, সুন্দর সমাজ, সমৃদ্ধ আগামী।</p>
+    <div class="mt-7 grid sm:grid-cols-2 gap-4">
+      <div class="flex items-start gap-3">
+        <span class="w-9 h-9 rounded-full bg-maroon/10 text-maroon flex items-center justify-center shrink-0">
+          <svg class="w-4.5 h-4.5" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </span>
+        <div><p class="font-display font-semibold text-ink text-sm">Ichapur Battola</p><p class="text-ink/55 text-sm font-body">Netaji Road, Sangeeta Apartment, Ground Floor</p></div>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="w-9 h-9 rounded-full bg-teal/10 text-teal flex items-center justify-center shrink-0">
+          <svg class="w-4.5 h-4.5" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </span>
+        <div><p class="font-display font-semibold text-ink text-sm">Classes, 6 days a week</p><p class="text-ink/55 text-sm font-body">Evening batches, Mon–Sat</p></div>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="w-9 h-9 rounded-full bg-gold/10 text-gold-dark flex items-center justify-center shrink-0">
+          <svg class="w-4.5 h-4.5" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </span>
+        <div><p class="font-display font-semibold text-ink text-sm">Registered association</p><p class="text-ink/55 text-sm font-body">Regd. No. S00025885 of 2021–22</p></div>
+      </div>
+      <div class="flex items-start gap-3">
+        <span class="w-9 h-9 rounded-full bg-maroon/10 text-maroon flex items-center justify-center shrink-0">
+          <svg class="w-4.5 h-4.5" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        </span>
+        <div><p class="font-display font-semibold text-ink text-sm">Expert Faculty</p><p class="text-ink/55 text-sm font-body">Learn from seasoned professionals</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="relative reveal" style="transition-delay:.1s">
+    <div class="tape-border absolute -inset-3 rounded-[2rem] opacity-40"></div>
+    <div class="relative bg-maroon rounded-[1.75rem] p-8 sm:p-10 text-cream shadow-soft overflow-hidden">
+      <svg class="absolute -right-10 -bottom-10 w-56 h-56 opacity-10" viewBox="0 0 200 200" fill="none" stroke="#F6EEDF" stroke-width="2"><circle cx="100" cy="100" r="90"/><circle cx="100" cy="100" r="60"/><circle cx="100" cy="100" r="30"/></svg>
+      <p class="font-bangla text-2xl leading-relaxed relative">"সংস্কৃতি হোক আমাদের পরিচয়,<br>সঙ্গীত হোক আমাদের শক্তি।"</p>
+      <p class="mt-4 text-cream/60 text-sm font-body relative">— the IRCA motto</p>
+      <div class="mt-8 grid grid-cols-2 gap-4 relative">
+        <div class="bg-cream/10 rounded-2xl p-4">
+          <p class="font-display font-extrabold text-2xl text-gold">10+</p>
+          <p class="text-cream/70 text-xs font-body">Years of excellence</p>
+        </div>
+        <div class="bg-cream/10 rounded-2xl p-4">
+          <p class="font-display font-extrabold text-2xl text-gold">14</p>
+          <p class="text-cream/70 text-xs font-body">Subjects on offer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEARNING / DISCIPLINES ============ -->
+<section id="classes" class="bg-cream py-20">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 reveal">
+      <div>
+        <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-maroon bg-maroon/10 px-3 py-1 rounded-full">🎼 Learning</span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-4">Everything you can learn at IRCA</h2>
+      </div>
+      <a href="/regular-classes" class="coming-soon-link font-body font-semibold text-maroon hover:text-maroon-dark inline-flex items-center gap-1">Full class schedule
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+
+    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- card template x8 -->
+      <div class="card-hover reveal bg-paper rounded-2xl p-6 border border-maroon/10">
+        <div class="w-12 h-12 rounded-xl bg-maroon flex items-center justify-center text-cream mb-4">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l10-2v13M9 19a3 3 0 11-6 0 3 3 0 016 0zm10-2a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-ink text-lg">Music Classes</h3>
+        <p class="text-ink/60 text-sm font-body mt-1.5 leading-relaxed">Classical, Rabindra, Nazrul, Adhunik, folk & bhavasangeet vocals.</p>
+      </div>
+      <div class="card-hover reveal bg-paper rounded-2xl p-6 border border-maroon/10" style="transition-delay:.05s">
+        <div class="w-12 h-12 rounded-xl bg-teal flex items-center justify-center text-cream mb-4">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-ink text-lg">Acting Classes</h3>
+        <p class="text-ink/60 text-sm font-body mt-1.5 leading-relaxed">Stage presence, dialogue delivery and screen-acting fundamentals.</p>
+      </div>
+      <div class="card-hover reveal bg-paper rounded-2xl p-6 border border-maroon/10" style="transition-delay:.1s">
+        <div class="w-12 h-12 rounded-xl bg-gold flex items-center justify-center text-ink mb-4">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-ink text-lg">Dance</h3>
+        <p class="text-ink/60 text-sm font-body mt-1.5 leading-relaxed">Classical and folk-rooted choreography for group and solo performance.</p>
+      </div>
+      <div class="card-hover reveal bg-paper rounded-2xl p-6 border border-maroon/10" style="transition-delay:.15s">
+        <div class="w-12 h-12 rounded-xl bg-maroon flex items-center justify-center text-cream mb-4">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536M9 11l6.586-6.586a2 2 0 112.828 2.828L11.828 13.83a4 4 0 01-1.414.943l-3.03 1.01 1.01-3.03a4 4 0 01.943-1.414z"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 19h14"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-ink text-lg">Drawing</h3>
+        <p class="text-ink/60 text-sm font-body mt-1.5 leading-relaxed">Every Sunday morning — sketching, colour and composition basics.</p>
+      </div>
+      <div class="card-hover reveal bg-paper rounded-2xl p-6 border border-maroon/10">
+        <div class="w-12 h-12 rounded-xl bg-teal flex items-center justify-center text-cream mb-4">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l10-2v13M9 19a3 3 0 11-6 0 3 3 0 016 0zm10-2a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-ink text-lg">Instrument Learning</h3>
+        <p class="text-ink/60 text-sm font-body mt-1.5 leading-relaxed">Guitar, keyboard and tabla talim with dedicated weekly slots.</p>
+      </div>
+      <div class="card-hover reveal bg-paper rounded-2xl p-6 border border-maroon/10" style="transition-delay:.05s">
+        <div class="w-12 h-12 rounded-xl bg-gold flex items-center justify-center text-ink mb-4">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-ink text-lg">Bangla Band Training</h3>
+        <p class="text-ink/60 text-sm font-body mt-1.5 leading-relaxed">Audition-based band rehearsal with year-round performance opportunities.</p>
+      </div>
+      <div class="card-hover reveal bg-paper rounded-2xl p-6 border border-maroon/10" style="transition-delay:.1s">
+        <div class="w-12 h-12 rounded-xl bg-maroon flex items-center justify-center text-cream mb-4">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-ink text-lg">Stage & Performance Exposure</h3>
+        <p class="text-ink/60 text-sm font-body mt-1.5 leading-relaxed">Regular platforms to perform live at festivals, events and showcases.</p>
+      </div>
+      <div class="card-hover reveal bg-paper rounded-2xl p-6 border border-maroon/10" style="transition-delay:.15s">
+        <div class="w-12 h-12 rounded-xl bg-teal flex items-center justify-center text-cream mb-4">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        </div>
+        <h3 class="font-display font-bold text-ink text-lg">Course Certificates</h3>
+        <p class="text-ink/60 text-sm font-body mt-1.5 leading-relaxed">Completion certificates for structured courses and workshops.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WEEKLY TIMETABLE ============ -->
+<section id="timetable" class="max-w-7xl mx-auto px-4 py-20">
+  <div class="reveal text-center max-w-2xl mx-auto">
+    <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-teal bg-teal/10 px-3 py-1 rounded-full">Weekly Timetable</span>
+    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-4">ক্লাসের তালিকা</h2>
+    <p class="text-ink/60 font-body mt-3">Six evenings of live classes at our Ichapur Battola centre.</p>
+  </div>
+
+  <!-- Mobile: stacked list, all days visible, no scroll -->
+  <div class="mt-10 sm:hidden reveal space-y-3">
+    <div class="bg-paper rounded-2xl border border-maroon/10 p-4 flex items-start justify-between gap-3">
+      <div>
+        <p class="font-display font-bold text-maroon text-sm">সোমবার · Monday</p>
+        <p class="font-body text-ink/80 text-sm mt-1">Grooming Class <span class="text-ink/45 text-xs block">(1st & 3rd week of the month)</span></p>
+      </div>
+      <p class="font-body text-ink/55 text-xs whitespace-nowrap shrink-0 mt-0.5">7:00–9:00 PM</p>
+    </div>
+    <div class="bg-paper rounded-2xl border border-maroon/10 p-4 flex items-start justify-between gap-3">
+      <div>
+        <p class="font-display font-bold text-maroon text-sm">মঙ্গলবার · Tuesday</p>
+        <p class="font-body text-ink/80 text-sm mt-1">Classical Music (উচ্চাঙ্গ সঙ্গীত)</p>
+      </div>
+      <p class="font-body text-ink/55 text-xs whitespace-nowrap shrink-0 mt-0.5">From 6:30 PM</p>
+    </div>
+    <div class="bg-paper rounded-2xl border border-maroon/10 p-4 flex items-start justify-between gap-3">
+      <div>
+        <p class="font-display font-bold text-maroon text-sm">বুধবার · Wednesday</p>
+        <p class="font-body text-ink/80 text-sm mt-1">Guitar Class</p>
+      </div>
+      <p class="font-body text-ink/55 text-xs whitespace-nowrap shrink-0 mt-0.5">From 6:00 PM</p>
+    </div>
+    <div class="bg-paper rounded-2xl border border-maroon/10 p-4 flex items-start justify-between gap-3">
+      <div>
+        <p class="font-display font-bold text-maroon text-sm">বৃহস্পতিবার · Thursday</p>
+        <p class="font-body text-ink/80 text-sm mt-1">Group & Solo Folk + Bhavasangeet</p>
+      </div>
+      <p class="font-body text-ink/55 text-xs whitespace-nowrap shrink-0 mt-0.5">From 6:30 PM</p>
+    </div>
+    <div class="bg-paper rounded-2xl border border-maroon/10 p-4 flex items-start justify-between gap-3">
+      <div>
+        <p class="font-display font-bold text-maroon text-sm">শুক্রবার · Friday</p>
+        <p class="font-body text-ink/80 text-sm mt-1">Rabindra & Nazrul Sangeet</p>
+      </div>
+      <p class="font-body text-ink/55 text-xs whitespace-nowrap shrink-0 mt-0.5">From 6:30 PM</p>
+    </div>
+    <div class="bg-paper rounded-2xl border border-maroon/10 p-4 flex items-start justify-between gap-3">
+      <div>
+        <p class="font-display font-bold text-maroon text-sm">শনিবার · Saturday</p>
+        <p class="font-body text-ink/80 text-sm mt-1">Bengali Modern & Semi-Classical</p>
+      </div>
+      <p class="font-body text-ink/55 text-xs whitespace-nowrap shrink-0 mt-0.5">From 6:30 PM</p>
+    </div>
+    <div class="bg-paper rounded-2xl border border-maroon/10 p-4 flex items-start justify-between gap-3">
+      <div>
+        <p class="font-display font-bold text-maroon text-sm">রবিবার · Sunday</p>
+        <p class="font-body text-ink/80 text-sm mt-1">Drawing (অঙ্কন)</p>
+      </div>
+      <p class="font-body text-ink/55 text-xs whitespace-nowrap shrink-0 mt-0.5">From 10:00 AM</p>
+    </div>
+  </div>
+
+  <!-- Desktop / tablet: table -->
+  <div class="mt-10 hidden sm:block overflow-x-auto reveal">
+    <table class="w-full min-w-[640px] border-collapse">
+      <thead>
+      <tr class="bg-ink text-cream font-display text-sm sm:text-base">
+        <th class="text-left py-4 px-5 rounded-l-xl">Day</th>
+        <th class="text-left py-4 px-5">Class</th>
+        <th class="text-left py-4 px-5 rounded-r-xl">Time</th>
+      </tr>
+      </thead>
+      <tbody class="font-body text-ink/80 text-sm sm:text-base">
+      <tr class="border-b border-maroon/10 hover:bg-cream/60 transition-colors">
+        <td class="py-4 px-5 font-semibold text-maroon">সোমবার · Monday</td>
+        <td class="py-4 px-5">Grooming Class <span class="text-ink/45 text-xs">(1st & 3rd week of the month)</span></td>
+        <td class="py-4 px-5">7:00 – 9:00 PM</td>
+      </tr>
+      <tr class="border-b border-maroon/10 hover:bg-cream/60 transition-colors">
+        <td class="py-4 px-5 font-semibold text-maroon">মঙ্গলবার · Tuesday</td>
+        <td class="py-4 px-5">Classical Music (উচ্চাঙ্গ সঙ্গীত)</td>
+        <td class="py-4 px-5">From 6:30 PM</td>
+      </tr>
+      <tr class="border-b border-maroon/10 hover:bg-cream/60 transition-colors">
+        <td class="py-4 px-5 font-semibold text-maroon">বুধবার · Wednesday</td>
+        <td class="py-4 px-5">Guitar Class</td>
+        <td class="py-4 px-5">From 6:00 PM</td>
+      </tr>
+      <tr class="border-b border-maroon/10 hover:bg-cream/60 transition-colors">
+        <td class="py-4 px-5 font-semibold text-maroon">বৃহস্পতিবার · Thursday</td>
+        <td class="py-4 px-5">Group & Solo Folk + Bhavasangeet</td>
+        <td class="py-4 px-5">From 6:30 PM</td>
+      </tr>
+      <tr class="border-b border-maroon/10 hover:bg-cream/60 transition-colors">
+        <td class="py-4 px-5 font-semibold text-maroon">শুক্রবার · Friday</td>
+        <td class="py-4 px-5">Rabindra & Nazrul Sangeet</td>
+        <td class="py-4 px-5">From 6:30 PM</td>
+      </tr>
+      <tr class="hover:bg-cream/60 transition-colors">
+        <td class="py-4 px-5 font-semibold text-maroon">শনিবার · Saturday</td>
+        <td class="py-4 px-5">Bengali Modern & Semi-Classical</td>
+        <td class="py-4 px-5">From 6:30 PM</td>
+      </tr>
+      <tr class="hover:bg-cream/60 transition-colors">
+        <td class="py-4 px-5 font-semibold text-maroon">রবিবার · Sunday</td>
+        <td class="py-4 px-5">Drawing (অঙ্কন)</td>
+        <td class="py-4 px-5">From 10:00 AM</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ ATTENDANCE TRACKING (COMING SOON) ============ -->
+<section class="bg-cream py-20">
+  <div class="max-w-4xl mx-auto px-4 reveal">
+    <div class="relative overflow-hidden rounded-[2rem] bg-ink px-6 py-14 sm:px-14 text-center shadow-soft">
+      <svg class="absolute left-6 top-6 w-16 h-16 opacity-10" viewBox="0 0 100 100" fill="none" stroke="#F6EEDF" stroke-width="2"><circle cx="50" cy="50" r="45"/></svg>
+      <svg class="absolute right-6 bottom-6 w-20 h-20 opacity-10" viewBox="0 0 100 100" fill="none" stroke="#C9972A" stroke-width="2"><circle cx="50" cy="50" r="45"/><circle cx="50" cy="50" r="25"/></svg>
+
+      <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-gold bg-gold/10 px-3 py-1 rounded-full">🚧 Coming Soon</span>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-cream mt-4">Student Attendance Portal</h2>
+      <p class="text-cream/60 font-body mt-4 max-w-lg mx-auto leading-relaxed">
+        A dedicated portal for parents and guardians to track their child's class attendance in real time — see regular day-to-day attendance as well as complete attendance history for every batch, all in one place.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-3 text-xs font-body text-cream/70">
+        <span class="bg-cream/10 px-4 py-2 rounded-full">📅 Daily Attendance View</span>
+        <span class="bg-cream/10 px-4 py-2 rounded-full">📊 Full Attendance History</span>
+        <span class="bg-cream/10 px-4 py-2 rounded-full">👨‍👩‍👧 Parent & Guardian Access</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVENTS ============ -->
+<!--<section id="events" class="bg-cream py-20">-->
+<!--  <div class="max-w-7xl mx-auto px-4">-->
+<!--    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 reveal">-->
+<!--      <div>-->
+<!--        <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-teal bg-teal/10 px-3 py-1 rounded-full">📅 Events</span>-->
+<!--        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-4">What's coming up at IRCA</h2>-->
+<!--      </div>-->
+<!--      <a href="/events" class="coming-soon-link font-body font-semibold text-maroon hover:text-maroon-dark inline-flex items-center gap-1">View full calendar-->
+<!--        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>-->
+<!--      </a>-->
+<!--    </div>-->
+
+<!--    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">-->
+<!--      <div class="reveal card-hover bg-paper rounded-2xl overflow-hidden border border-maroon/10">-->
+<!--        <div class="h-36 bg-gradient-to-br from-maroon to-maroon-dark flex items-center justify-center text-cream text-4xl">🎨</div>-->
+<!--        <div class="p-6">-->
+<!--          <p class="text-xs font-body font-semibold text-maroon uppercase tracking-wide">Workshop</p>-->
+<!--          <h3 class="font-display font-bold text-ink text-lg mt-1">Weekend Sketching Masterclass</h3>-->
+<!--          <p class="text-ink/55 text-sm font-body mt-1.5">Guest faculty session on light & composition.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="reveal card-hover bg-paper rounded-2xl overflow-hidden border border-maroon/10" style="transition-delay:.06s">-->
+<!--        <div class="h-36 bg-gradient-to-br from-teal to-teal-dark flex items-center justify-center text-cream text-4xl">🎶</div>-->
+<!--        <div class="p-6">-->
+<!--          <p class="text-xs font-body font-semibold text-teal uppercase tracking-wide">Cultural Festival</p>-->
+<!--          <h3 class="font-display font-bold text-ink text-lg mt-1">Rupsa Sangeet Sandhya</h3>-->
+<!--          <p class="text-ink/55 text-sm font-body mt-1.5">An evening of classical & folk performances.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="reveal card-hover bg-paper rounded-2xl overflow-hidden border border-maroon/10" style="transition-delay:.12s">-->
+<!--        <div class="h-36 bg-gradient-to-br from-gold-dark to-gold flex items-center justify-center text-ink text-4xl">🏆</div>-->
+<!--        <div class="p-6">-->
+<!--          <p class="text-xs font-body font-semibold text-gold-dark uppercase tracking-wide">Annual Function</p>-->
+<!--          <h3 class="font-display font-bold text-ink text-lg mt-1">IRCA Annual Day 2026</h3>-->
+<!--          <p class="text-ink/55 text-sm font-body mt-1.5">Student showcase, awards & felicitation.</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</section>-->
+
+<!-- ============ FACULTY SECTION ============ -->
+<section id="faculty" class="bg-ink py-20">
+  <div class="max-w-7xl mx-auto px-4 reveal">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-gold bg-gold/10 px-3 py-1 rounded-full">Faculty</span>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-cream mt-4">Learn from working artists & trained teachers</h2>
+      <p class="text-cream/60 font-body mt-5 text-base sm:text-lg leading-relaxed">
+        At IRCA, we believe true artistry is passed down through hands-on mentorship. Our faculty isn't just a list of names; they are dedicated practitioners, seasoned stage performers, and industry professionals who bring their real-world experience directly into the classroom. They join every class in person to provide personalized guidance, actionable feedback, and unwavering support week after week.
+      </p>
+    </div>
+    <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+      <div class="bg-paper/5 border border-cream/10 p-6 sm:p-8 rounded-3xl hover:bg-paper/10 transition-colors">
+        <div class="w-14 h-14 rounded-full bg-gold/20 text-gold flex items-center justify-center text-2xl mb-6">👨‍🏫</div>
+        <h3 class="font-display font-bold text-cream text-xl">Expert Mentorship</h3>
+        <p class="text-cream/60 font-body text-sm mt-3 leading-relaxed">Train under seasoned professionals who hold years of experience in stage performance, television, and classical disciplines.</p>
+      </div>
+      <div class="bg-paper/5 border border-cream/10 p-6 sm:p-8 rounded-3xl hover:bg-paper/10 transition-colors">
+        <div class="w-14 h-14 rounded-full bg-teal/20 text-teal flex items-center justify-center text-2xl mb-6">🎯</div>
+        <h3 class="font-display font-bold text-cream text-xl">Personalized Attention</h3>
+        <p class="text-cream/60 font-body text-sm mt-3 leading-relaxed">With limited batch sizes, our teachers ensure that every student's unique strengths are recognized and carefully nurtured.</p>
+      </div>
+      <div class="bg-paper/5 border border-cream/10 p-6 sm:p-8 rounded-3xl hover:bg-paper/10 transition-colors sm:col-span-2 lg:col-span-1">
+        <div class="w-14 h-14 rounded-full bg-maroon-light/20 text-maroon-light flex items-center justify-center text-2xl mb-6">🌟</div>
+        <h3 class="font-display font-bold text-cream text-xl">Industry Exposure</h3>
+        <p class="text-cream/60 font-body text-sm mt-3 leading-relaxed">Beyond syllabus training, our faculty bridge the gap between classroom practice and professional stage auditions.</p>
+      </div>
+    </div>
+    <div class="mt-12 text-center">
+      <a href="/faculty" class="inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-ink font-display font-bold px-8 py-4 rounded-full shadow-soft transition-colors">
+        Meet the Faculty
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COURSES SECTION ============ -->
+<section id="courses" class="bg-cream py-20">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-maroon bg-maroon/10 px-3 py-1 rounded-full">🎬 Workshops & Courses</span>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-4">Upcoming Course</h2>
+      <p class="text-ink/60 font-body mt-3">A short-term, hands-on workshop happening soon — limited seats available.</p>
+    </div>
+
+    <div class="mt-12 reveal bg-ink rounded-3xl overflow-hidden shadow-soft grid lg:grid-cols-2">
+      <div class="p-8 sm:p-10 lg:p-12">
+        <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-gold bg-gold/10 px-3 py-1 rounded-full">5-Day Workshop</span>
+        <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-cream mt-4 leading-snug">Mobile Filmmaking Workshop</h3>
+        <p class="text-cream/60 font-body text-sm mt-2">এবার ইছাপুরে — মোবাইল ফিল্ম মেকিং এর পাঁচদিনের কর্মশালা</p>
+        <p class="text-cream/70 font-body mt-4 leading-relaxed">Turn your mobile into a filmmaking powerhouse! Learn mobile filmmaking step by step, get hands-on film shoot experience, and master storytelling, scripting & editing — guided by experienced mentors, with a certificate of participation.</p>
+
+        <div class="mt-6 grid grid-cols-2 gap-4 text-cream/85 font-body text-sm">
+          <div class="flex items-start gap-2">
+            <span class="text-gold">📅</span>
+            <div>
+              <p class="font-semibold text-cream">Dates</p>
+              <p class="text-cream/60">Sun 13, Tue 15, Wed 16, Fri 18 & Sun 20 Sep</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-gold">📍</span>
+            <div>
+              <p class="font-semibold text-cream">Venue</p>
+              <p class="text-cream/60">Ichapur, West Bengal</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-gold">💰</span>
+            <div>
+              <p class="font-semibold text-cream">Fee</p>
+              <p class="text-cream/60">₹5,000 (for 5 days)</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-gold">🎓</span>
+            <div>
+              <p class="font-semibold text-cream">Organised by</p>
+              <p class="text-cream/60">Santiniketan School of Theatre, Film & Television × IRCA</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-2 text-xs font-body text-cream/70">
+          <span class="bg-cream/10 px-3 py-1.5 rounded-full">📖 Free Handbook</span>
+          <span class="bg-cream/10 px-3 py-1.5 rounded-full">🍽️ Working Lunch & Refreshments</span>
+          <span class="bg-cream/10 px-3 py-1.5 rounded-full">🤝 Networking with Creative Minds</span>
+          <span class="bg-cream/10 px-3 py-1.5 rounded-full">🎬 Real-World Filmmaking Insights</span>
+        </div>
+
+        <a href="#" class="coming-soon-link mt-8 inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-ink font-display font-bold px-8 py-4 rounded-full shadow-soft transition-colors glow-pulse">
+          Register for this Workshop
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <p class="mt-3 text-cream/50 text-xs font-body">Limited seats — book your spot now.</p>
+      </div>
+
+      <div class="relative p-8 sm:p-10 lg:p-12 bg-gradient-to-br from-maroon-dark via-ink to-ink border-t lg:border-t-0 lg:border-l border-cream/10 flex flex-col justify-center">
+        <p class="font-body font-semibold text-xs tracking-[0.2em] uppercase text-gold/80 mb-6">What you'll learn</p>
+        <div class="space-y-5">
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 shrink-0 rounded-xl bg-cream/10 flex items-center justify-center text-xl">📱</div>
+            <p class="text-cream/90 font-body text-sm sm:text-base">Master Mobile Filmmaking Step by Step</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 shrink-0 rounded-xl bg-cream/10 flex items-center justify-center text-xl">🎬</div>
+            <p class="text-cream/90 font-body text-sm sm:text-base">Hands-On Film Shoot</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 shrink-0 rounded-xl bg-cream/10 flex items-center justify-center text-xl">✍️</div>
+            <p class="text-cream/90 font-body text-sm sm:text-base">Storytelling, Scripting & Editing</p>
+          </div>
+          <div class="flex items-center gap-4">
+            <div class="w-11 h-11 shrink-0 rounded-xl bg-cream/10 flex items-center justify-center text-xl">🏅</div>
+            <p class="text-cream/90 font-body text-sm sm:text-base">Certificate of Participation</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BAND SECTION ============ -->
+<section id="band" class="bg-ink py-20">
+  <div class="max-w-5xl mx-auto px-4 reveal">
+    <div class="text-center">
+      <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-gold bg-gold/10 px-3 py-1 rounded-full">🎸 IRCA Bangla Band</span>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-cream mt-4">Bangla Band Rehearsal</h2>
+      <p class="text-cream/50 font-body mt-2">বাংলা ব্যান্ড অনুশীলন</p>
+    </div>
+
+    <div class="mt-10 bg-paper/5 border border-cream/10 rounded-3xl p-6 sm:p-10 grid md:grid-cols-2 gap-8">
+      <div>
+        <h3 class="font-display font-bold text-gold text-sm tracking-wide uppercase mb-3">বাংলায়</h3>
+        <p class="text-cream/75 font-body leading-relaxed" lang="bn">
+          শুধুমাত্র বাংলা ব্যান্ড এর অনুশীলন এর জন্য আমরা বাংলা গান এর ওপরে দক্ষতা ও ইচ্ছুক শিল্পীদের জন্য বাংলা নোটেশন ভিত্তিক অনুশীলন এর ব্যবস্থা করছি, অবশ্যই মিনিমাম চার্জ ও ফিক্সড শিল্পী নির্বাচনের ভিত্তিতে। এর জন্য অবশ্যই আপনাকে অডিসন দিতে হবে এই অনুশীলন এর জন্য। আমরা সার্টিফিকেট দেব ও সারাবছর তাদের নিয়ে কাজ করব শিখিয়ে পরিয়ে, এবং সারাবছর ধরে বিভিন্ন অনুষ্ঠানে পারফর্ম করার সুযোগও দেব। মিনিমাম শিল্পী আমরা বাছাই করবো। তারাই আসবেন যাদের মধ্যে শেখার চেষ্টা ও খাটবার ইচ্ছে প্রবল। পিছুটান, সময় এর অভাব, সব জানেন গান সম্বন্ধে — তাদের জন্য নয় আমাদের এই সেকশন।
+        </p>
+      </div>
+      <div>
+        <h3 class="font-display font-bold text-gold text-sm tracking-wide uppercase mb-3">In English</h3>
+        <p class="text-cream/75 font-body leading-relaxed">
+          Exclusively for Bangla band rehearsal, we're setting up Bangla notation-based practice sessions for skilled and dedicated Bangla music artists — with a minimum fee and a fixed, selective group of artists. An audition is compulsory to join this rehearsal. We'll provide certificates, work with the selected artists throughout the year training and guiding them, and offer regular opportunities to perform at events and festivals all year round. Only a limited number of artists will be selected — only those with a strong drive to learn and genuinely work hard. This section isn't for those held back by other commitments, lack of time, or who already "know it all" about music.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+      <div class="bg-paper/5 border border-cream/10 rounded-2xl p-5">
+        <p class="text-2xl">🎤</p>
+        <p class="font-display font-semibold text-cream text-sm mt-2">Audition Required</p>
+        <p class="text-cream/50 text-xs font-body mt-1">Selection through a compulsory audition</p>
+      </div>
+      <div class="bg-paper/5 border border-cream/10 rounded-2xl p-5">
+        <p class="text-2xl">👥</p>
+        <p class="font-display font-semibold text-cream text-sm mt-2">Limited, Fixed Group</p>
+        <p class="text-cream/50 text-xs font-body mt-1">Minimum, hand-picked artists only</p>
+      </div>
+      <div class="bg-paper/5 border border-cream/10 rounded-2xl p-5">
+        <p class="text-2xl">🏅</p>
+        <p class="font-display font-semibold text-cream text-sm mt-2">Year-Round Mentorship</p>
+        <p class="text-cream/50 text-xs font-body mt-1">Training all year with a certificate</p>
+      </div>
+      <div class="bg-paper/5 border border-cream/10 rounded-2xl p-5">
+        <p class="text-2xl">🎪</p>
+        <p class="font-display font-semibold text-cream text-sm mt-2">Year-Round Performances</p>
+        <p class="text-cream/50 text-xs font-body mt-1">Regular chances to perform at events & festivals</p>
+      </div>
+    </div>
+
+    <div class="mt-10 text-center">
+      <a href="#" class="coming-soon-link inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-ink font-display font-bold px-8 py-4 rounded-full shadow-soft transition-colors glow-pulse">
+        Apply for Band Audition
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+      <p class="mt-3 text-cream/40 text-xs font-body">Minimum fee applies · Selection based on audition</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY TEASER ============ -->
+<section id="gallery" class="max-w-7xl mx-auto px-4 py-20">
+  <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 reveal">
+    <div>
+      <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-teal bg-teal/10 px-3 py-1 rounded-full">Gallery</span>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-4">Moments from IRCA</h2>
+    </div>
+    <a href="/gallery" class="coming-soon-link font-body font-semibold text-maroon hover:text-maroon-dark inline-flex items-center gap-1">View full gallery
+      <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+    </a>
+  </div>
+  <div class="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
+    <div class="reveal aspect-square rounded-2xl overflow-hidden bg-maroon/10">
+      <img src="images/gallery/g01.png" alt="Gallery Moment 1" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+    </div>
+    <div class="reveal aspect-square rounded-2xl overflow-hidden bg-teal/10" style="transition-delay:.05s">
+      <img src="images/gallery/g02.png" alt="Gallery Moment 2" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+    </div>
+    <div class="reveal aspect-square rounded-2xl overflow-hidden bg-gold/10" style="transition-delay:.1s">
+      <img src="images/gallery/g03.png" alt="Gallery Moment 3" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+    </div>
+    <div class="reveal aspect-square rounded-2xl overflow-hidden bg-ink/10" style="transition-delay:.15s">
+      <img src="images/gallery/g04.png" alt="Gallery Moment 4" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ CONTACT US ============ -->
+<section id="contact-us" class="bg-cream py-20">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="grid lg:grid-cols-2 gap-12 items-center reveal">
+      <div>
+        <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-maroon bg-maroon/10 px-3 py-1 rounded-full">Contact Us</span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-4">Get in touch with IRCA</h2>
+        <p class="text-ink/60 font-body mt-4 text-lg leading-relaxed">We'd love to hear from you. Drop by our office or give us a call for any inquiries regarding classes, admissions, or events.</p>
+
+        <div class="mt-10 space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-maroon/10 text-maroon flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            </div>
+            <div>
+              <h4 class="font-display font-bold text-ink text-lg leading-tight">Office Address</h4>
+              <p class="text-ink/65 font-body mt-1 text-sm sm:text-base">Ichapur Battola, Netaji Road,<br>Sangeeta Apartment, Ground Floor<br>Ichapur, West Bengal</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-teal/10 text-teal flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+            </div>
+            <div>
+              <h4 class="font-display font-bold text-ink text-lg leading-tight">Phone Number</h4>
+              <p class="text-ink/65 font-body mt-1 text-sm sm:text-base">Office: <a href="tel:+913325920161" class="hover:text-maroon transition-colors">033 2592 0161</a></p>
+              <p class="text-ink/65 font-body text-sm sm:text-base">Mobile: <a href="tel:+918420998994" class="hover:text-maroon transition-colors">84209 98994</a></p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-full bg-gold/10 text-gold-dark flex items-center justify-center shrink-0">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <div>
+              <h4 class="font-display font-bold text-ink text-lg leading-tight">Office Hours</h4>
+              <p class="text-ink/65 font-body mt-1 text-sm sm:text-base">Monday – Saturday: 5:00 PM – 9:00 PM<br>Sunday: 10:00 AM – 2:00 PM</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="h-[350px] sm:h-[450px] w-full rounded-3xl overflow-hidden shadow-soft border border-maroon/10">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117809.03965079483!2d88.30039143845742!3d22.671213097097173!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f891785cd68bdb%3A0xa3006a75a74b6188!2sIchapur%20Rupsa%20Cultural%20Association%20(IRCA)!5e0!3m2!1sen!2sin!4v1786743855616!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA STRIP ============ -->
+<section class="max-w-7xl mx-auto px-4 py-20" id="register">
+  <div class="reveal relative overflow-hidden rounded-[2rem] bg-maroon px-8 py-14 sm:px-16 text-center shadow-soft">
+    <svg class="absolute left-6 top-6 w-16 h-16 opacity-15" viewBox="0 0 100 100" fill="none" stroke="#F6EEDF" stroke-width="2"><circle cx="50" cy="50" r="45"/></svg>
+    <svg class="absolute right-6 bottom-6 w-20 h-20 opacity-15" viewBox="0 0 100 100" fill="none" stroke="#C9972A" stroke-width="2"><circle cx="50" cy="50" r="45"/><circle cx="50" cy="50" r="25"/></svg>
+    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-cream">Ready to begin your training?</h2>
+    <p class="text-cream/70 font-body mt-3 max-w-lg mx-auto">Admission is open across all 12+ disciplines — music, dance, drawing, acting and more. No prior experience needed, just a passion to learn.</p>
+    <p class="text-cream/50 font-body text-sm mt-2 max-w-lg mx-auto">Flexible weekly batches for every age group, guided by experienced faculty at our Ichapur Battola centre.</p>
+    <a href="/student-registration" class="coming-soon-link mt-8 inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-ink font-display font-bold px-8 py-4 rounded-full shadow-soft transition-colors glow-pulse">
+      Register Now
+    </a>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact" class="bg-ink text-cream/70 pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-3 mb-4">
+        <img src="./images/logo_transparent.png" alt="IRCA Logo" class="w-11 h-11 object-contain">
+        <span class="font-display font-bold text-cream">Ichapur Rupsa<br><span class="text-xs font-body font-normal text-cream/50">Cultural Association</span></span>
+      </div>
+      <p class="text-sm font-body leading-relaxed text-cream/55">Regd. No. S00025885 of 2021–22. A cultural school nurturing music, dance, drama, art and instrument learners of Ichapur.</p>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Explore</h4>
+      <ul class="space-y-2.5 text-sm font-body">
+        <li><a href="#timetable" class="hover:text-gold transition-colors">Regular Classes</a></li>
+        <li><a href="/faculty" class="hover:text-gold transition-colors">Faculty</a></li>
+        <li><a href="/gallery" class="coming-soon-link hover:text-gold transition-colors">Gallery</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Registration</h4>
+      <ul class="space-y-2.5 text-sm font-body">
+        <li><a href="/student-registration" class="coming-soon-link hover:text-gold transition-colors">Student Admission Form</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Visit / Contact</h4>
+      <ul class="space-y-3 text-sm font-body">
+        <li class="flex gap-2"><span>📍</span><span>Ichapur Battola, Netaji Road, Sangeeta Apartment, Ground Floor</span></li>
+        <li class="flex gap-2"><span>📞</span><a href="tel:+913325920161" class="hover:text-gold transition-colors">Office: 033 2592 0161</a></li>
+        <li class="flex gap-2"><span>📱</span><a href="tel:+918420998994" class="hover:text-gold transition-colors">Mob: 84209 98994</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 mt-12 pt-6 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-body text-cream/40">
+    <p>© <span id="year"></span> Ichapur Rupsa Cultural Association. All rights reserved.</p>
+    <p class="font-bangla text-cream/50">সুস্থ সংস্কৃতি, সুন্দর সমাজ, সমৃদ্ধ আগামী</p>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp button -->
+<a href="https://wa.me/918420998994" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" class="fixed right-4 lg:right-6 bottom-[calc(88px+env(safe-area-inset-bottom))] lg:bottom-6 z-40 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-soft hover:scale-105 transition-transform">
+  <svg viewBox="0 0 32 32" class="w-8 h-8" fill="#fff"><path d="M16.004 2.667c-7.363 0-13.333 5.97-13.333 13.333 0 2.353.617 4.56 1.694 6.474L2.667 29.333l7.03-1.845a13.26 13.26 0 006.307 1.605h.006c7.363 0 13.333-5.97 13.333-13.333S23.367 2.667 16.004 2.667zm0 24.02a11.09 11.09 0 01-5.653-1.548l-.406-.24-4.174 1.095 1.114-4.07-.264-.418a11.05 11.05 0 01-1.7-5.906c0-6.13 4.99-11.12 11.09-11.12 2.964 0 5.75 1.155 7.845 3.253a11.02 11.02 0 013.245 7.85c0 6.13-4.99 11.104-11.097 11.104zm6.086-8.31c-.334-.167-1.977-.976-2.283-1.087-.306-.112-.529-.167-.751.167-.223.334-.862 1.087-1.057 1.31-.195.223-.39.25-.723.084-.334-.167-1.409-.52-2.684-1.657-.992-.885-1.663-1.978-1.858-2.312-.195-.334-.02-.514.147-.68.15-.15.334-.39.5-.585.167-.195.223-.334.334-.557.112-.223.056-.418-.028-.585-.084-.167-.751-1.81-1.029-2.479-.271-.65-.546-.562-.751-.573l-.64-.011c-.223 0-.585.084-.892.418s-1.169 1.142-1.169 2.785 1.197 3.23 1.364 3.453c.167.223 2.355 3.596 5.706 5.043.797.344 1.419.55 1.904.703.8.254 1.529.218 2.105.132.642-.096 1.977-.808 2.255-1.588.279-.78.279-1.448.195-1.588-.084-.14-.306-.223-.64-.39z"/></svg>
+</a>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Navbar shadow on scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 8) navbar.classList.add('shadow-soft'); else navbar.classList.remove('shadow-soft');
+  });
+
+  // Coming soon modal popup — only for links with the "coming-soon-link" class
+  document.querySelectorAll('a.coming-soon-link').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showComingSoonPopup();
+    });
+  });
+
+  function showComingSoonPopup(){
+    let overlay = document.getElementById('comingSoonOverlay');
+    if (!overlay){
+      overlay = document.createElement('div');
+      overlay.id = 'comingSoonOverlay';
+      overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(28,26,36,0);padding:20px;transition:background .3s ease;pointer-events:none;';
+
+      const modal = document.createElement('div');
+      modal.id = 'comingSoonModal';
+      modal.style.cssText = 'background:#FBF7EE;color:#1C1A24;font-family:Mukta,sans-serif;border-radius:24px;padding:32px 28px;max-width:340px;width:100%;text-align:center;box-shadow:0 25px 60px -15px rgba(28,26,36,.45);transform:scale(.85) translateY(10px);opacity:0;transition:transform .3s cubic-bezier(.34,1.56,.64,1), opacity .3s ease;';
+      modal.innerHTML = '<div style="font-size:40px;line-height:1;margin-bottom:12px;">🎭</div>'
+              + '<h3 style="font-family:\'Baloo Da 2\',sans-serif;font-weight:800;font-size:20px;color:#7A1F2B;margin:0 0 8px;">Coming Soon!</h3>'
+              + '<p style="font-size:14px;color:rgba(28,26,36,.65);margin:0;line-height:1.5;">This page is on its way. Stay tuned — we\'re putting the final touches on it.</p>';
+      overlay.appendChild(modal);
+      document.body.appendChild(overlay);
+    }
+
+    const modal = document.getElementById('comingSoonModal');
+    overlay.style.pointerEvents = 'auto';
+    overlay.style.background = 'rgba(28,26,36,.45)';
+    modal.style.opacity = '1';
+    modal.style.transform = 'scale(1) translateY(0)';
+
+    clearTimeout(overlay._hideTimer);
+    overlay._hideTimer = setTimeout(() => {
+      overlay.style.background = 'rgba(28,26,36,0)';
+      overlay.style.pointerEvents = 'none';
+      modal.style.opacity = '0';
+      modal.style.transform = 'scale(.85) translateY(10px)';
+    }, 2000);
+  }
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+</script>
+</body>
+</html>

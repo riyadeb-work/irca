@@ -1,0 +1,4 @@
+name: irca
+recipe: lamp
+config:
+  webroot: .
