@@ -84,6 +84,18 @@
 </head>
 <body class="antialiased">
 
+<!-- ============ SUBMISSION LOADER ============ -->
+<div id="submitLoader" class="hidden fixed inset-0 z-[100] bg-ink/85 backdrop-blur-sm flex items-center justify-center p-4">
+  <div class="bg-paper rounded-3xl max-w-xs w-full p-8 text-center shadow-soft">
+    <svg class="animate-spin h-10 w-10 text-rose mx-auto mb-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+    </svg>
+    <h3 class="font-display font-bold text-lg text-ink">Sending details…</h3>
+    <p class="text-ink/60 font-body text-sm mt-2 leading-relaxed">Please don't close this tab. This may take a few seconds while we save your information and uploads.</p>
+  </div>
+</div>
+
 <!-- ============ TOP BAR ============ -->
 <div class="bg-ink text-cream/80 text-xs sm:text-sm">
   <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
@@ -178,7 +190,7 @@
       </div>
 
       <div class="font-bangla text-[17px] leading-[1.9] text-ink/85 space-y-4 bg-white/60 border border-maroon/10 rounded-[1.75rem] p-6 sm:p-8 shadow-soft" data-lang="bn">
-        <p>২০২৩ সালে ব্রেইনে ব্যথা শুরু হয়। অনেক ডক্টর দেখানো হয়, অনেক ট্রিটমেন্ট করিয়েও কমায়নি — স্ক্যান করা হয় এবং দেখা যায় ব্রেইনের পিছনের দিকে অনেক নোংরা জমে গেছে। সেটা ওকে মাত্র ৩ দিন সময় দিয়েছিল, কারণ চোখে ব্লাড এসে ছিল।</p>
+        <p>২০২৩ সালে ব্রেইনে ব্যথা শুরু হয়। অনেক ডক্টর দেখানো হয়, অনেক ট্রিটমেন্ট করিয়েও কমায়নি — স্ক্যান করা হয় এবং দেখা যায় ব্রেইনের পিছনের দিকে অনেক নোংরা জমে গেছে। সেটা ওকে মাত্র ৩ দিন সময় দিয়েছিল, কারণ চোখে ব্লাড এসে ছিল。</p>
         <p>নিউরো সাইন্সের ডক্টররা চিম বলে দিলেন, ও আর বাঁচবে না। চলে গেলাম ব্যাঙ্গালোর সাকরা ওয়ার্ল্ড হাসপাতালের নিউরো সার্জন ডাঃ সতীশ রুদ্রপ্পার কাছে। উনি অপারেশন করলেন, ওকে নতুন ভাবে বাঁচার পথ দেখালেন — কিন্তু বায়োপসি রিপোর্টে এলো, Medioblastoma CNS Grade 4, Brain Cancer.</p>
         <p>এই পর্যন্ত ওর সারাজীবনের একটা ভয়াবহ রোগ, যা ওকে ক্ষতবিক্ষত করে দিয়েছে। ৩১টা রেডিয়েশন ও ৬টা কেমো নিয়ে আজ একটু একটু করে সুস্থ হচ্ছে, কিন্তু এই পর্যন্ত খরচ প্রায় ৮৫ লাখ হয়ে গেছে।</p>
         <p class="text-rose font-semibold bg-rose/5 rounded-xl p-4 border border-rose/15">এখনও প্রায় ৯ লক্ষ টাকার প্রয়োজন, যেটা আপনাদের সহযোগিতা ছাড়া সম্ভব না। আপনাদের কাছে বাবা হয়ে করজোড়ে নিবেদন — যদি অল্প অল্প করে সহযোগিতার হাত বাড়িয়ে দেন, আমরা আগামী ট্রিটমেন্ট করাতে পারবো। 💗</p>
@@ -519,6 +531,7 @@
   const donorForm = document.getElementById('donorForm');
   const donorSubmitLabel = document.getElementById('donorSubmitLabel');
   const donorLoader = document.getElementById('donorLoader');
+  const submitLoader = document.getElementById('submitLoader');
 
   // Helper to read <input type=file> as base64 string
   function fileToBase64(file) {
@@ -547,6 +560,7 @@
     donorForm.querySelector('button[type="submit"]').disabled = true;
     donorSubmitLabel.textContent = 'Sending...';
     donorLoader.classList.remove('hidden');
+    submitLoader.classList.remove('hidden');
 
     try {
       const paymentFile = donorForm.paymentScreenshot.files[0];
@@ -585,6 +599,7 @@
       donorForm.querySelector('button[type="submit"]').disabled = false;
       donorSubmitLabel.textContent = 'Share My Details';
       donorLoader.classList.add('hidden');
+      submitLoader.classList.add('hidden');
     }
   });
 </script>
