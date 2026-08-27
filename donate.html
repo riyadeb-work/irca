@@ -212,6 +212,18 @@
   </div>
 </section>
 
+<!-- ============ DOCUMENTS PREVIEW ============ -->
+<section class="max-w-4xl mx-auto px-4 pb-16 sm:pb-20 text-center reveal">
+  <div class="bg-rose/5 border border-rose/15 rounded-3xl p-6 sm:p-10 shadow-soft">
+    <h3 class="font-display font-bold text-2xl text-maroon mb-3">Medical Records & Verification</h3>
+    <p class="font-body text-ink/70 mb-6 max-w-lg mx-auto leading-relaxed">We value transparency. You can view Rupsha's hospital estimates, biopsy reports, and current medical records here to verify the ongoing treatment.</p>
+    <button type="button" id="openDocsBtn" class="inline-flex items-center gap-2 bg-white text-rose font-display font-semibold text-sm sm:text-base px-6 py-3 rounded-full shadow-sm border border-rose/20 hover:border-rose hover:bg-rose hover:text-cream transition-all">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+      View Documents
+    </button>
+  </div>
+</section>
+
 <!-- ============ QR + PAYMENT DETAILS ============ -->
 <section class="bg-maroon relative overflow-hidden" id="donate">
   <svg class="absolute left-6 top-6 w-16 h-16 opacity-15" viewBox="0 0 100 100" fill="none" stroke="#F6EEDF" stroke-width="2"><circle cx="50" cy="50" r="45"/></svg>
@@ -370,6 +382,40 @@
   </div>
 </div>
 
+<!-- ============ DOCUMENTS MODAL ============ -->
+<div id="docsModal" class="hidden fixed inset-0 z-[75] modal-overlay bg-ink/90 backdrop-blur-sm flex items-center justify-center p-4">
+  <div id="docsModalCard" class="modal-card relative w-full max-w-2xl bg-paper rounded-3xl p-3 sm:p-5 shadow-soft flex flex-col h-[85vh] sm:h-[80vh]">
+    <!-- Header -->
+    <div class="flex items-center justify-between pb-3 border-b border-maroon/10 mb-3 shrink-0 px-2">
+      <h3 class="font-display font-bold text-lg text-maroon">Medical Documents</h3>
+      <button id="docsCloseBtn" type="button" aria-label="Close" class="w-8 h-8 rounded-full bg-rose/10 text-rose flex items-center justify-center hover:bg-rose hover:text-cream transition-colors">✕</button>
+    </div>
+
+    <!-- Slider Container -->
+    <div class="relative flex-1 bg-white rounded-2xl overflow-hidden border border-maroon/5 flex items-center justify-center group">
+
+      <!-- Images -->
+      <!-- Replace the placeholder src URLs with your actual image paths, e.g., src="./images/report1.jpg" -->
+      <div id="docSlider" class="w-full h-full relative">
+        <img src="./images/donation/reports/1.jpeg"doc-slide absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-100" alt="Document 1">
+        <img src="./images/donation/reports/2.jpeg" class="doc-slide absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 pointer-events-none" alt="Document 2">
+        <img src="./images/donation/reports/3.jpeg" class="doc-slide absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 pointer-events-none" alt="Document 3">
+        <img src="./images/donation/reports/4.jpeg" class="doc-slide absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 pointer-events-none" alt="Document 4">
+        <img src="./images/donation/reports/5.jpeg" class="doc-slide absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 pointer-events-none" alt="Document 5">
+      </div>
+
+      <!-- Controls -->
+      <button id="prevDoc" type="button" class="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white text-maroon shadow-soft border border-maroon/10 flex items-center justify-center hover:bg-maroon hover:text-white transition-colors z-10">❮</button>
+      <button id="nextDoc" type="button" class="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white text-maroon shadow-soft border border-maroon/10 flex items-center justify-center hover:bg-maroon hover:text-white transition-colors z-10">❯</button>
+
+      <!-- Counter -->
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-ink/75 text-white text-xs font-body px-4 py-1.5 rounded-full shadow-soft z-10 tracking-wide">
+        <span id="docCurrent">1</span> / <span id="docTotal">5</span>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ============ FOOTER ============ -->
 <footer id="contact" class="bg-ink text-cream/70 pb-8">
   <div class="max-w-7xl mx-auto px-4 mt-12 pt-6 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-body text-cream/40">
@@ -454,6 +500,68 @@
   document.getElementById('qrCloseBtn').addEventListener('click', closeQrModal);
   qrModal.addEventListener('click', (e) => { if (e.target === qrModal) closeQrModal(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !qrModal.classList.contains('hidden')) closeQrModal(); });
+
+  // ---- Documents Modal & Slider ----
+  const docsModal = document.getElementById('docsModal');
+  const docsModalCard = document.getElementById('docsModalCard');
+  const docSlides = document.querySelectorAll('.doc-slide');
+  const docCurrentEl = document.getElementById('docCurrent');
+  const docTotalEl = document.getElementById('docTotal');
+  let currentDocIndex = 0;
+
+  if (docTotalEl) docTotalEl.textContent = docSlides.length;
+
+  function openDocsModal() {
+    docsModal.classList.remove('hidden');
+    docsModalCard.style.transform = 'scale(.9)';
+    docsModalCard.style.opacity = '0';
+    requestAnimationFrame(() => {
+      docsModalCard.style.transform = 'scale(1)';
+      docsModalCard.style.opacity = '1';
+    });
+    document.body.style.overflow = 'hidden';
+    updateDocSlider();
+  }
+
+  function closeDocsModal() {
+    docsModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  function updateDocSlider() {
+    docSlides.forEach((slide, index) => {
+      if (index === currentDocIndex) {
+        slide.classList.remove('opacity-0', 'pointer-events-none');
+        slide.classList.add('opacity-100');
+      } else {
+        slide.classList.add('opacity-0', 'pointer-events-none');
+        slide.classList.remove('opacity-100');
+      }
+    });
+    if (docCurrentEl) docCurrentEl.textContent = currentDocIndex + 1;
+  }
+
+  document.getElementById('openDocsBtn')?.addEventListener('click', openDocsModal);
+  document.getElementById('docsCloseBtn')?.addEventListener('click', closeDocsModal);
+
+  document.getElementById('prevDoc')?.addEventListener('click', () => {
+    currentDocIndex = (currentDocIndex === 0) ? docSlides.length - 1 : currentDocIndex - 1;
+    updateDocSlider();
+  });
+
+  document.getElementById('nextDoc')?.addEventListener('click', () => {
+    currentDocIndex = (currentDocIndex === docSlides.length - 1) ? 0 : currentDocIndex + 1;
+    updateDocSlider();
+  });
+
+  docsModal?.addEventListener('click', (e) => {
+    if (e.target === docsModal) closeDocsModal();
+  });
+
+  // Also close docs modal with escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !docsModal.classList.contains('hidden')) closeDocsModal();
+  });
 
   // ---- Toast ----
   function showToast(message, type){
