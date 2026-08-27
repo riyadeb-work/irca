@@ -1,70 +1,104 @@
 /**
- * IRCA Student Admission Form — Google Apps Script backend
+ * IRCA Google Apps Script backend
  * ----------------------------------------------------------
- * This script receives form submissions from student-registration.html
- * and writes them as new rows to a Google Sheet. It also saves the
- * uploaded photo and payment screenshot to a Google Drive folder and
- * stores links to those files in the sheet.
- *
- * SETUP: see the steps shared alongside this file.
+ * Handles submissions from both student-registration.html
+ * and the new donation page.
  */
 
-// Name of the folder (in your Drive) where uploaded files will be stored.
 const DRIVE_FOLDER_NAME = 'IRCA Admission Uploads';
 
 // ---- Email notification settings ----
-// Email(s) that should get notified of every new admission (comma-separate for multiple).
 const ADMIN_EMAIL = 'irca.admin@gmail.com,riyadeb.work@gmail.com,dipsraj.kundu@gmail.com';
-// Set to false if you don't want an admin notification email at all.
 const SEND_ADMIN_EMAIL = true;
-// Set to true to also send a confirmation email to the applicant (uses the "Mail ID" field they entered).
 const SEND_APPLICANT_CONFIRMATION = true;
 
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
-
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Submissions')
-      || createSubmissionsSheet();
-
     const folder = getOrCreateFolder(DRIVE_FOLDER_NAME);
 
-    const photoUrl = saveFile(folder, data.photoFileName, data.photoBase64, data.referenceNo, 'photo');
-    const paymentUrl = saveFile(folder, data.paymentFileName, data.paymentBase64, data.referenceNo, 'payment');
-
-    sheet.appendRow([
-      data.submittedAt,
-      data.referenceNo,
-      data.candidateName,
-      data.guardianName,
-      data.address,
-      data.email,
-      data.phone,
-      data.whatsapp,
-      data.dob,
-      data.gender,
-      data.education,
-      data.aadhar,
-      data.profession,
-      data.subjects,
-      data.amountPayable,
-      data.utr,
-      photoUrl,
-      paymentUrl
-    ]);
-
-    sendNotificationEmails(data, photoUrl, paymentUrl);
-
-    return ContentService.createTextOutput(JSON.stringify({ result: 'success', referenceNo: data.referenceNo }))
-      .setMimeType(ContentService.MimeType.JSON);
+    // Route the submission based on the payload data
+    // If donorName exists, it's from the donation page. Otherwise, it's an admission.
+    if (data.donorName !== undefined) {
+      return processDonation(data, folder);
+    } else {
+      return processAdmission(data, folder);
+    }
 
   } catch (err) {
     return ContentService.createTextOutput(JSON.stringify({ result: 'error', message: err.message }))
-      .setMimeType(ContentService.MimeType.JSON);
+        .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-function sendNotificationEmails(data, photoUrl, paymentUrl) {
+// ==========================================
+// 1. ADMISSION FORM HANDLER
+// ==========================================
+function processAdmission(data, folder) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Submissions') || createSubmissionsSheet();
+
+  const photoUrl = saveFile(folder, data.photoFileName, data.photoBase64, data.referenceNo, 'photo');
+  const paymentUrl = saveFile(folder, data.paymentFileName, data.paymentBase64, data.referenceNo, 'payment');
+
+  sheet.appendRow([
+    data.submittedAt,
+    data.referenceNo,
+    data.candidateName,
+    data.guardianName,
+    data.address,
+    data.email,
+    data.phone,
+    data.whatsapp,
+    data.dob,
+    data.gender,
+    data.education,
+    data.aadhar,
+    data.profession,
+    data.subjects,
+    data.amountPayable,
+    data.utr,
+    photoUrl,
+    paymentUrl
+  ]);
+
+  sendAdmissionNotificationEmails(data, photoUrl, paymentUrl);
+
+  return ContentService.createTextOutput(JSON.stringify({ result: 'success', referenceNo: data.referenceNo }))
+      .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ==========================================
+// 2. DONATION FORM HANDLER
+// ==========================================
+function processDonation(data, folder) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('donation') || createDonationsSheet();
+
+  // Donations don't generate a referenceNo on the frontend, so we use the phone number to name the file
+  const filePrefix = data.donorPhone || new Date().getTime();
+  const paymentUrl = saveFile(folder, data.paymentFileName, data.paymentBase64, filePrefix, 'donation_receipt');
+
+  sheet.appendRow([
+    data.submittedAt,
+    data.donorName,
+    data.donorPhone,
+    data.donorEmail,
+    data.donorAmount,
+    data.donorUtr,
+    data.donorMessage,
+    data.publicListingConsent ? 'Yes' : 'No',
+    paymentUrl
+  ]);
+
+  sendDonationNotificationEmail(data, paymentUrl);
+
+  return ContentService.createTextOutput(JSON.stringify({ result: 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ==========================================
+// EMAIL NOTIFICATIONS
+// ==========================================
+function sendAdmissionNotificationEmails(data, photoUrl, paymentUrl) {
   const summary = [
     'Reference No: ' + data.referenceNo,
     'Candidate Name: ' + data.candidateName,
@@ -92,9 +126,7 @@ function sendNotificationEmails(data, photoUrl, paymentUrl) {
         subject: 'IRCA - New Student Registration - ' + data.candidateName + ' (' + data.referenceNo + ')',
         body: 'A new admission form was submitted.\n\n' + summary
       });
-    } catch (err) {
-      // Don't let an email failure block the submission itself.
-    }
+    } catch (err) {}
   }
 
   if (SEND_APPLICANT_CONFIRMATION && data.email) {
@@ -103,19 +135,43 @@ function sendNotificationEmails(data, photoUrl, paymentUrl) {
         to: data.email,
         subject: 'IRCA Admission Received — Reference ' + data.referenceNo,
         body: 'Dear ' + data.candidateName + ',\n\n' +
-          'Thank you for applying to Ichapur Rupsa Cultural Association. We have received your admission form.\n\n' +
-          'Your reference number is: ' + data.referenceNo + '\n' +
-          'Subjects applied for: ' + data.subjects + '\n' +
-          'Amount payable: ' + data.amountPayable + '\n\n' +
-          'Our office will verify your payment and confirm your seat shortly. Please quote your reference number in any follow-up.\n\n' +
-          'Regards,\nIchapur Rupsa Cultural Association'
+            'Thank you for applying to Ichapur Rupsa Cultural Association. We have received your admission form.\n\n' +
+            'Your reference number is: ' + data.referenceNo + '\n' +
+            'Subjects applied for: ' + data.subjects + '\n' +
+            'Amount payable: ' + data.amountPayable + '\n\n' +
+            'Our office will verify your payment and confirm your seat shortly. Please quote your reference number in any follow-up.\n\n' +
+            'Regards,\nIchapur Rupsa Cultural Association'
       });
-    } catch (err) {
-      // Don't let an email failure block the submission itself.
-    }
+    } catch (err) {}
   }
 }
 
+function sendDonationNotificationEmail(data, paymentUrl) {
+  if (!SEND_ADMIN_EMAIL || !ADMIN_EMAIL) return;
+
+  const summary = [
+    'Donor Name: ' + data.donorName,
+    'Phone: ' + data.donorPhone,
+    'Email: ' + (data.donorEmail || 'N/A'),
+    'Amount: ' + (data.donorAmount || 'Not specified'),
+    'UTR: ' + (data.donorUtr || 'N/A'),
+    'Message: ' + (data.donorMessage || 'None'),
+    'Consent for Public List: ' + (data.publicListingConsent ? 'Yes' : 'No'),
+    'Payment Screenshot: ' + (paymentUrl || 'not uploaded')
+  ].join('\n');
+
+  try {
+    MailApp.sendEmail({
+      to: ADMIN_EMAIL,
+      subject: 'IRCA - New Donation Received from ' + data.donorName,
+      body: 'A new donation form was submitted for Rupsha.\n\n' + summary
+    });
+  } catch (err) {}
+}
+
+// ==========================================
+// SHEET & DRIVE HELPERS
+// ==========================================
 function createSubmissionsSheet() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.insertSheet('Submissions');
@@ -128,18 +184,29 @@ function createSubmissionsSheet() {
   return sheet;
 }
 
+function createDonationsSheet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.insertSheet('donation');
+  sheet.appendRow([
+    'Submitted At', 'Donor Name', 'Phone', 'Email',
+    'Amount', 'UTR / Ref', 'Message', 'Public Listing Consent', 'Payment Screenshot Link'
+  ]);
+  sheet.setFrozenRows(1);
+  return sheet;
+}
+
 function getOrCreateFolder(name) {
   const folders = DriveApp.getFoldersByName(name);
   return folders.hasNext() ? folders.next() : DriveApp.createFolder(name);
 }
 
-function saveFile(folder, fileName, base64Data, referenceNo, kind) {
+function saveFile(folder, fileName, base64Data, reference, kind) {
   if (!base64Data) return '';
   try {
     const contentType = guessContentType(fileName);
-    const blob = Utilities.newBlob(Utilities.base64Decode(base64Data), contentType, `${referenceNo}_${kind}_${fileName}`);
+    const blob = Utilities.newBlob(Utilities.base64Decode(base64Data), contentType, `${reference}_${kind}_${fileName}`);
     const file = folder.createFile(blob);
-    file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+    // Note: Leaving file permissions to inherit from the parent folder is safer for privacy.
     return file.getUrl();
   } catch (err) {
     return 'Upload failed: ' + err.message;
