@@ -2,10 +2,12 @@
  * IRCA Google Apps Script backend
  * ----------------------------------------------------------
  * Handles submissions from both student-registration.html
- * and the new donation page.
+ * and the new donation page, routing uploads to separate folders.
  */
 
-const DRIVE_FOLDER_NAME = 'IRCA Admission Uploads';
+// ---- Drive Folder Settings ----
+const ADMISSION_FOLDER_NAME = 'IRCA Admission Uploads';
+const DONATION_FOLDER_NAME = 'IRCA Donation Uploads';
 
 // ---- Email notification settings ----
 const ADMIN_EMAIL = 'irca.admin@gmail.com,riyadeb.work@gmail.com,dipsraj.kundu@gmail.com';
@@ -15,14 +17,13 @@ const SEND_APPLICANT_CONFIRMATION = true;
 function doPost(e) {
   try {
     const data = JSON.parse(e.postData.contents);
-    const folder = getOrCreateFolder(DRIVE_FOLDER_NAME);
 
     // Route the submission based on the payload data
     // If donorName exists, it's from the donation page. Otherwise, it's an admission.
     if (data.donorName !== undefined) {
-      return processDonation(data, folder);
+      return processDonation(data);
     } else {
-      return processAdmission(data, folder);
+      return processAdmission(data);
     }
 
   } catch (err) {
@@ -34,8 +35,9 @@ function doPost(e) {
 // ==========================================
 // 1. ADMISSION FORM HANDLER
 // ==========================================
-function processAdmission(data, folder) {
+function processAdmission(data) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Submissions') || createSubmissionsSheet();
+  const folder = getOrCreateFolder(ADMISSION_FOLDER_NAME);
 
   const photoUrl = saveFile(folder, data.photoFileName, data.photoBase64, data.referenceNo, 'photo');
   const paymentUrl = saveFile(folder, data.paymentFileName, data.paymentBase64, data.referenceNo, 'payment');
@@ -70,8 +72,9 @@ function processAdmission(data, folder) {
 // ==========================================
 // 2. DONATION FORM HANDLER
 // ==========================================
-function processDonation(data, folder) {
+function processDonation(data) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('donation') || createDonationsSheet();
+  const folder = getOrCreateFolder(DONATION_FOLDER_NAME);
 
   // Donations don't generate a referenceNo on the frontend, so we use the phone number to name the file
   const filePrefix = data.donorPhone || new Date().getTime();
