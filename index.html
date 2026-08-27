@@ -20,6 +20,7 @@
             cream: '#F6EEDF',
             paper: '#FBF7EE',
             teal: { DEFAULT:'#0E5C56', dark:'#0A423D' },
+            rose: { DEFAULT:'#D6236F', dark:'#A8175A', light:'#F04D93' },
           },
           fontFamily: {
             display: ['"Baloo Da 2"','sans-serif'],
@@ -67,6 +68,14 @@
       0%{box-shadow:0 0 0 0 rgba(201,151,42,.45);}
       70%{box-shadow:0 0 0 14px rgba(201,151,42,0);}
       100%{box-shadow:0 0 0 0 rgba(201,151,42,0);}
+    }
+
+    /* Dedicated Rose Pulse for Donate CTA */
+    .glow-pulse-rose{ box-shadow:0 0 0 0 rgba(214,35,111,.5); animation:pulseRose 2.6s infinite; }
+    @keyframes pulseRose{
+      0%{box-shadow:0 0 0 0 rgba(214,35,111,.45);}
+      70%{box-shadow:0 0 0 14px rgba(214,35,111,0);}
+      100%{box-shadow:0 0 0 0 rgba(214,35,111,0);}
     }
 
     .tape-border{
@@ -127,8 +136,14 @@
         <a href="/#gallery" class="nav-link hover:text-maroon transition-colors">Gallery</a>
       </nav>
 
-      <div class="hidden lg:flex items-center gap-3">
-        <a href="/student-registration" class="inline-flex items-center gap-2 bg-maroon hover:bg-maroon-dark text-cream font-display font-semibold text-sm px-5 py-2.5 rounded-full shadow-soft transition-colors glow-pulse">
+      <div class="flex items-center gap-3">
+        <!-- Prominent Donate Link (Visible on Mobile & Desktop) -->
+        <a href="/donate" class="inline-flex items-center gap-1.5 bg-rose/10 hover:bg-rose/20 border-2 border-rose/20 text-rose font-display font-bold text-xs sm:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-xl transition-colors glow-pulse-rose">
+          <span>Donate ❤️</span>
+        </a>
+
+        <!-- Standard Register Link (Desktop Only, Mobile has it in bottom nav) -->
+        <a href="/student-registration" class="hidden lg:inline-flex items-center gap-2 bg-maroon hover:bg-maroon-dark text-cream font-display font-semibold text-sm px-5 py-2.5 rounded-full shadow-soft transition-colors glow-pulse">
           Register Now
         </a>
       </div>
@@ -161,6 +176,7 @@
     </a>
   </div>
 </nav>
+
 <!-- ============ HERO ============ -->
 <section id="home" class="relative overflow-hidden bg-ink">
   <div class="absolute inset-0 opacity-[0.14]" style="background-image:radial-gradient(circle at 1px 1px, #C9972A 1px, transparent 1px); background-size:26px 26px;"></div>
@@ -169,6 +185,17 @@
 
   <div class="relative max-w-7xl mx-auto px-4 pt-14 pb-20 sm:pt-20 sm:pb-28 grid lg:grid-cols-[1.1fr_.9fr] gap-12 items-center">
     <div class="reveal in">
+
+      <!-- Highlighted Donate Alert Pill -->
+      <a href="/donate" class="group mb-6 sm:mb-8 inline-flex items-center gap-3 bg-rose/10 border border-rose/20 text-rose hover:bg-rose hover:text-cream transition-colors rounded-full px-4 sm:px-5 py-2 font-body text-xs sm:text-sm font-semibold shadow-soft">
+        <span class="relative flex h-2.5 w-2.5 shrink-0">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose opacity-75 group-hover:bg-cream"></span>
+          <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose group-hover:bg-cream"></span>
+        </span>
+        IRCA Fundraiser: Help Rupsha beat Brain Cancer
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+
       <p class="font-bangla text-gold text-lg sm:text-xl mb-3 tracking-wide">সংস্কৃতি হোক আমাদের পরিচয়, সঙ্গীত হোক আমাদের শক্তি</p>
       <h1 class="font-display font-extrabold text-cream leading-[1.05] text-[2.6rem] sm:text-6xl lg:text-[3.6rem]">
         Where Ichapur<br class="hidden sm:block"> learns to

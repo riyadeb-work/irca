@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help Rupsha Chatterjee — Ichapur Rupsa Cultural Association</title>
+  <meta name="description" content="Rupsha Chatterjee is fighting Medioblastoma (Brain Cancer Grade 4). IRCA is raising ₹9,00,000 for her continued treatment. Every contribution gives her a new chance at life.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Baloo+Da+2:wght@500;600;700;800&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#1C1A24',
+            maroon: { DEFAULT: '#7A1F2B', dark:'#5A1620', light:'#9C3040' },
+            gold: { DEFAULT: '#C9972A', light:'#E4C266', dark:'#9C731D' },
+            cream: '#F6EEDF',
+            paper: '#FBF7EE',
+            teal: { DEFAULT:'#0E5C56', dark:'#0A423D' },
+            rose: { DEFAULT:'#D6236F', dark:'#A8175A', light:'#F04D93' },
+            blush: '#FDF1F6',
+          },
+          fontFamily: {
+            display: ['"Baloo Da 2"','sans-serif'],
+            bangla: ['"Tiro Bangla"','serif'],
+            body: ['"Mukta"','sans-serif'],
+          },
+          boxShadow: {
+            soft: '0 10px 30px -12px rgba(28,26,36,0.25)',
+            rosesoft: '0 14px 34px -14px rgba(214,35,111,0.45)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    html{scroll-behavior:smooth;}
+    body{font-family:'Mukta',sans-serif;background:#FBF7EE;color:#1C1A24;}
+    .font-display{font-family:'Baloo Da 2',sans-serif;}
+    .font-bangla{font-family:'Tiro Bangla',serif;}
+    ::selection{background:#D6236F;color:#fff;}
+
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+    .reveal.in{opacity:1; transform:translateY(0);}
+
+    .glow-pulse{ box-shadow:0 0 0 0 rgba(214,35,111,.5); animation:pulse 2.6s infinite; }
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(214,35,111,.45);}
+      70%{box-shadow:0 0 0 14px rgba(214,35,111,0);}
+      100%{box-shadow:0 0 0 0 rgba(214,35,111,0);}
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:.01ms !important; transition-duration:.01ms !important;}
+    }
+
+    /* Drifting petal/heart field behind hero */
+    .petal{ position:absolute; opacity:.35; animation: drift 9s ease-in-out infinite; }
+    @keyframes drift{ 0%,100%{transform:translateY(0) rotate(0deg);} 50%{transform:translateY(-14px) rotate(8deg);} }
+
+    .copy-btn:active{ transform: scale(.96); }
+
+    .nav-link{position:relative;}
+    .nav-link::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:#D6236F;transition:width .3s ease;}
+    .nav-link:hover::after{width:100%;}
+
+    .field-label{ display:block; font-family:'Mukta',sans-serif; font-weight:600; font-size:13px; color:rgba(28,26,36,.7); margin-bottom:6px; }
+    .field-input{ width:100%; border:1.5px solid rgba(28,26,36,.14); border-radius:14px; padding:12px 14px; font-family:'Mukta',sans-serif; font-size:15px; background:#fff; transition:border-color .2s ease, box-shadow .2s ease; }
+    .field-input:focus{ outline:none; border-color:#D6236F; box-shadow:0 0 0 4px rgba(214,35,111,.12); }
+    .field-error{ border-color:#B3261E !important; box-shadow:0 0 0 4px rgba(179,38,30,.10) !important; }
+
+    .qr-frame{ background:#fff; border:1.5px solid rgba(122,31,43,.12); }
+
+    /* Added for Modal and Upload styling */
+    .modal-overlay{ transition: opacity .3s ease; }
+    .modal-card{ transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; }
+    .upload-zone{ border:2px dashed rgba(122,31,43,.3); transition: all .25s ease; }
+    .upload-zone:hover, .upload-zone.dragover{ border-color:#D6236F; background:rgba(214,35,111,.06); }
+  </style>
+</head>
+<body class="antialiased">
+
+<!-- ============ TOP BAR ============ -->
+<div class="bg-ink text-cream/80 text-xs sm:text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+    <p class="font-body tracking-wide">Regd. No. S00025885 of 2021–22</p>
+    <div class="hidden sm:flex items-center gap-4">
+      <a href="tel:+913325920161" class="hover:text-gold transition-colors">Office: 033 2592 0161</a>
+      <span class="opacity-40">|</span>
+      <a href="tel:+918420998994" class="hover:text-gold transition-colors">Mob: 84209 98994</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<header id="navbar" class="sticky top-0 z-50 bg-paper/90 backdrop-blur border-b border-maroon/10 transition-shadow">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between h-[72px]">
+      <a href="/" class="flex items-center gap-3 group">
+        <img src="./images/logo_transparent.png" alt="IRCA Logo" class="w-11 h-11 object-contain drop-shadow-[0_2px_6px_rgba(28,26,36,0.35)]">
+        <span class="leading-tight">
+          <span class="block font-display font-bold text-maroon text-[15px] sm:text-lg tracking-tight">Ichapur Rupsa</span>
+          <span class="block font-body text-[11px] sm:text-xs text-ink/60 tracking-[0.15em] uppercase">Cultural Association</span>
+        </span>
+      </a>
+
+      <div class="flex items-center gap-4 sm:gap-6">
+        <a href="/" class="hidden sm:inline-block font-body font-medium text-[15px] text-ink/80 nav-link hover:text-rose transition-colors">
+          ← Back to Home
+        </a>
+        <a href="#donate" class="inline-flex items-center gap-2 bg-rose hover:bg-rose-dark text-cream font-display font-semibold text-sm px-5 py-2.5 rounded-full shadow-rosesoft transition-colors glow-pulse">
+          Donate Now
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO / TITLE ============ -->
+<section class="relative overflow-hidden bg-gradient-to-b from-blush to-paper">
+  <svg class="petal absolute left-[6%] top-16 w-8 h-8" style="animation-delay:.2s" viewBox="0 0 24 24" fill="#D6236F"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.1 2.6 4 6.5 4c2 0 3.7 1.1 4.5 2.7A5.3 5.3 0 0 1 15.5 4c3.9 0 6.1 4.1 4.5 7.7C19.5 16.4 12 21 12 21z"/></svg>
+  <svg class="petal absolute right-[10%] top-32 w-6 h-6" style="animation-delay:1.4s" viewBox="0 0 24 24" fill="#C9972A"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.1 2.6 4 6.5 4c2 0 3.7 1.1 4.5 2.7A5.3 5.3 0 0 1 15.5 4c3.9 0 6.1 4.1 4.5 7.7C19.5 16.4 12 21 12 21z"/></svg>
+  <svg class="petal absolute left-[40%] top-6 w-5 h-5" style="animation-delay:2.1s" viewBox="0 0 24 24" fill="#F04D93"><path d="M12 21s-7.5-4.6-10-9.3C.4 8.1 2.6 4 6.5 4c2 0 3.7 1.1 4.5 2.7A5.3 5.3 0 0 1 15.5 4c3.9 0 6.1 4.1 4.5 7.7C19.5 16.4 12 21 12 21z"/></svg>
+
+  <div class="max-w-5xl mx-auto px-4 pt-14 sm:pt-20 pb-10 text-center relative">
+    <span class="inline-flex items-center gap-2 bg-rose/10 text-rose font-body font-semibold text-xs sm:text-sm tracking-[0.15em] uppercase px-4 py-1.5 rounded-full">
+      A Fundraiser by IRCA
+    </span>
+    <p class="font-body text-lg sm:text-xl text-maroon mt-6">Let's come together and</p>
+    <h1 class="font-display font-extrabold text-4xl sm:text-6xl text-maroon mt-1 leading-tight">
+      Stand by Rupsha
+    </h1>
+    <p class="font-body text-base sm:text-lg text-ink/70 mt-3 max-w-xl mx-auto">
+      Every bit of help gives her a new hope to live — your contribution can change her story.
+    </p>
+
+    <div class="mt-8 inline-block bg-rose text-cream rounded-2xl px-8 py-4 shadow-rosesoft -rotate-1">
+      <p class="font-body text-xs tracking-[0.2em] uppercase opacity-90">Still Needed</p>
+      <p class="font-display font-extrabold text-3xl sm:text-4xl">₹ 9,00,000</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY + IMAGE ============ -->
+<section class="max-w-6xl mx-auto px-4 py-14 sm:py-20" id="story">
+  <div class="grid lg:grid-cols-5 gap-10 items-start">
+
+    <!-- Image -->
+    <div class="lg:col-span-2 reveal">
+      <div class="relative">
+        <div class="absolute -inset-3 rounded-[2rem] bg-rose/10 -rotate-2"></div>
+        <img src="./images/rupsha_hospital.jpeg" alt="Rupsha Chatterjee with her nurse at the hospital" class="relative w-full rounded-[2rem] object-cover aspect-[4/5] shadow-soft border-4 border-white">
+      </div>
+      <div class="mt-4 text-center bg-white border border-rose/20 rounded-2xl py-3 px-4 shadow-soft">
+        <p class="font-bangla text-lg text-rose" data-lang="bn">রুপশা চ্যাটার্জী — ২০২৩ 💗</p>
+        <p class="font-body text-lg text-rose hidden" data-lang="en">Rupsha Chatterjee — 2023 💗</p>
+      </div>
+    </div>
+
+    <!-- Story -->
+    <div class="lg:col-span-3 reveal">
+      <div class="flex items-center justify-between gap-3 mb-5 flex-wrap">
+        <div class="flex items-center gap-3">
+          <span class="w-9 h-9 rounded-full bg-rose text-cream font-display font-bold flex items-center justify-center text-sm shrink-0">1</span>
+          <h2 class="font-display font-bold text-2xl text-maroon" data-lang="bn">রুপশার গল্প</h2>
+          <h2 class="font-display font-bold text-2xl text-maroon hidden" data-lang="en">Rupsha's Story</h2>
+        </div>
+
+        <!-- Language toggle -->
+        <div id="langToggle" class="inline-flex items-center bg-rose/10 rounded-full p-1 text-sm font-body font-semibold">
+          <button type="button" data-set-lang="bn" class="lang-btn px-4 py-1.5 rounded-full transition-colors bg-rose text-cream">বাংলা</button>
+          <button type="button" data-set-lang="en" class="lang-btn px-4 py-1.5 rounded-full transition-colors text-rose">English</button>
+        </div>
+      </div>
+
+      <div class="font-bangla text-[17px] leading-[1.9] text-ink/85 space-y-4 bg-white/60 border border-maroon/10 rounded-[1.75rem] p-6 sm:p-8 shadow-soft" data-lang="bn">
+        <p>২০২৩ সালে ব্রেইনে ব্যথা শুরু হয়। অনেক ডক্টর দেখানো হয়, অনেক ট্রিটমেন্ট করিয়েও কমায়নি — স্ক্যান করা হয় এবং দেখা যায় ব্রেইনের পিছনের দিকে অনেক নোংরা জমে গেছে। সেটা ওকে মাত্র ৩ দিন সময় দিয়েছিল, কারণ চোখে ব্লাড এসে ছিল।</p>
+        <p>নিউরো সাইন্সের ডক্টররা চিম বলে দিলেন, ও আর বাঁচবে না। চলে গেলাম ব্যাঙ্গালোর সাকরা ওয়ার্ল্ড হাসপাতালের নিউরো সার্জন ডাঃ সতীশ রুদ্রপ্পার কাছে। উনি অপারেশন করলেন, ওকে নতুন ভাবে বাঁচার পথ দেখালেন — কিন্তু বায়োপসি রিপোর্টে এলো, Medioblastoma CNS Grade 4, Brain Cancer.</p>
+        <p>এই পর্যন্ত ওর সারাজীবনের একটা ভয়াবহ রোগ, যা ওকে ক্ষতবিক্ষত করে দিয়েছে। ৩১টা রেডিয়েশন ও ৬টা কেমো নিয়ে আজ একটু একটু করে সুস্থ হচ্ছে, কিন্তু এই পর্যন্ত খরচ প্রায় ৮৫ লাখ হয়ে গেছে।</p>
+        <p class="text-rose font-semibold bg-rose/5 rounded-xl p-4 border border-rose/15">এখনও প্রায় ৯ লক্ষ টাকার প্রয়োজন, যেটা আপনাদের সহযোগিতা ছাড়া সম্ভব না। আপনাদের কাছে বাবা হয়ে করজোড়ে নিবেদন — যদি অল্প অল্প করে সহযোগিতার হাত বাড়িয়ে দেন, আমরা আগামী ট্রিটমেন্ট করাতে পারবো। 💗</p>
+      </div>
+
+      <div class="font-body text-[17px] leading-[1.9] text-ink/85 space-y-4 bg-white/60 border border-maroon/10 rounded-[1.75rem] p-6 sm:p-8 shadow-soft hidden" data-lang="en">
+        <p>In 2023, Rupsha started having pain in her brain. She was shown to many doctors and put through several treatments, but nothing helped — a scan revealed a large mass at the back of her brain. Doctors gave her only 3 days, as bleeding had begun near her eyes.</p>
+        <p>Neuroscience specialists said she wouldn't survive. We went to Dr. Satish Rudrappa, a neurosurgeon at Sakra World Hospital, Bangalore. He operated on her and showed us a new path to life — but the biopsy report confirmed Medioblastoma, CNS Grade 4, Brain Cancer.</p>
+        <p>It has been a devastating disease that has taken a toll on her entire life. After 31 rounds of radiation and 6 rounds of chemotherapy, she is slowly recovering today — but the treatment so far has cost close to ₹85 lakh.</p>
+        <p class="text-rose font-semibold bg-rose/5 rounded-xl p-4 border border-rose/15">About ₹9 lakh more is still needed, and it isn't possible without your support. As her father, I fold my hands and request you — if each of you extends a little help, we will be able to continue her treatment. 💗</p>
+      </div>
+
+      <div class="mt-6 flex items-start gap-3 bg-cream/70 border border-gold/25 rounded-2xl p-4">
+        <span class="text-2xl">🤝</span>
+        <p class="font-bangla text-base text-ink/75 leading-relaxed" data-lang="bn">আপনার সামান্য সাহায্য ওকে ফিরিয়ে দিতে পারে সুস্থ, সুন্দর একটি ভবিষ্যৎ।</p>
+        <p class="font-body text-base text-ink/75 leading-relaxed hidden" data-lang="en">Your small act of kindness can give her back a healthy, beautiful future.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QR + PAYMENT DETAILS ============ -->
+<section class="bg-maroon relative overflow-hidden" id="donate">
+  <svg class="absolute left-6 top-6 w-16 h-16 opacity-15" viewBox="0 0 100 100" fill="none" stroke="#F6EEDF" stroke-width="2"><circle cx="50" cy="50" r="45"/></svg>
+  <svg class="absolute right-6 bottom-6 w-20 h-20 opacity-15" viewBox="0 0 100 100" fill="none" stroke="#C9972A" stroke-width="2"><circle cx="50" cy="50" r="45"/><circle cx="50" cy="50" r="25"/></svg>
+
+  <div class="max-w-5xl mx-auto px-4 py-16 sm:py-20 relative">
+    <div class="text-center mb-8 reveal">
+      <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-gold bg-gold/10 px-3 py-1 rounded-full">Give directly</span>
+      <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-cream mt-4">Let us come together with love<br class="hidden sm:block"> and give Rupsha a chance at a new life</h2>
+    </div>
+
+    <!-- Unified Payment Card -->
+    <div class="bg-paper rounded-[1.75rem] p-6 sm:p-9 shadow-soft mx-auto max-w-4xl reveal">
+      <div class="grid sm:grid-cols-2 gap-7 sm:items-center">
+
+        <!-- QR Section -->
+        <div class="flex flex-col items-center text-center justify-self-center w-full">
+          <button type="button" id="qrOpenBtn" class="qr-frame w-44 h-44 rounded-2xl p-3 shadow-soft cursor-zoom-in transition-transform hover:scale-[1.02]" aria-label="View larger QR code">
+            <img src="./images/irca_qr.png" alt="Scan to pay via UPI" class="w-full h-full object-contain pointer-events-none">
+          </button>
+          <p class="font-display font-semibold text-ink text-sm mt-3">Scan to pay via UPI</p>
+          <p class="text-ink/40 text-xs font-body mt-0.5">Tap to enlarge</p>
+        </div>
+
+        <!-- UPI / Bank Details -->
+        <div class="space-y-4">
+          <div class="bg-cream rounded-2xl p-4 flex items-center justify-between gap-3 shadow-sm border border-maroon/5">
+            <div>
+              <p class="text-ink/45 text-xs font-body uppercase tracking-wide">UPI ID</p>
+              <p class="font-display font-semibold text-ink text-sm mt-0.5" id="upiId">
+                <a href="upi://pay?pa=7439548102@ptsbi">7439548102@ptsbi</a>
+              </p>
+              <p class="text-ink/50 text-xs font-body mt-1">Name: Goutam Chatterjee</p>
+            </div>
+            <button type="button" data-copy="upiId" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+          </div>
+
+          <div class="bg-cream rounded-2xl p-4 space-y-3 shadow-sm border border-maroon/5">
+            <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Bank Transfer Details</p>
+
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Account Name</p>
+                <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="acctName">ICHAPUR RUPSA CULTURAL ASSOCIATION</p>
+              </div>
+              <button type="button" data-copy="acctName" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+            </div>
+
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Account No.</p>
+                <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="acctNo">4475 4935 246</p>
+              </div>
+              <button type="button" data-copy="acctNo" data-copy-strip-spaces="true" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+            </div>
+
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-ink/45 text-xs font-body uppercase tracking-wide">IFSC Code</p>
+                <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="ifsc">SBIN0001797</p>
+              </div>
+              <button type="button" data-copy="ifsc" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+            </div>
+
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Branch</p>
+                <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="branch">ICHAPUR</p>
+              </div>
+              <button type="button" data-copy="branch" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-center text-cream/60 font-body text-sm mt-8 reveal">
+      📞 You can contact <a href="tel:+918420998994" class="text-gold hover:text-gold-light underline">+91 84209 98994</a> for every detail — this donation drive is taken up by IRCA on behalf of Rupsha's family.
+    </p>
+  </div>
+</section>
+
+<!-- ============ DONOR RECOGNITION FORM ============ -->
+<section class="max-w-3xl mx-auto px-4 py-16 sm:py-20" id="recognition">
+  <div class="text-center mb-8 reveal">
+    <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-rose bg-rose/10 px-3 py-1 rounded-full">Already donated?</span>
+    <h2 class="font-display font-bold text-2xl sm:text-3xl text-maroon mt-4">Add your name to our list of gratitude</h2>
+    <p class="font-body text-ink/60 mt-2 max-w-lg mx-auto">If you've already sent your contribution, share your details below so we can thank you personally and recognise your support.</p>
+  </div>
+
+  <form id="donorForm" class="reveal bg-white border border-maroon/10 rounded-[1.75rem] p-6 sm:p-8 shadow-soft space-y-5" novalidate>
+    <div class="grid sm:grid-cols-2 gap-5">
+      <div>
+        <label class="field-label" for="donorName">Your Name <span class="text-rose">*</span></label>
+        <input id="donorName" name="donorName" type="text" class="field-input" placeholder="Full name" required>
+      </div>
+      <div>
+        <label class="field-label" for="donorPhone">Phone / WhatsApp <span class="text-rose">*</span></label>
+        <input id="donorPhone" name="donorPhone" type="tel" class="field-input" placeholder="10-digit mobile number" required>
+      </div>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-5">
+      <div>
+        <label class="field-label" for="donorEmail">Email (optional)</label>
+        <input id="donorEmail" name="donorEmail" type="email" class="field-input" placeholder="you@example.com">
+      </div>
+      <div>
+        <label class="field-label" for="donorAmount">Amount Donated (optional)</label>
+        <input id="donorAmount" name="donorAmount" type="text" class="field-input" placeholder="e.g. ₹1,000">
+      </div>
+    </div>
+
+    <div>
+      <label class="field-label" for="donorUtr">UTR / Transaction Ref. (optional)</label>
+      <input id="donorUtr" name="donorUtr" type="text" class="field-input" placeholder="Helps us match your payment quickly">
+    </div>
+
+    <div>
+      <label class="field-label">Upload Payment Screenshot (optional)</label>
+      <label for="paymentUpload" id="paymentUploadZone" class="upload-zone rounded-2xl flex items-center gap-4 p-4 cursor-pointer mt-1">
+        <span class="w-14 h-14 rounded-xl bg-teal/10 text-teal flex items-center justify-center text-xl shrink-0">🧾</span>
+        <span class="flex-1">
+          <span class="block font-display font-semibold text-ink text-sm" id="paymentLabel">Tap to upload your payment screenshot</span>
+          <span class="block text-ink/45 text-xs font-body mt-0.5">Helps us confirm your donation</span>
+        </span>
+        <input id="paymentUpload" name="paymentScreenshot" type="file" accept="image/*" class="hidden">
+      </label>
+    </div>
+
+    <div>
+      <label class="field-label" for="donorMessage">A message for Rupsha & her family (optional)</label>
+      <textarea id="donorMessage" name="donorMessage" rows="3" class="field-input resize-none" placeholder="Your words of support..."></textarea>
+    </div>
+
+    <label class="flex items-start gap-3 cursor-pointer">
+      <input type="checkbox" id="donorConsent" name="donorConsent" class="mt-1 w-4 h-4 accent-rose">
+      <span class="font-body text-sm text-ink/60">I'm okay with IRCA listing my name (not the amount) in the public list of well-wishers, if they choose to publish one.</span>
+    </label>
+
+    <button type="submit" class="w-full inline-flex items-center justify-center gap-2 bg-rose hover:bg-rose-dark text-cream font-display font-bold text-base px-6 py-4 rounded-full shadow-rosesoft transition-colors glow-pulse">
+      <span id="donorSubmitLabel">Share My Details</span>
+      <svg id="donorLoader" class="hidden w-5 h-5 animate-spin" viewBox="0 0 24 24" fill="none"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"/></svg>
+    </button>
+    <p class="text-center font-body text-xs text-ink/40">Thank you for standing beside Rupsha 💗</p>
+  </form>
+</section>
+
+<!-- ============ QR ZOOM MODAL ============ -->
+<div id="qrModal" class="hidden fixed inset-0 z-[70] modal-overlay bg-ink/85 backdrop-blur-sm flex items-center justify-center p-4">
+  <div id="qrModalCard" class="modal-card relative w-full max-w-md">
+    <button id="qrCloseBtn" type="button" aria-label="Close" class="absolute -top-12 right-0 sm:-right-2 w-10 h-10 rounded-full bg-paper/90 text-ink flex items-center justify-center text-xl shadow-soft">✕</button>
+    <div class="bg-white rounded-3xl p-5 shadow-soft">
+      <img src="./images/irca_qr_details.png" alt="Scan to pay via UPI" class="w-full h-auto rounded-xl">
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact" class="bg-ink text-cream/70 pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-3 mb-4">
+        <img src="./images/logo_transparent.png" alt="IRCA Logo" class="w-11 h-11 object-contain">
+        <span class="font-display font-bold text-cream">Ichapur Rupsa<br><span class="text-xs font-body font-normal text-cream/50">Cultural Association</span></span>
+      </div>
+      <p class="text-sm font-body leading-relaxed text-cream/55">Regd. No. S00025885 of 2021–22. This donation drive is taken up by IRCA to support Rupsha Chatterjee's ongoing cancer treatment.</p>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Explore</h4>
+      <ul class="space-y-2.5 text-sm font-body">
+        <li><a href="/#timetable" class="hover:text-gold transition-colors">Regular Classes</a></li>
+        <li><a href="/faculty" class="hover:text-gold transition-colors">Faculty</a></li>
+        <li><a href="/student-registration" class="hover:text-gold transition-colors">Student Admission Form</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Rupsha's Fund</h4>
+      <ul class="space-y-2.5 text-sm font-body">
+        <li><a href="#story" class="hover:text-gold transition-colors">Her Story</a></li>
+        <li><a href="#donate" class="hover:text-gold transition-colors">Donate Now</a></li>
+        <li><a href="#recognition" class="hover:text-gold transition-colors">Share Contribution</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Visit / Contact</h4>
+      <ul class="space-y-3 text-sm font-body">
+        <li class="flex gap-2"><span>📍</span><span>Ichapur Battola, Netaji Road, Sangeeta Apartment, Ground Floor</span></li>
+        <li class="flex gap-2"><span>📞</span><a href="tel:+913325920161" class="hover:text-gold transition-colors">Office: 033 2592 0161</a></li>
+        <li class="flex gap-2"><span>📱</span><a href="tel:+918420998994" class="hover:text-gold transition-colors">Mob: 84209 98994</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 mt-12 pt-6 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-body text-cream/40">
+    <p>© <span id="year"></span> Ichapur Rupsa Cultural Association. All rights reserved.</p>
+    <p class="text-cream/50">Made with ❤️ by <a href="https://meghive.com" target="_blank"><u>meghive.com</u></a></p>
+  </div>
+</footer>
+
+<!-- Floating WhatsApp button -->
+<a href="https://wa.me/918420998994" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" class="fixed right-4 lg:right-6 bottom-[calc(24px+env(safe-area-inset-bottom))] lg:bottom-6 z-40 w-14 h-14 rounded-full bg-[#25D366] flex items-center justify-center shadow-soft hover:scale-105 transition-transform">
+  <svg viewBox="0 0 32 32" class="w-8 h-8" fill="#fff"><path d="M16.004 2.667c-7.363 0-13.333 5.97-13.333 13.333 0 2.353.617 4.56 1.694 6.474L2.667 29.333l7.03-1.845a13.26 13.26 0 006.307 1.605h.006c7.363 0 13.333-5.97 13.333-13.333S23.367 2.667 16.004 2.667zm0 24.02a11.09 11.09 0 01-5.653-1.548l-.406-.24-4.174 1.095 1.114-4.07-.264-.418a11.05 11.05 0 01-1.7-5.906c0-6.13 4.99-11.12 11.09-11.12 2.964 0 5.75 1.155 7.845 3.253a11.02 11.02 0 013.245 7.85c0 6.13-4.99 11.104-11.097 11.104zm6.086-8.31c-.334-.167-1.977-.976-2.283-1.087-.306-.112-.529-.167-.751.167-.223.334-.862 1.087-1.057 1.31-.195.223-.39.25-.723.084-.334-.167-1.409-.52-2.684-1.657-.992-.885-1.663-1.978-1.858-2.312-.195-.334-.02-.514.147-.68.15-.15.334-.39.5-.585.167-.195.223-.334.334-.557.112-.223.056-.418-.028-.585-.084-.167-.751-1.81-1.029-2.479-.271-.65-.546-.562-.751-.573l-.64-.011c-.223 0-.585.084-.892.418s-1.169 1.142-1.169 2.785 1.197 3.23 1.364 3.453c.167.223 2.355 3.596 5.706 5.043.797.344 1.419.55 1.904.703.8.254 1.529.218 2.105.132.642-.096 1.977-.808 2.255-1.588.279-.78.279-1.448.195-1.588-.084-.14-.306-.223-.64-.39z"/></svg>
+</a>
+
+<!-- Toast -->
+<div id="toast" class="hidden fixed left-1/2 -translate-x-1/2 bottom-6 z-[80] max-w-sm w-[92%] sm:w-auto"></div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 8) navbar.classList.add('shadow-soft'); else navbar.classList.remove('shadow-soft');
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---- Language Toggle ----
+  const langBtns = document.querySelectorAll('.lang-btn');
+  const langContent = document.querySelectorAll('[data-lang]');
+
+  langBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetLang = btn.getAttribute('data-set-lang');
+
+      // Update toggle buttons UI
+      langBtns.forEach(b => {
+        if (b === btn) {
+          b.classList.add('bg-rose', 'text-cream');
+          b.classList.remove('text-rose');
+        } else {
+          b.classList.remove('bg-rose', 'text-cream');
+          b.classList.add('text-rose');
+        }
+      });
+
+      // Show/hide relevant language content
+      langContent.forEach(content => {
+        if (content.getAttribute('data-lang') === targetLang) {
+          content.classList.remove('hidden');
+        } else {
+          content.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // ---- QR Zoom Modal ----
+  const qrModal = document.getElementById('qrModal');
+  const qrModalCard = document.getElementById('qrModalCard');
+
+  function openQrModal() {
+    qrModal.classList.remove('hidden');
+    qrModalCard.style.transform = 'scale(.9)';
+    qrModalCard.style.opacity = '0';
+    requestAnimationFrame(() => {
+      qrModalCard.style.transform = 'scale(1)';
+      qrModalCard.style.opacity = '1';
+    });
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeQrModal() {
+    qrModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('qrOpenBtn').addEventListener('click', openQrModal);
+  document.getElementById('qrCloseBtn').addEventListener('click', closeQrModal);
+  qrModal.addEventListener('click', (e) => { if (e.target === qrModal) closeQrModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !qrModal.classList.contains('hidden')) closeQrModal(); });
+
+  // ---- Toast ----
+  function showToast(message, type){
+    const toast = document.getElementById('toast');
+    const bg = type === 'error' ? 'bg-[#B3261E]' : 'bg-maroon';
+    toast.innerHTML = '<div class="' + bg + ' text-cream font-body text-sm font-medium px-5 py-3 rounded-2xl shadow-soft text-center">' + message + '</div>';
+    toast.classList.remove('hidden');
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => toast.classList.add('hidden'), 3200);
+  }
+
+  // ---- Copy UPI / Bank details ----
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-copy');
+      let text = document.getElementById(targetId).textContent.trim();
+
+      // Strip spaces if required (like for account numbers)
+      if (btn.dataset.copyStripSpaces === 'true') {
+        text = text.replace(/\s+/g, '');
+      }
+
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = original; }, 1500);
+      }).catch(() => showToast('Could not copy — please copy manually.', 'error'));
+    });
+  });
+
+  // ---- File Upload UI Update ----
+  const paymentInput = document.getElementById('paymentUpload');
+  const paymentLabel = document.getElementById('paymentLabel');
+  paymentInput.addEventListener('change', () => {
+    paymentLabel.textContent = paymentInput.files[0] ? paymentInput.files[0].name : 'Tap to upload your payment screenshot';
+  });
+
+  // ---- Donor recognition form ----
+  const GOOGLE_SCRIPT_URL = 'PASTE_YOUR_WEB_APP_URL_HERE';
+  const PHONE_REGEX = /^[6-9]\d{9}$/;
+
+  const donorForm = document.getElementById('donorForm');
+  const donorSubmitLabel = document.getElementById('donorSubmitLabel');
+  const donorLoader = document.getElementById('donorLoader');
+
+  // Helper to read <input type=file> as base64 string
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      if (!file) { resolve(null); return; }
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  donorForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = donorForm.donorName.value.trim();
+    const phone = donorForm.donorPhone.value.trim();
+    const email = donorForm.donorEmail.value.trim();
+
+    donorForm.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+
+    if (!name) { donorForm.donorName.classList.add('field-error'); showToast('Please enter your name.', 'error'); donorForm.donorName.focus(); return; }
+    if (!PHONE_REGEX.test(phone)) { donorForm.donorPhone.classList.add('field-error'); showToast('Enter a valid 10-digit phone number.', 'error'); donorForm.donorPhone.focus(); return; }
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { donorForm.donorEmail.classList.add('field-error'); showToast('Enter a valid email address, or leave it blank.', 'error'); donorForm.donorEmail.focus(); return; }
+
+    donorForm.querySelector('button[type="submit"]').disabled = true;
+    donorSubmitLabel.textContent = 'Sending...';
+    donorLoader.classList.remove('hidden');
+
+    try {
+      const paymentFile = donorForm.paymentScreenshot.files[0];
+      const paymentBase64 = await fileToBase64(paymentFile);
+
+      const payload = {
+        submittedAt: new Date().toISOString(),
+        donorName: name,
+        donorPhone: phone,
+        donorEmail: email,
+        donorAmount: donorForm.donorAmount.value.trim(),
+        donorUtr: donorForm.donorUtr.value.trim(),
+        donorMessage: donorForm.donorMessage.value.trim(),
+        publicListingConsent: donorForm.donorConsent.checked,
+        paymentFileName: paymentFile ? paymentFile.name : '',
+        paymentBase64: paymentBase64 || ''
+      };
+
+      if (!GOOGLE_SCRIPT_URL.includes('PASTE_YOUR_WEB_APP_URL_HERE')) {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify(payload)
+        });
+      }
+
+      showToast('Thank you! We\'ve noted your details — from Rupsha\'s family, thank you 💗', 'success');
+      donorForm.reset();
+      paymentLabel.textContent = 'Tap to upload your payment screenshot';
+
+    } catch (err) {
+      console.error(err);
+      showToast('Something went wrong. Please try again or WhatsApp us directly.', 'error');
+    } finally {
+      donorForm.querySelector('button[type="submit"]').disabled = false;
+      donorSubmitLabel.textContent = 'Share My Details';
+      donorLoader.classList.add('hidden');
+    }
+  });
+</script>
+</body>
+</html>
