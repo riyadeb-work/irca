@@ -397,7 +397,7 @@
       <!-- Images -->
       <!-- Replace the placeholder src URLs with your actual image paths, e.g., src="./images/report1.jpg" -->
       <div id="docSlider" class="w-full h-full relative">
-        <img src="./images/donation/reports/1.jpeg"doc-slide absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-100" alt="Document 1">
+        <img src="./images/donation/reports/1.jpeg" class="doc-slide absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 pointer-events-none" alt="Document 1">
         <img src="./images/donation/reports/2.jpeg" class="doc-slide absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 pointer-events-none" alt="Document 2">
         <img src="./images/donation/reports/3.jpeg" class="doc-slide absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 pointer-events-none" alt="Document 3">
         <img src="./images/donation/reports/4.jpeg" class="doc-slide absolute inset-0 w-full h-full object-contain transition-opacity duration-300 opacity-0 pointer-events-none" alt="Document 4">
@@ -416,9 +416,41 @@
   </div>
 </div>
 
+<!-- ============ ADDITIONAL SUPPORT ============ -->
+<section class="bg-white border-y border-maroon/10 py-16 sm:py-20 mt-8">
+  <div class="max-w-4xl mx-auto px-4 text-center reveal">
+    <span class="inline-flex items-center gap-2 bg-teal/10 text-teal font-body font-semibold text-xs sm:text-sm tracking-[0.15em] uppercase px-4 py-1.5 rounded-full mb-5">
+      Community Support
+    </span>
+    <h2 class="font-display font-bold text-2xl sm:text-3xl text-maroon mb-6">Need Help Finding a Doctor?</h2>
+
+    <div class="font-body text-[17px] leading-[1.9] text-ink/85 max-w-3xl mx-auto space-y-4">
+      <p>If anyone needs help finding a good private doctor for any serious medical problem, please feel free to contact me. I will do my best to help you find the right doctor. For Neurology, Orthopedics, Endocrinology, Gynecology, Cancer treatment, and other critical medical conditions, the doctors at this hospital are among the best. If I can help you in any way, it would mean a lot to me. I hope your prayers and blessings will come back as a blessing for my daughter.</p>
+    </div>
+
+    <div class="mt-10 bg-paper/60 border border-maroon/10 rounded-[1.5rem] p-6 sm:p-8 max-w-2xl mx-auto text-left shadow-sm flex flex-col sm:flex-row items-center gap-6">
+      <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-rose/10 text-rose flex items-center justify-center text-2xl shrink-0">
+        🤝
+      </div>
+      <div>
+        <h4 class="font-display font-bold text-lg text-maroon mb-1 text-center sm:text-left">Start a Fundraiser with IRCA</h4>
+        <p class="font-body text-ink/70 text-sm sm:text-base leading-relaxed mb-4 text-center sm:text-left">If you would like IRCA to organize a fund like the one mentioned above, please reach out to us.</p>
+        <div class="flex flex-wrap items-center justify-center sm:justify-start gap-4 font-body text-sm">
+          <a href="tel:+918420998994" class="inline-flex items-center gap-2 bg-white border border-maroon/10 text-ink hover:border-rose hover:text-rose transition-colors font-semibold px-4 py-2 rounded-full shadow-sm">
+            📞 84209 98994
+          </a>
+          <a href="https://wa.me/918420998994" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-white border border-maroon/10 text-ink hover:border-rose hover:text-rose transition-colors font-semibold px-4 py-2 rounded-full shadow-sm">
+            💬 WhatsApp Us
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ============ FOOTER ============ -->
 <footer id="contact" class="bg-ink text-cream/70 pb-8">
-  <div class="max-w-7xl mx-auto px-4 mt-12 pt-6 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-body text-cream/40">
+  <div class="max-w-7xl mx-auto px-4 pt-6 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-body text-cream/40">
     <p>© <span id="year"></span> Ichapur Rupsa Cultural Association. All rights reserved.</p>
     <p class="text-cream/50">Made with ❤️ by <a href="https://meghive.com" target="_blank"><u>meghive.com</u></a></p>
   </div>
