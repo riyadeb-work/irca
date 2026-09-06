@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IRCA Bangla Band | Information & Registration</title>
+  <meta name="description" content="Apply for IRCA Bangla Band auditions or book your weekly practice slot.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Baloo+Da+2:wght@500;600;700;800&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#1C1A24',
+            maroon: { DEFAULT: '#7A1F2B', dark:'#5A1620', light:'#9C3040' },
+            gold: { DEFAULT: '#C9972A', light:'#E4C266', dark:'#9C731D' },
+            cream: '#F6EEDF',
+            paper: '#FBF7EE',
+            teal: { DEFAULT:'#0E5C56', dark:'#0A423D' },
+            rose: { DEFAULT:'#D6236F', dark:'#A8175A', light:'#F04D93' },
+          },
+          fontFamily: {
+            display: ['"Baloo Da 2"','sans-serif'],
+            bangla: ['"Tiro Bangla"','serif'],
+            body: ['"Mukta"','sans-serif'],
+          },
+          boxShadow: { soft: '0 10px 30px -12px rgba(28,26,36,0.25)' }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    html{scroll-behavior:smooth;}
+    body{font-family:'Mukta',sans-serif;background:#FBF7EE;color:#1C1A24;}
+    .font-display{font-family:'Baloo Da 2',sans-serif;}
+    .font-bangla{font-family:'Tiro Bangla',serif;}
+    ::selection{background:#C9972A;color:#1C1A24;}
+
+    .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+    .reveal.in{opacity:1; transform:translateY(0);}
+    @media (prefers-reduced-motion: reduce){ *{animation-duration:.01ms !important; transition-duration:.01ms !important;} }
+
+    .glow-pulse{ box-shadow:0 0 0 0 rgba(201,151,42,.5); animation:pulse 2.6s infinite; }
+    .glow-pulse-rose{ box-shadow:0 0 0 0 rgba(214,35,111,.5); animation:pulseRose 2.6s infinite; }
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(201,151,42,.45);}
+      70%{box-shadow:0 0 0 14px rgba(201,151,42,0);}
+      100%{box-shadow:0 0 0 0 rgba(201,151,42,0);}
+    }
+    @keyframes pulseRose{
+      0%{box-shadow:0 0 0 0 rgba(214,35,111,.45);}
+      70%{box-shadow:0 0 0 14px rgba(214,35,111,0);}
+      100%{box-shadow:0 0 0 0 rgba(214,35,111,0);}
+    }
+
+    .nav-link{position:relative;}
+    .nav-link::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:#C9972A;transition:width .3s ease;}
+    .nav-link:hover::after{width:100%;}
+
+    .scallop-cream{ background: radial-gradient(circle at 10px -6px, transparent 14px, #F6EEDF 15px) 0 0/24px 24px repeat-x; }
+
+    /* Form Inputs */
+    input[type=text], input[type=email], input[type=tel], input[type=date], select, textarea{
+      width:100%; background:#fff; border:1px solid rgba(122,31,43,.18); border-radius:0.85rem;
+      padding:.75rem 1rem !important; margin:0; font-family:'Mukta',sans-serif; font-size:16px; color:#1C1A24;
+      box-sizing:border-box; transition:border-color .25s ease, box-shadow .25s ease;
+    }
+    textarea{ padding:.75rem 1rem !important; resize:vertical; min-height:4.5rem; line-height:1.5; }
+    select{
+      -webkit-appearance:none !important; -moz-appearance:none !important; appearance:none !important;
+      background-color:#fff; background-image:url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237A1F2B' stroke-width='2.5'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat:no-repeat; background-position:right 1rem center; background-size:1rem;
+      padding:.75rem 2.5rem .75rem 1rem !important; border-radius:0.85rem !important; line-height:1.4;
+    }
+    select::-ms-expand{ display:none; }
+    select option{ color:#1C1A24; }
+    select:required:invalid{ color:rgba(28,26,36,.45); }
+    input:focus, select:focus, textarea:focus{
+      outline:none; border-color:#7A1F2B; box-shadow:0 0 0 3px rgba(122,31,43,.12);
+    }
+    input.field-error, select.field-error, textarea.field-error{
+      border-color:#B3261E !important; box-shadow:0 0 0 3px rgba(179,38,30,.12) !important;
+    }
+    label.field-label{ display:block; font-family:'Baloo Da 2',sans-serif; font-weight:600; font-size:.85rem; color:#1C1A24; margin-bottom:.4rem; }
+
+    /* Time Slot Chips */
+    .time-chip input{ display:none; }
+    .time-chip .box{
+      display:flex; align-items:center; justify-content:center; padding:.65rem 1rem;
+      border:1px solid rgba(122,31,43,.18); border-radius:0.85rem; background:#fff;
+      font-family:'Mukta',sans-serif; font-size:15px; color:#1C1A24; font-weight:500;
+      cursor:pointer; transition:all .2s ease; text-align:center; height:100%;
+    }
+    .time-chip input:checked ~ .box{ background:#7A1F2B; border-color:#7A1F2B; color:#F6EEDF; font-weight:600; }
+    .time-chip input:disabled ~ .box{ background:#F3F4F6; color:#9CA3AF; border-color:#E5E7EB; cursor:not-allowed; text-decoration:line-through; }
+
+    /* Tabs */
+    .tab-btn { transition: all 0.3s ease; }
+    .tab-btn.active { background-color: #7A1F2B; color: #F6EEDF; border-color: #7A1F2B; box-shadow: 0 10px 30px -12px rgba(122,31,43,0.4); }
+    .tab-btn:not(.active) { background-color: transparent; color: #7A1F2B; border-color: rgba(122,31,43,0.3); }
+    .tab-btn:not(.active):hover { background-color: rgba(122,31,43,0.05); }
+
+    /* Lang Tabs (Dark BG) */
+    .lang-btn { transition: all 0.3s ease; }
+    .lang-btn.active { background-color: rgba(201,151,42,0.15); color: #C9972A; border-color: #C9972A; }
+    .lang-btn:not(.active) { background-color: transparent; color: rgba(246,238,223,0.7); border-color: rgba(246,238,223,0.2); }
+    .lang-btn:not(.active):hover { border-color: rgba(246,238,223,0.5); color: rgba(246,238,223,1); }
+
+    /* Toasts */
+    #toastStack{
+      position:fixed !important; left:50% !important; right:auto !important; top:auto !important;
+      bottom:calc(1rem + env(safe-area-inset-bottom)) !important;
+      transform:translateX(-50%); z-index:9999; width:calc(100% - 2rem); max-width:26rem;
+      display:flex; flex-direction:column-reverse; gap:.5rem; pointer-events:none;
+    }
+    .toast{
+      pointer-events:auto; background:#1C1A24; color:#FBF7EE; font-family:'Mukta',sans-serif; font-size:.9rem;
+      border-left:4px solid #B3261E; border-radius:0.75rem; padding:.85rem 1rem; box-shadow:0 10px 30px -8px rgba(28,26,36,.45);
+      display:flex; align-items:flex-start; gap:.6rem; opacity:0; transform:translateY(16px); transition:opacity .3s ease, transform .3s ease;
+    }
+    .toast.show{ opacity:1; transform:translateY(0); }
+    .toast.success{ border-left-color:#0E5C56; }
+    .toast-close{
+      pointer-events:auto; background:transparent; border:none; color:#FBF7EE; opacity:.65; cursor:pointer;
+      font-size:1rem; line-height:1; padding:0 0 0 .35rem; margin-left:auto; flex-shrink:0;
+    }
+    .toast-close:hover{ opacity:1; }
+
+    .modal-overlay{ transition: opacity .3s ease; }
+    .modal-card{ transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; }
+  </style>
+</head>
+<body class="antialiased pb-16 lg:pb-0">
+
+<!-- ============ TOAST STACK ============ -->
+<div id="toastStack" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- ============ TOP BAR ============ -->
+<div class="bg-ink text-cream/80 text-xs sm:text-sm">
+  <div class="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+    <p class="font-body tracking-wide">Regd. No. S00025885 of 2021–22</p>
+    <div class="hidden sm:flex items-center gap-4">
+      <a href="tel:+913325920161" class="hover:text-gold transition-colors">Office: 033 2592 0161</a>
+      <span class="opacity-40">|</span>
+      <a href="tel:+918420998994" class="hover:text-gold transition-colors">Mob: 84209 98994</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ NAVBAR ============ -->
+<header id="navbar" class="sticky top-0 z-50 bg-paper/90 backdrop-blur border-b border-maroon/10 transition-shadow">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex items-center justify-between h-[72px]">
+      <a href="/" class="flex items-center gap-3 group">
+        <img src="./images/logo_transparent.png" alt="IRCA Logo" class="w-11 h-11 object-contain drop-shadow-[0_2px_6px_rgba(28,26,36,0.35)]">
+        <span class="leading-tight">
+          <span class="block font-display font-bold text-maroon text-[15px] sm:text-lg tracking-tight">Ichapur Rupsa</span>
+          <span class="block font-body text-[11px] sm:text-xs text-ink/60 tracking-[0.15em] uppercase">Cultural Association</span>
+        </span>
+      </a>
+      <nav class="hidden lg:flex items-center gap-8 font-body font-medium text-[15px] text-ink/80">
+        <a href="/#timetable" class="nav-link hover:text-maroon transition-colors nav-link">Classes</a>
+        <a href="/faculty" class="nav-link hover:text-maroon transition-colors">Faculty</a>
+        <a href="/#courses" class="nav-link hover:text-maroon transition-colors">Courses</a>
+        <a href="/#gallery" class="nav-link hover:text-maroon transition-colors">Gallery</a>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="/donate" class="inline-flex items-center gap-1.5 bg-rose/10 hover:bg-rose/20 border-2 border-rose/20 text-rose font-display font-bold text-xs sm:text-sm px-4 sm:px-5 py-1.5 sm:py-2 rounded-xl transition-colors glow-pulse-rose">
+          <span>Donate ❤️</span>
+        </a>
+        <a href="/student-registration" class="hidden lg:inline-flex items-center gap-2 bg-maroon hover:bg-maroon-dark text-cream font-display font-semibold text-sm px-5 py-2.5 rounded-full shadow-soft transition-colors glow-pulse">
+          Register Now
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MOBILE BOTTOM APP NAV ============ -->
+<nav id="mobileBottomNav" class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-paper border-t border-maroon/10 shadow-[0_-8px_24px_-12px_rgba(28,26,36,0.25)]" style="padding-bottom:env(safe-area-inset-bottom);">
+  <div class="grid grid-cols-5">
+    <a href="/#timetable" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+      <span class="text-[10px] font-body font-medium">Classes</span>
+    </a>
+    <a href="/faculty" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-1.13a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-3.87-5"/></svg>
+      <span class="text-[10px] font-body font-medium">Faculty</span>
+    </a>
+    <a href="/#courses" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+      <span class="text-[10px] font-body font-medium">Courses</span>
+    </a>
+    <a href="/#gallery" class="flex flex-col items-center justify-center gap-1 py-2.5 text-ink/70">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"/></svg>
+      <span class="text-[10px] font-body font-medium">Gallery</span>
+    </a>
+    <a href="/student-registration" class="flex flex-col items-center justify-center gap-1 py-2.5 text-maroon">
+      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6M9 8h1m5 12H7a2 2 0 01-2-2V6a2 2 0 012-2h5.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V18a2 2 0 01-2 2z"/></svg>
+      <span class="text-[10px] font-body font-semibold">Register</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ============ PAGE HERO ============ -->
+<section class="relative overflow-hidden bg-ink">
+  <div class="absolute inset-0 opacity-[0.14]" style="background-image:radial-gradient(circle at 1px 1px, #C9972A 1px, transparent 1px); background-size:26px 26px;"></div>
+  <div class="absolute -right-24 -top-24 w-[380px] h-[380px] rounded-full bg-maroon/30 blur-3xl"></div>
+  <div class="absolute -left-24 bottom-0 w-[380px] h-[380px] rounded-full bg-teal/20 blur-3xl"></div>
+
+  <div class="relative max-w-5xl mx-auto px-4 pt-10 pb-14 sm:pt-14 sm:pb-20 text-center">
+    <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-gold bg-gold/10 px-3 py-1 rounded-full mb-4">🎸 IRCA Bangla Band</span>
+    <h1 class="font-display font-extrabold text-cream text-3xl sm:text-5xl lg:text-6xl leading-tight">Bangla Band Rehearsal</h1>
+    <p class="font-bangla text-cream/70 text-lg sm:text-xl mt-3 tracking-wide">বাংলা ব্যান্ড অনুশীলন</p>
+  </div>
+
+  <!-- Info Blocks -->
+  <div class="relative max-w-4xl mx-auto px-4 pb-16">
+    <!-- Language Tabs -->
+    <div class="flex items-center justify-center gap-3 mb-6 relative z-10">
+      <button type="button" id="langBnBtn" class="lang-btn active font-display font-bold px-6 py-2 rounded-full border-2 text-sm sm:text-base" onclick="switchLang('bn')">বাংলা</button>
+      <button type="button" id="langEnBtn" class="lang-btn font-display font-bold px-6 py-2 rounded-full border-2 text-sm sm:text-base" onclick="switchLang('en')">English</button>
+    </div>
+
+    <div class="bg-paper/5 border border-cream/10 rounded-3xl p-6 sm:p-10 shadow-soft backdrop-blur-sm relative z-10">
+      <div id="descBn">
+        <h3 class="font-display font-bold text-gold text-sm tracking-wide uppercase mb-3">বাংলায়</h3>
+        <p class="text-cream/80 font-body leading-relaxed text-[15px] sm:text-base" lang="bn">
+          শুধুমাত্র বাংলা ব্যান্ড এর অনুশীলন এর জন্য আমরা বাংলা গান এর ওপরে দক্ষতা ও ইচ্ছুক শিল্পীদের জন্য বাংলা নোটেশন ভিত্তিক অনুশীলন এর ব্যবস্থা করছি, অবশ্যই মিনিমাম চার্জ ও ফিক্সড শিল্পী নির্বাচনের ভিত্তিতে। এর জন্য অবশ্যই আপনাকে অডিসন দিতে হবে এই অনুশীলন এর জন্য। আমরা সার্টিফিকেট দেব ও সারাবছর তাদের নিয়ে কাজ করব শিখিয়ে পরিয়ে, এবং সারাবছর ধরে বিভিন্ন অনুষ্ঠানে পারফর্ম করার সুযোগও দেব। মিনিমাম শিল্পী আমরা বাছাই করবো। তারাই আসবেন যাদের মধ্যে শেখার চেষ্টা ও খাটবার ইচ্ছে প্রবল। পিছুটান, সময় এর অভাব, সব জানেন গান সম্বন্ধে — তাদের জন্য নয় আমাদের এই সেকশন।
+        </p>
+      </div>
+      <div id="descEn" class="hidden">
+        <h3 class="font-display font-bold text-gold text-sm tracking-wide uppercase mb-3">In English</h3>
+        <p class="text-cream/80 font-body leading-relaxed text-[15px] sm:text-base">
+          Exclusively for Bangla band rehearsal, we're setting up Bangla notation-based practice sessions for skilled and dedicated Bangla music artists — with a minimum fee and a fixed, selective group of artists. An audition is compulsory to join this rehearsal. We'll provide certificates, work with the selected artists throughout the year training and guiding them, and offer regular opportunities to perform at events and festivals all year round. Only a limited number of artists will be selected — only those with a strong drive to learn and genuinely work hard. This section isn't for those held back by other commitments, lack of time, or who already "know it all" about music.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="scallop-cream"></div>
+</section>
+
+<!-- ============ REGISTRATION FORMS ============ -->
+<section class="max-w-4xl mx-auto px-4 py-12 sm:py-16 pb-28 lg:pb-20">
+
+
+  <!-- ===== FORM 2: SLOT BOOKING (REGISTERED) ===== -->
+  <div id="formSlotContainer" class="reveal mb-16 lg:mb-24">
+    <form id="slotForm" class="space-y-6 sm:space-y-8" novalidate>
+
+      <!-- Personal Details -->
+      <div class="bg-paper border border-maroon/10 rounded-3xl p-5 sm:p-9 shadow-soft">
+        <div class="flex items-center gap-3 mb-4 sm:mb-6 pb-4 border-b border-maroon/10">
+          <span class="w-12 h-12 rounded-full bg-maroon text-cream flex items-center justify-center text-2xl shrink-0 shadow-soft">🎸</span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-maroon">Book Practice Slot</h2>
+        </div>
+        <div class="bg-cream border border-maroon/10 rounded-2xl p-4 mb-6">
+          <p class="text-sm font-body text-ink/70 leading-relaxed">
+            <span class="font-display font-bold text-maroon">Important:</span> Only for already registered students. You need to pay an amount of <strong>₹500</strong> for registration. You must book your slot <strong>15 days in advance</strong>.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4 sm:gap-5">
+          <div class="sm:col-span-2">
+            <label class="field-label">Full Name <span class="text-maroon">*</span></label>
+            <input type="text" name="slotName" required placeholder="Enter your full name">
+          </div>
+          <div>
+            <label class="field-label">Phone Number <span class="text-maroon">*</span></label>
+            <input type="tel" name="slotPhone" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit mobile number">
+          </div>
+          <div>
+            <label class="field-label">WhatsApp Number <span class="text-maroon">*</span></label>
+            <input type="tel" name="slotWhatsapp" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit WhatsApp number">
+          </div>
+        </div>
+      </div>
+
+      <!-- Date & Slot Selection -->
+      <div class="bg-paper border border-maroon/10 rounded-3xl p-5 sm:p-9 shadow-soft">
+        <h2 class="font-display font-bold text-xl text-ink mb-5">Select Monday Slot</h2>
+
+        <div class="grid gap-6">
+          <div>
+            <label class="field-label">Select Date (Upcoming Mondays) <span class="text-maroon">*</span></label>
+            <select name="slotDate" id="slotDateSelect" required>
+              <option value="" selected disabled>Select an available Monday...</option>
+              <!-- Options populated by JS -->
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Select Time Slot <span class="text-maroon">*</span></label>
+            <div id="timeSlotContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-1">
+              <!-- Radios populated by JS -->
+            </div>
+            <p id="noSlotMsg" class="hidden text-sm text-maroon mt-2 font-medium">Please select a date first to see available times.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Section -->
+      <div class="bg-paper border border-maroon/10 rounded-3xl p-5 sm:p-9 shadow-soft">
+        <h2 class="font-display font-bold text-xl text-ink mb-5">Payment</h2>
+
+        <div class="flex flex-wrap items-center justify-between gap-4 bg-ink rounded-2xl p-6 mb-7">
+          <div>
+            <p class="text-cream/50 text-xs font-body uppercase tracking-wide">Registration Fee</p>
+            <p class="font-display font-extrabold text-4xl text-gold mt-1">₹500</p>
+          </div>
+          <p class="text-cream/50 text-xs font-body max-w-[220px] text-right">Fixed fee for practice slot booking.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-7 sm:items-center">
+          <!-- QR -->
+          <div class="flex flex-col items-center text-center justify-self-center w-full">
+            <button type="button" id="qrOpenBtn" class="qr-frame w-44 h-44 rounded-2xl p-3 shadow-soft cursor-zoom-in transition-transform hover:scale-[1.02]" aria-label="View larger QR code">
+              <img src="./images/irca_qr.png" alt="Scan to pay via UPI" class="w-full h-full object-contain pointer-events-none" onerror="this.src='https://placehold.co/400x400/F6EEDF/7A1F2B?text=QR+Code'">
+            </button>
+            <p class="font-display font-semibold text-ink text-sm mt-3">Scan to pay via UPI</p>
+            <p class="text-ink/40 text-xs font-body mt-0.5">Tap to enlarge</p>
+          </div>
+
+          <!-- UPI / Bank details -->
+          <div class="space-y-4">
+            <div class="bg-cream rounded-2xl p-4 flex items-center justify-between gap-3">
+              <div>
+                <p class="text-ink/45 text-xs font-body uppercase tracking-wide">UPI ID</p>
+                <p class="font-display font-semibold text-ink text-sm mt-0.5" id="upiId">
+                  <a href="upi://pay?pa=7439548102@ptsbi">7439548102@ptsbi</a>
+                </p>
+                <p class="text-ink/50 text-xs font-body mt-1">Name: Goutam Chatterjee</p>
+              </div>
+              <button type="button" data-copy="upiId" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+            </div>
+            <div class="bg-cream rounded-2xl p-4 space-y-3">
+              <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Bank Transfer Details</p>
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Account Name</p>
+                  <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="acctName">ICHAPUR RUPSA CULTURAL ASSOCIATION</p>
+                </div>
+                <button type="button" data-copy="acctName" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+              </div>
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Account No.</p>
+                  <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="acctNo">4475 4935 246</p>
+                </div>
+                <button type="button" data-copy="acctNo" data-copy-strip-spaces="true" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+              </div>
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <p class="text-ink/45 text-xs font-body uppercase tracking-wide">IFSC Code</p>
+                  <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="ifsc">SBIN0001797</p>
+                </div>
+                <button type="button" data-copy="ifsc" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-7">
+          <label class="field-label">Transaction ID / UTR (Optional)</label>
+          <input type="text" name="slotTxn" placeholder="Enter transaction reference number if paid">
+          <p class="text-ink/45 text-xs font-body mt-1.5">No screenshot required. Just enter the reference number so we can match your payment.</p>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-maroon hover:bg-maroon-dark text-cream font-display font-bold text-lg py-4 rounded-full shadow-soft transition-colors glow-pulse">
+        Book Slot via WhatsApp
+      </button>
+    </form>
+  </div>
+
+  <!-- Divider -->
+  <div class="reveal flex items-center gap-4 mb-16 lg:mb-24">
+    <div class="h-px bg-maroon/10 flex-1"></div>
+    <span class="font-display font-bold text-maroon/40 uppercase tracking-widest text-sm">OR</span>
+    <div class="h-px bg-maroon/10 flex-1"></div>
+  </div>
+
+  <!-- ===== FORM 1: NEW REGISTRATION (AUDITION) ===== -->
+  <div id="formNewContainer" class="reveal">
+    <form id="auditionForm" class="space-y-6 sm:space-y-8" novalidate>
+      <div class="bg-paper border border-maroon/10 rounded-3xl p-5 sm:p-9 shadow-soft">
+        <div class="flex items-center gap-3 mb-4 sm:mb-6 pb-4 border-b border-maroon/10">
+          <span class="w-12 h-12 rounded-full bg-maroon text-cream flex items-center justify-center text-2xl shrink-0 shadow-soft">🎤</span>
+          <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-maroon">Apply for Audition</h2>
+        </div>
+        <div class="bg-cream border border-maroon/10 rounded-2xl p-4 mb-6">
+          <p class="text-sm font-body text-ink/70 leading-relaxed">
+            <span class="font-display font-bold text-maroon">Note:</span> Enter your details below and we will contact you for an audition opportunity. Once the results are declared and you are selected, you will have to register for band participation classes.
+            <strong class="text-ink">Audition is free</strong> and the registration amount will only be taken after selection.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4 sm:gap-5">
+          <div class="sm:col-span-2">
+            <label class="field-label">Full Name <span class="text-maroon">*</span></label>
+            <input type="text" name="audName" required placeholder="Enter your full name">
+          </div>
+          <div>
+            <label class="field-label">Phone Number <span class="text-maroon">*</span></label>
+            <input type="tel" name="audPhone" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit mobile number">
+          </div>
+          <div>
+            <label class="field-label">WhatsApp Number <span class="text-maroon">*</span></label>
+            <input type="tel" name="audWhatsapp" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit WhatsApp number">
+          </div>
+          <div>
+            <label class="field-label">Email ID <span class="text-maroon">*</span></label>
+            <input type="email" name="audEmail" required placeholder="you@example.com">
+          </div>
+          <div>
+            <label class="field-label">Profession</label>
+            <input type="text" name="audProfession" placeholder="Student / Employed / Other">
+          </div>
+          <div class="sm:col-span-2">
+            <label class="field-label">Address <span class="text-maroon">*</span></label>
+            <textarea name="audAddress" rows="2" required placeholder="House no, road, area, city, PIN"></textarea>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="field-label">Music Experience / Additional Details <span class="text-maroon">*</span></label>
+            <textarea name="audExperience" rows="3" required placeholder="Tell us about your musical practice, instruments you play, or any prior experience..."></textarea>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="w-full bg-maroon hover:bg-maroon-dark text-cream font-display font-bold text-lg py-4 rounded-full shadow-soft transition-colors glow-pulse">
+        Submit Application via WhatsApp
+      </button>
+    </form>
+  </div>
+
+
+</section>
+
+<!-- ============ QR ZOOM MODAL ============ -->
+<div id="qrModal" class="hidden fixed inset-0 z-[70] modal-overlay bg-ink/85 backdrop-blur-sm flex items-center justify-center p-4">
+  <div id="qrModalCard" class="modal-card relative w-full max-w-md">
+    <button id="qrCloseBtn" type="button" aria-label="Close" class="absolute -top-12 right-0 sm:-right-2 w-10 h-10 rounded-full bg-paper/90 text-ink flex items-center justify-center text-xl shadow-soft">✕</button>
+    <div class="bg-white rounded-3xl p-5 shadow-soft">
+      <img src="./images/irca_qr_details.png" alt="Scan to pay via UPI" class="w-full h-auto rounded-xl" onerror="this.src='https://placehold.co/600x600/F6EEDF/7A1F2B?text=Large+QR+Code'">
+    </div>
+  </div>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact" class="bg-ink text-cream/70 pt-16 pb-8">
+  <div class="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div>
+      <div class="flex items-center gap-3 mb-4">
+        <img src="./images/logo_transparent.png" alt="IRCA Logo" class="w-11 h-11 object-contain" onerror="this.style.display='none'">
+        <span class="font-display font-bold text-cream">Ichapur Rupsa<br><span class="text-xs font-body font-normal text-cream/50">Cultural Association</span></span>
+      </div>
+      <p class="text-sm font-body leading-relaxed text-cream/55">Regd. No. S00025885 of 2021–22. A cultural school nurturing music, dance, drama, art and instrument learners of Ichapur.</p>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Explore</h4>
+      <ul class="space-y-2.5 text-sm font-body">
+        <li><a href="/#timetable" class="hover:text-gold transition-colors">Regular Classes</a></li>
+        <li><a href="/faculty" class="hover:text-gold transition-colors">Faculty</a></li>
+        <li><a href="/#gallery" class="hover:text-gold transition-colors">Gallery</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Important Links</h4>
+      <ul class="space-y-2.5 text-sm font-body">
+        <li><a href="/student-registration" class="hover:text-gold transition-colors">Student Admission Form</a></li>
+        <li><a href="/donate" class="hover:text-gold transition-colors">Donate</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="font-display font-semibold text-cream mb-4 text-sm tracking-wide uppercase">Visit / Contact</h4>
+      <ul class="space-y-3 text-sm font-body">
+        <li class="flex gap-2"><span>📍</span><span>Ichapur Battola, Netaji Road, Sangeeta Apartment, Ground Floor</span></li>
+        <li class="flex gap-2"><span>📞</span><a href="tel:+913325920161" class="hover:text-gold transition-colors">Office: 033 2592 0161</a></li>
+        <li class="flex gap-2"><span>📱</span><a href="tel:+918420998994" class="hover:text-gold transition-colors">Mob: 84209 98994</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-4 mt-12 pt-6 border-t border-cream/10 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-body text-cream/40">
+    <p>© <span id="year"></span> Ichapur Rupsa Cultural Association. All rights reserved.</p>
+    <p class="text-cream/50">Made with ❤️ by <a href="https://meghive.com" target="_blank"><u>meghive.com</u></a></p>
+  </div>
+</footer>
+
+<script>
+  // ==========================================
+  // JS CONFIGURATION BLOCK
+  // Update phone number, times, and disabled slots here
+  // ==========================================
+  const BAND_CONFIG = {
+    // Phone number to receive WhatsApp messages (include country code, no +)
+    whatsappNumber: "918420998994",
+
+    // Optional: Set a specific starting date (Format: "YYYY-MM-DD").
+    // If set, this overrides the 15-day advance notice logic below.
+    manualStartDate: "2026-09-21",
+
+    // Booking requires 15 days advance notice (used if manualStartDate is empty)
+    advanceNoticeDays: 15,
+
+    // How many upcoming Mondays to show in the dropdown
+    maxMondaysToShow: 6,
+
+    // Default time slots available every Monday
+    timeSlots: [
+      "6:00 PM - 7:00 PM",
+      "7:00 PM - 8:00 PM",
+      "8:00 PM - 9:00 PM",
+      "9:00 PM - 10:00 PM"
+    ],
+
+    // Completely disable specific dates (Format: "YYYY-MM-DD")
+    disabledDates: [
+      // e.g., "2026-10-12"
+    ],
+
+    // Disable specific time slots for specific dates
+    // Format: { "YYYY-MM-DD": ["Slot String 1", "Slot String 2"] }
+    disabledSlots: {
+      // e.g., "2026-09-28": ["6:00 PM - 7:00 PM", "7:00 PM - 8:00 PM"]
+    }
+  };
+
+  // Set current year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Navbar shadow
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 8) navbar.classList.add('shadow-soft'); else navbar.classList.remove('shadow-soft');
+  });
+
+  // ==========================================
+  // LANG SWITCHING LOGIC
+  // ==========================================
+  function switchLang(lang) {
+    const btnBn = document.getElementById('langBnBtn');
+    const btnEn = document.getElementById('langEnBtn');
+    const descBn = document.getElementById('descBn');
+    const descEn = document.getElementById('descEn');
+
+    if (lang === 'bn') {
+      btnBn.classList.add('active');
+      btnEn.classList.remove('active');
+      descBn.classList.remove('hidden');
+      descEn.classList.add('hidden');
+    } else {
+      btnEn.classList.add('active');
+      btnBn.classList.remove('active');
+      descEn.classList.remove('hidden');
+      descBn.classList.add('hidden');
+    }
+  }
+
+  // ==========================================
+  // SLOT GENERATION LOGIC
+  // ==========================================
+  const dateSelect = document.getElementById('slotDateSelect');
+  const timeContainer = document.getElementById('timeSlotContainer');
+  const noSlotMsg = document.getElementById('noSlotMsg');
+
+  // Format date to YYYY-MM-DD for configuration mapping
+  function formatDateKey(dateObj) {
+    const yyyy = dateObj.getFullYear();
+    const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+    const dd = String(dateObj.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
+  }
+
+  // Generate upcoming Mondays honoring the 15-day advance notice
+  function generateUpcomingMondays() {
+    let minBookingDate;
+
+    if (BAND_CONFIG.manualStartDate) {
+      // Use the manually configured start date
+      minBookingDate = new Date(BAND_CONFIG.manualStartDate);
+      minBookingDate.setHours(0, 0, 0, 0); // Reset time to midnight
+    } else {
+      // Move to the earliest allowable booking date (today + advance days)
+      const today = new Date();
+      minBookingDate = new Date(today);
+      minBookingDate.setDate(today.getDate() + BAND_CONFIG.advanceNoticeDays);
+      minBookingDate.setHours(0, 0, 0, 0); // Reset time to midnight
+    }
+
+    let mondaysFound = 0;
+    let currentDate = new Date(minBookingDate);
+
+    // Find the very first Monday on or after the minBookingDate
+    while (currentDate.getDay() !== 1) { // 1 = Monday
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    // Populate dropdown
+    while (mondaysFound < BAND_CONFIG.maxMondaysToShow) {
+      const dateKey = formatDateKey(currentDate);
+
+      // Skip if this entire date is disabled in config
+      if (!BAND_CONFIG.disabledDates.includes(dateKey)) {
+        const option = document.createElement('option');
+        option.value = dateKey;
+        // Format for display: e.g., "Monday, Sept 28, 2026"
+        option.text = currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' });
+        dateSelect.appendChild(option);
+        mondaysFound++;
+      }
+
+      // Move to next week
+      currentDate.setDate(currentDate.getDate() + 7);
+    }
+  }
+
+  // Populate time slots based on selected date
+  function renderTimeSlots(selectedDateKey) {
+    timeContainer.innerHTML = ''; // clear previous
+    if (!selectedDateKey) {
+      noSlotMsg.classList.remove('hidden');
+      return;
+    }
+    noSlotMsg.classList.add('hidden');
+
+    const disabledTimesForDate = BAND_CONFIG.disabledSlots[selectedDateKey] || [];
+
+    BAND_CONFIG.timeSlots.forEach((slotText, index) => {
+      const isConfigDisabled = disabledTimesForDate.includes(slotText);
+      const id = `slot_${index}`;
+
+      const label = document.createElement('label');
+      label.className = 'time-chip';
+      label.innerHTML = `
+        <input type="radio" name="slotTime" value="${slotText}" required ${isConfigDisabled ? 'disabled' : ''}>
+        <span class="box">${slotText}</span>
+      `;
+      timeContainer.appendChild(label);
+    });
+  }
+
+  // Listen for date selection changes
+  dateSelect.addEventListener('change', (e) => {
+    renderTimeSlots(e.target.value);
+  });
+
+  // Initialize
+  generateUpcomingMondays();
+
+  // ==========================================
+  // UTILS & VALIDATION
+  // ==========================================
+  function showToast(message, type = 'error') {
+    const stack = document.getElementById('toastStack');
+    const toast = document.createElement('div');
+    toast.className = 'toast' + (type === 'success' ? ' success' : '');
+    toast.innerHTML = `<span>${type === 'success' ? '✅' : '⚠️'}</span><span>${message}</span><button type="button" class="toast-close" aria-label="Dismiss">✕</button>`;
+    stack.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('show'));
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    });
+  }
+
+  const PHONE_REGEX = /^[6-9]\d{9}$/;
+
+  function clearError(el) { el.classList.remove('field-error'); }
+  function markError(el) { el.classList.add('field-error'); }
+
+  // Generic clear errors on input
+  document.addEventListener('input', (e) => {
+    if (e.target.classList.contains('field-error')) clearError(e.target);
+  });
+  document.addEventListener('change', (e) => {
+    if (e.target.classList.contains('field-error')) clearError(e.target);
+  });
+
+  // ==========================================
+  // FORM 1: NEW REGISTRATION SUBMISSION
+  // ==========================================
+  document.getElementById('auditionForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.target;
+    form.querySelectorAll('.field-error').forEach(clearError);
+    const errors = [];
+    let firstInvalid = null;
+
+    const flag = (el, msg) => { markError(el); errors.push(msg); if(!firstInvalid) firstInvalid = el; };
+
+    if (!form.audName.value.trim()) flag(form.audName, 'Please enter your name.');
+
+    if (!PHONE_REGEX.test(form.audPhone.value.trim())) flag(form.audPhone, 'Valid 10-digit phone required.');
+    if (!PHONE_REGEX.test(form.audWhatsapp.value.trim())) flag(form.audWhatsapp, 'Valid 10-digit WhatsApp required.');
+
+    if (!form.audEmail.value.trim() || !/^\S+@\S+\.\S+$/.test(form.audEmail.value)) flag(form.audEmail, 'Valid email required.');
+    if (!form.audAddress.value.trim()) flag(form.audAddress, 'Address is required.');
+    if (!form.audExperience.value.trim()) flag(form.audExperience, 'Please share your musical experience.');
+
+    if (errors.length > 0) {
+      showToast(errors[0], 'error');
+      firstInvalid.focus();
+      return;
+    }
+
+    // Build WhatsApp Message
+    const message = `*New Band Audition Application*\n\n`
+            + `*Name:* ${form.audName.value.trim()}\n`
+            + `*Phone:* ${form.audPhone.value.trim()}\n`
+            + `*WhatsApp:* ${form.audWhatsapp.value.trim()}\n`
+            + `*Email:* ${form.audEmail.value.trim()}\n`
+            + `*Profession:* ${form.audProfession.value.trim() || 'N/A'}\n`
+            + `*Address:* ${form.audAddress.value.trim()}\n\n`
+            + `*Experience:* ${form.audExperience.value.trim()}`;
+
+    const url = `https://wa.me/${BAND_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+
+    // Optional reset
+    // form.reset(); 
+  });
+
+  // ==========================================
+  // FORM 2: SLOT BOOKING SUBMISSION
+  // ==========================================
+  document.getElementById('slotForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.target;
+    form.querySelectorAll('.field-error').forEach(clearError);
+    const errors = [];
+    let firstInvalid = null;
+
+    const flag = (el, msg) => { markError(el); errors.push(msg); if(!firstInvalid) firstInvalid = el; };
+
+    if (!form.slotName.value.trim()) flag(form.slotName, 'Please enter your name.');
+    if (!PHONE_REGEX.test(form.slotPhone.value.trim())) flag(form.slotPhone, 'Valid 10-digit phone required.');
+    if (!PHONE_REGEX.test(form.slotWhatsapp.value.trim())) flag(form.slotWhatsapp, 'Valid 10-digit WhatsApp required.');
+
+    if (!form.slotDate.value) flag(form.slotDate, 'Please select a date.');
+
+    const selectedTime = form.querySelector('input[name="slotTime"]:checked');
+    if (!selectedTime) {
+      errors.push('Please select an available time slot.');
+    }
+
+    if (errors.length > 0) {
+      showToast(errors[0], 'error');
+      if(firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    // Convert raw YYYY-MM-DD back to readable string for the message
+    const dateObj = new Date(form.slotDate.value);
+    const readableDate = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' });
+
+    // Build WhatsApp Message
+    const message = `*Band Practice Slot Booking*\n\n`
+            + `*Name:* ${form.slotName.value.trim()}\n`
+            + `*Phone:* ${form.slotPhone.value.trim()}\n`
+            + `*WhatsApp:* ${form.slotWhatsapp.value.trim()}\n\n`
+            + `*Booked Date:* ${readableDate}\n`
+            + `*Booked Time:* ${selectedTime.value}\n\n`
+            + `*Transaction ID:* ${form.slotTxn.value.trim() || 'Not Provided'}`;
+
+    const url = `https://wa.me/${BAND_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  });
+
+  // ==========================================
+  // PAYMENT UI INTERACTIONS
+  // ==========================================
+  // QR zoom modal
+  const qrModal = document.getElementById('qrModal');
+  const qrModalCard = document.getElementById('qrModalCard');
+
+  function openQrModal() {
+    qrModal.classList.remove('hidden');
+    qrModalCard.style.transform = 'scale(.9)';
+    qrModalCard.style.opacity = '0';
+    requestAnimationFrame(() => {
+      qrModalCard.style.transform = 'scale(1)';
+      qrModalCard.style.opacity = '1';
+    });
+    document.body.style.overflow = 'hidden';
+  }
+  function closeQrModal() {
+    qrModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('qrOpenBtn')?.addEventListener('click', openQrModal);
+  document.getElementById('qrCloseBtn')?.addEventListener('click', closeQrModal);
+  qrModal?.addEventListener('click', (e) => { if (e.target === qrModal) closeQrModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !qrModal.classList.contains('hidden')) closeQrModal(); });
+
+  // Copy buttons
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      let text = document.getElementById(btn.dataset.copy).textContent.trim();
+      if (btn.dataset.copyStripSpaces === 'true') text = text.replace(/\s+/g, '');
+      navigator.clipboard?.writeText(text);
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = original; }, 1500);
+    });
+  });
+
+</script>
+</body>
+</html>
