@@ -101,9 +101,46 @@
     .scallop-cream{
       background: radial-gradient(circle at 10px -6px, transparent 14px, #F6EEDF 15px) 0 0/24px 24px repeat-x;
     }
+
+    /* Form & Modal Additions for Workshop */
+    input[type=text], input[type=email], input[type=tel], textarea {
+      width:100%; background:#fff; border:1px solid rgba(122,31,43,.18); border-radius:0.85rem;
+      padding:.75rem 1rem !important; margin:0; font-family:'Mukta',sans-serif; font-size:16px; color:#1C1A24;
+      box-sizing:border-box; transition:border-color .25s ease, box-shadow .25s ease;
+    }
+    textarea { padding:.75rem 1rem !important; resize:vertical; min-height:4.5rem; line-height:1.5; }
+    input:focus, textarea:focus { outline:none; border-color:#7A1F2B; box-shadow:0 0 0 3px rgba(122,31,43,.12); }
+    input.field-error, textarea.field-error { border-color:#B3261E !important; box-shadow:0 0 0 3px rgba(179,38,30,.12) !important; }
+    label.field-label { display:block; font-family:'Baloo Da 2',sans-serif; font-weight:600; font-size:.85rem; color:#1C1A24; margin-bottom:.4rem; }
+
+    /* Toasts */
+    #toastStack {
+      position:fixed !important; left:50% !important; right:auto !important; top:auto !important;
+      bottom:calc(1rem + env(safe-area-inset-bottom)) !important;
+      transform:translateX(-50%); z-index:9999; width:calc(100% - 2rem); max-width:26rem;
+      display:flex; flex-direction:column-reverse; gap:.5rem; pointer-events:none;
+    }
+    .toast {
+      pointer-events:auto; background:#1C1A24; color:#FBF7EE; font-family:'Mukta',sans-serif; font-size:.9rem;
+      border-left:4px solid #B3261E; border-radius:0.75rem; padding:.85rem 1rem; box-shadow:0 10px 30px -8px rgba(28,26,36,.45);
+      display:flex; align-items:flex-start; gap:.6rem; opacity:0; transform:translateY(16px); transition:opacity .3s ease, transform .3s ease;
+    }
+    .toast.show { opacity:1; transform:translateY(0); }
+    .toast.success { border-left-color:#0E5C56; }
+    .toast-close {
+      pointer-events:auto; background:transparent; border:none; color:#FBF7EE; opacity:.65; cursor:pointer;
+      font-size:1rem; line-height:1; padding:0 0 0 .35rem; margin-left:auto; flex-shrink:0;
+    }
+    .toast-close:hover { opacity:1; }
+
+    .modal-overlay { transition: opacity .3s ease; }
+    .modal-card { transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; }
   </style>
 </head>
 <body class="antialiased pb-16 lg:pb-0">
+
+<!-- ============ TOAST STACK ============ -->
+<div id="toastStack" aria-live="assertive" aria-atomic="true"></div>
 
 <!-- ============ TOP BAR ============ -->
 <div class="bg-ink text-cream/80 text-xs sm:text-sm">
@@ -671,10 +708,10 @@
           <span class="bg-cream/10 px-3 py-1.5 rounded-full">🎬 Real-World Filmmaking Insights</span>
         </div>
 
-        <a href="#" class="coming-soon-link mt-8 inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-ink font-display font-bold px-8 py-4 rounded-full shadow-soft transition-colors glow-pulse">
+        <button type="button" id="workshopRegBtn" class="mt-8 inline-flex items-center gap-2 bg-gold hover:bg-gold-light text-ink font-display font-bold px-8 py-4 rounded-full shadow-soft transition-colors glow-pulse">
           Register for this Workshop
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
+        </button>
         <p class="mt-3 text-cream/50 text-xs font-body">Limited seats — book your spot now.</p>
       </div>
 
@@ -729,7 +766,6 @@
     </div>
   </div>
 </section>
-
 
 <!-- ============ CONTACT US ============ -->
 <section id="contact-us" class="bg-cream py-20">
@@ -841,6 +877,135 @@
   </div>
 </section>
 
+<!-- ============ WORKSHOP MODAL ============ -->
+<div id="workshopModal" class="hidden fixed inset-0 z-[60] modal-overlay bg-ink/85 backdrop-blur-sm flex items-center justify-center p-4">
+  <div id="workshopModalCard" class="modal-card relative w-full max-w-2xl bg-paper rounded-3xl overflow-y-auto max-h-[90vh] shadow-2xl p-6 sm:p-10 border border-maroon/10">
+    <button id="workshopCloseBtn" type="button" aria-label="Close" class="absolute top-5 right-5 sm:top-7 sm:right-7 w-10 h-10 rounded-full bg-maroon/10 text-maroon hover:bg-maroon hover:text-cream transition-colors flex items-center justify-center text-xl shadow-sm">✕</button>
+
+    <div class="flex items-center gap-3 mb-2">
+      <span class="w-10 h-10 rounded-full bg-maroon text-cream flex items-center justify-center text-xl shrink-0 shadow-soft">🎬</span>
+      <h2 class="font-display font-extrabold text-2xl sm:text-3xl text-maroon">Workshop Registration</h2>
+    </div>
+    <p class="text-ink/65 text-sm font-body mb-6 pb-6 border-b border-maroon/10">Fill out your details to apply for the Mobile Filmmaking Workshop.</p>
+
+    <form id="workshopForm" class="space-y-6 sm:space-y-8" novalidate>
+      <!-- Personal Details -->
+      <div class="grid sm:grid-cols-2 gap-4 sm:gap-5">
+        <div class="sm:col-span-2">
+          <label class="field-label">Full Name <span class="text-maroon">*</span></label>
+          <input type="text" name="wsName" required placeholder="Enter your full name">
+        </div>
+        <div>
+          <label class="field-label">Phone Number <span class="text-maroon">*</span></label>
+          <input type="tel" name="wsPhone" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit mobile number">
+        </div>
+        <div>
+          <label class="field-label">WhatsApp Number <span class="text-maroon">*</span></label>
+          <input type="tel" name="wsWhatsapp" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit WhatsApp number">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="field-label">Email ID <span class="text-maroon">*</span></label>
+          <input type="email" name="wsEmail" required placeholder="you@example.com">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="field-label">Profession</label>
+          <input type="text" name="wsProfession" placeholder="Student / Employed / Other">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="field-label">Address <span class="text-maroon">*</span></label>
+          <textarea name="wsAddress" rows="2" required placeholder="House no, road, area, city, PIN"></textarea>
+        </div>
+        <div class="sm:col-span-2">
+          <label class="field-label">Other Details</label>
+          <textarea name="wsDetails" rows="2" placeholder="Any prior experience in filmmaking/photography, or other information..."></textarea>
+        </div>
+      </div>
+
+      <!-- Payment Section -->
+      <div class="bg-paper border border-maroon/10 rounded-3xl p-5 sm:p-7 shadow-soft mt-8">
+        <h2 class="font-display font-bold text-xl text-ink mb-5">Payment</h2>
+
+        <div class="flex flex-wrap items-center justify-between gap-4 bg-ink rounded-2xl p-6 mb-7">
+          <div>
+            <p class="text-cream/50 text-xs font-body uppercase tracking-wide">Workshop Fee</p>
+            <p class="font-display font-extrabold text-4xl text-gold mt-1">₹5,000</p>
+          </div>
+          <p class="text-cream/50 text-xs font-body max-w-[220px] text-right">Fee for the 5-day Mobile Filmmaking Workshop.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-7 sm:items-center">
+          <!-- QR -->
+          <div class="flex flex-col items-center text-center justify-self-center w-full">
+            <button type="button" id="qrOpenBtn" class="qr-frame w-44 h-44 rounded-2xl p-3 shadow-soft cursor-zoom-in transition-transform hover:scale-[1.02]" aria-label="View larger QR code">
+              <img src="./images/irca_qr.png" alt="Scan to pay via UPI" class="w-full h-full object-contain pointer-events-none" onerror="this.src='https://placehold.co/400x400/F6EEDF/7A1F2B?text=QR+Code'">
+            </button>
+            <p class="font-display font-semibold text-ink text-sm mt-3">Scan to pay via UPI</p>
+            <p class="text-ink/40 text-xs font-body mt-0.5">Tap to enlarge</p>
+          </div>
+
+          <!-- UPI / Bank details -->
+          <div class="space-y-4">
+            <div class="bg-cream rounded-2xl p-4 flex items-center justify-between gap-3">
+              <div>
+                <p class="text-ink/45 text-xs font-body uppercase tracking-wide">UPI ID</p>
+                <p class="font-display font-semibold text-ink text-sm mt-0.5" id="upiId">
+                  <a href="upi://pay?pa=7439548102@ptsbi">7439548102@ptsbi</a>
+                </p>
+                <p class="text-ink/50 text-xs font-body mt-1">Name: Goutam Chatterjee</p>
+              </div>
+              <button type="button" data-copy="upiId" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+            </div>
+            <div class="bg-cream rounded-2xl p-4 space-y-3">
+              <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Bank Transfer Details</p>
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Account Name</p>
+                  <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="acctName">ICHAPUR RUPSA CULTURAL ASSOCIATION</p>
+                </div>
+                <button type="button" data-copy="acctName" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+              </div>
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Account No.</p>
+                  <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="acctNo">4475 4935 246</p>
+                </div>
+                <button type="button" data-copy="acctNo" data-copy-strip-spaces="true" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+              </div>
+              <div class="flex items-start justify-between gap-3">
+                <div class="min-w-0">
+                  <p class="text-ink/45 text-xs font-body uppercase tracking-wide">IFSC Code</p>
+                  <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="ifsc">SBIN0001797</p>
+                </div>
+                <button type="button" data-copy="ifsc" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-7">
+          <label class="field-label">Transaction ID / UTR (Optional)</label>
+          <input type="text" name="wsTxn" placeholder="Enter transaction reference number if paid">
+          <p class="text-ink/45 text-xs font-body mt-1.5">No screenshot required. Just enter the reference number so we can match your payment.</p>
+        </div>
+      </div>
+
+      <button type="submit" class="w-full bg-maroon hover:bg-maroon-dark text-cream font-display font-bold text-lg py-4 rounded-full shadow-soft transition-colors glow-pulse mt-8">
+        Send Application via WhatsApp
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ QR ZOOM MODAL ============ -->
+<div id="qrModal" class="hidden fixed inset-0 z-[70] modal-overlay bg-ink/85 backdrop-blur-sm flex items-center justify-center p-4">
+  <div id="qrModalCard" class="modal-card relative w-full max-w-md">
+    <button id="qrCloseBtn" type="button" aria-label="Close" class="absolute -top-12 right-0 sm:-right-2 w-10 h-10 rounded-full bg-paper/90 text-ink flex items-center justify-center text-xl shadow-soft">✕</button>
+    <div class="bg-white rounded-3xl p-5 shadow-soft">
+      <img src="./images/irca_qr_details.png" alt="Scan to pay via UPI" class="w-full h-auto rounded-xl" onerror="this.src='https://placehold.co/600x600/F6EEDF/7A1F2B?text=Large+QR+Code'">
+    </div>
+  </div>
+</div>
+
 <!-- ============ FOOTER ============ -->
 <footer id="contact" class="bg-ink text-cream/70 pt-16 pb-8">
   <div class="max-w-7xl mx-auto px-4 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
@@ -942,6 +1107,141 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   revealEls.forEach(el => io.observe(el));
+
+
+  // ==========================================
+  // WORKSHOP REGISTRATION LOGIC
+  // ==========================================
+
+  // Modal Interactions
+  const workshopRegBtn = document.getElementById('workshopRegBtn');
+  const workshopModal = document.getElementById('workshopModal');
+  const workshopModalCard = document.getElementById('workshopModalCard');
+  const workshopCloseBtn = document.getElementById('workshopCloseBtn');
+  const workshopForm = document.getElementById('workshopForm');
+
+  function openWorkshopModal() {
+    workshopModal.classList.remove('hidden');
+    workshopModalCard.style.transform = 'scale(.9)';
+    workshopModalCard.style.opacity = '0';
+    requestAnimationFrame(() => {
+      workshopModalCard.style.transform = 'scale(1)';
+      workshopModalCard.style.opacity = '1';
+    });
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeWorkshopModal() {
+    workshopModalCard.style.transform = 'scale(.9)';
+    workshopModalCard.style.opacity = '0';
+    setTimeout(() => {
+      workshopModal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }, 300);
+  }
+
+  workshopRegBtn?.addEventListener('click', openWorkshopModal);
+  workshopCloseBtn?.addEventListener('click', closeWorkshopModal);
+  workshopModal?.addEventListener('click', (e) => { if (e.target === workshopModal) closeWorkshopModal(); });
+
+  // Form Validation & Utils
+  function showToast(message, type = 'error') {
+    const stack = document.getElementById('toastStack');
+    const toast = document.createElement('div');
+    toast.className = 'toast' + (type === 'success' ? ' success' : '');
+    toast.innerHTML = `<span>${type === 'success' ? '✅' : '⚠️'}</span><span>${message}</span><button type="button" class="toast-close" aria-label="Dismiss">✕</button>`;
+    stack.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('show'));
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    });
+  }
+
+  const PHONE_REGEX = /^[6-9]\d{9}$/;
+  function clearError(el) { el.classList.remove('field-error'); }
+  function markError(el) { el.classList.add('field-error'); }
+
+  document.addEventListener('input', (e) => {
+    if (e.target.classList.contains('field-error')) clearError(e.target);
+  });
+
+  // Workshop Submit Handler
+  workshopForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const form = e.target;
+    form.querySelectorAll('.field-error').forEach(clearError);
+    const errors = [];
+    let firstInvalid = null;
+
+    const flag = (el, msg) => { markError(el); errors.push(msg); if(!firstInvalid) firstInvalid = el; };
+
+    if (!form.wsName.value.trim()) flag(form.wsName, 'Please enter your name.');
+    if (!PHONE_REGEX.test(form.wsPhone.value.trim())) flag(form.wsPhone, 'Valid 10-digit phone required.');
+    if (!PHONE_REGEX.test(form.wsWhatsapp.value.trim())) flag(form.wsWhatsapp, 'Valid 10-digit WhatsApp required.');
+    if (!form.wsEmail.value.trim() || !/^\S+@\S+\.\S+$/.test(form.wsEmail.value)) flag(form.wsEmail, 'Valid email required.');
+    if (!form.wsAddress.value.trim()) flag(form.wsAddress, 'Address is required.');
+
+    if (errors.length > 0) {
+      showToast(errors[0], 'error');
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    // Build WhatsApp Message
+    const message = `*Workshop Registration*\n\n`
+            + `*Name:* ${form.wsName.value.trim()}\n`
+            + `*Phone:* ${form.wsPhone.value.trim()}\n`
+            + `*WhatsApp:* ${form.wsWhatsapp.value.trim()}\n`
+            + `*Email:* ${form.wsEmail.value.trim()}\n`
+            + `*Profession:* ${form.wsProfession.value.trim() || 'N/A'}\n`
+            + `*Address:* ${form.wsAddress.value.trim()}\n`
+            + `*Other Details:* ${form.wsDetails.value.trim() || 'N/A'}\n\n`
+            + `*Transaction ID:* ${form.wsTxn.value.trim() || 'Not Provided'}`;
+
+    const whatsappNumber = "918420998994"; // Configured same as the band form
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+  });
+
+  // ==========================================
+  // PAYMENT UI INTERACTIONS
+  // ==========================================
+
+  // QR zoom modal logic
+  const qrModal = document.getElementById('qrModal');
+  const qrModalCard = document.getElementById('qrModalCard');
+
+  function openQrModal() {
+    qrModal.classList.remove('hidden');
+    qrModalCard.style.transform = 'scale(.9)';
+    qrModalCard.style.opacity = '0';
+    requestAnimationFrame(() => {
+      qrModalCard.style.transform = 'scale(1)';
+      qrModalCard.style.opacity = '1';
+    });
+  }
+  function closeQrModal() {
+    qrModalCard.style.transform = 'scale(.9)';
+    qrModalCard.style.opacity = '0';
+    setTimeout(() => { qrModal.classList.add('hidden'); }, 300);
+  }
+  document.getElementById('qrOpenBtn')?.addEventListener('click', openQrModal);
+  document.getElementById('qrCloseBtn')?.addEventListener('click', closeQrModal);
+  qrModal?.addEventListener('click', (e) => { if (e.target === qrModal) closeQrModal(); });
+
+  // Copy buttons
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      let text = document.getElementById(btn.dataset.copy).textContent.trim();
+      if (btn.dataset.copyStripSpaces === 'true') text = text.replace(/\s+/g, '');
+      navigator.clipboard?.writeText(text);
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = original; }, 1500);
+    });
+  });
+
 </script>
 </body>
 </html>
