@@ -227,9 +227,8 @@
     <p class="font-bangla text-cream/70 text-lg sm:text-xl mt-3 tracking-wide">বাংলা ব্যান্ড অনুশীলন</p>
   </div>
 
-  <!-- Info Blocks -->
+  <!-- 
   <div class="relative max-w-4xl mx-auto px-4 pb-16">
-    <!-- Language Tabs -->
     <div class="flex items-center justify-center gap-3 mb-6 relative z-10">
       <button type="button" id="langBnBtn" class="lang-btn active font-display font-bold px-6 py-2 rounded-full border-2 text-sm sm:text-base" onclick="switchLang('bn')">বাংলা</button>
       <button type="button" id="langEnBtn" class="lang-btn font-display font-bold px-6 py-2 rounded-full border-2 text-sm sm:text-base" onclick="switchLang('en')">English</button>
@@ -251,6 +250,7 @@
     </div>
   </div>
   <div class="scallop-cream"></div>
+  -->
 </section>
 
 <!-- ============ REGISTRATION FORMS ============ -->
@@ -291,13 +291,13 @@
 
       <!-- Date & Slot Selection -->
       <div class="bg-paper border border-maroon/10 rounded-3xl p-5 sm:p-9 shadow-soft">
-        <h2 class="font-display font-bold text-xl text-ink mb-5">Select Monday Slot</h2>
+        <h2 class="font-display font-bold text-xl text-ink mb-5">Select Practice Slot</h2>
 
         <div class="grid gap-6">
           <div>
-            <label class="field-label">Select Date (Upcoming Mondays) <span class="text-maroon">*</span></label>
+            <label class="field-label">Select Date (<span id="dynamicDayNameLabel">Upcoming Practice Days</span>) <span class="text-maroon">*</span></label>
             <select name="slotDate" id="slotDateSelect" required>
-              <option value="" selected disabled>Select an available Monday...</option>
+              <option value="" selected disabled>Select an available date...</option>
               <!-- Options populated by JS -->
             </select>
           </div>
@@ -508,20 +508,24 @@
 
     // Optional: Set a specific starting date (Format: "YYYY-MM-DD").
     // If set, this overrides the 15-day advance notice logic below.
-    manualStartDate: "2026-09-21",
+    manualStartDate: "2026-10-04",
 
     // Booking requires 15 days advance notice (used if manualStartDate is empty)
     advanceNoticeDays: 15,
 
-    // How many upcoming Mondays to show in the dropdown
-    maxMondaysToShow: 6,
+    // Day of the week for practice (0 = Sunday, 1 = Monday, 2 = Tuesday, etc.)
+    practiceDayOfWeek: 0,
 
-    // Default time slots available every Monday
+    // How many upcoming practice days to show in the dropdown
+    maxDaysToShow: 6,
+
+    // Default time slots available
     timeSlots: [
+      "4:00 PM - 5:00 PM",
+      "5:00 PM - 6:00 PM",
       "6:00 PM - 7:00 PM",
       "7:00 PM - 8:00 PM",
-      "8:00 PM - 9:00 PM",
-      "9:00 PM - 10:00 PM"
+      "8:00 PM - 9:00 PM"
     ],
 
     // Completely disable specific dates (Format: "YYYY-MM-DD")
@@ -589,8 +593,14 @@
     return `${yyyy}-${mm}-${dd}`;
   }
 
-  // Generate upcoming Mondays honoring the 15-day advance notice
-  function generateUpcomingMondays() {
+  // Generate upcoming practice days honoring the 15-day advance notice
+  function generateUpcomingDays() {
+    const dayNamesPlural = ['Sundays', 'Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays'];
+    const dynamicDayLabel = document.getElementById('dynamicDayNameLabel');
+    if (dynamicDayLabel) {
+      dynamicDayLabel.textContent = `Upcoming ${dayNamesPlural[BAND_CONFIG.practiceDayOfWeek]}`;
+    }
+
     let minBookingDate;
 
     if (BAND_CONFIG.manualStartDate) {
@@ -605,16 +615,16 @@
       minBookingDate.setHours(0, 0, 0, 0); // Reset time to midnight
     }
 
-    let mondaysFound = 0;
+    let daysFound = 0;
     let currentDate = new Date(minBookingDate);
 
-    // Find the very first Monday on or after the minBookingDate
-    while (currentDate.getDay() !== 1) { // 1 = Monday
+    // Find the very first practice day on or after the minBookingDate
+    while (currentDate.getDay() !== BAND_CONFIG.practiceDayOfWeek) {
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
     // Populate dropdown
-    while (mondaysFound < BAND_CONFIG.maxMondaysToShow) {
+    while (daysFound < BAND_CONFIG.maxDaysToShow) {
       const dateKey = formatDateKey(currentDate);
 
       // Skip if this entire date is disabled in config
@@ -624,7 +634,7 @@
         // Format for display: e.g., "Monday, Sept 28, 2026"
         option.text = currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' });
         dateSelect.appendChild(option);
-        mondaysFound++;
+        daysFound++;
       }
 
       // Move to next week
@@ -663,7 +673,7 @@
   });
 
   // Initialize
-  generateUpcomingMondays();
+  generateUpcomingDays();
 
   // ==========================================
   // UTILS & VALIDATION
