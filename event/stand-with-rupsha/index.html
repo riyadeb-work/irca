@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stand With Rupsha - Event & Ticket Booking | IRCA</title>
+  <meta name="description" content="Book tickets for A Musical Evening For A Cause - Stand With Rupsha.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Baloo+Da+2:wght@500;600;700;800&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#1C1A24',
+            maroon: { DEFAULT: '#7A1F2B', dark:'#5A1620', light:'#9C3040' },
+            gold: { DEFAULT: '#C9972A', light:'#E4C266', dark:'#9C731D' },
+            cream: '#F6EEDF',
+            paper: '#FBF7EE',
+            teal: { DEFAULT:'#0E5C56', dark:'#0A423D' },
+            rose: { DEFAULT:'#D6236F', dark:'#A8175A', light:'#F04D93' },
+          },
+          fontFamily: {
+            display: ['"Baloo Da 2"','sans-serif'],
+            bangla: ['"Tiro Bangla"','serif'],
+            body: ['"Mukta"','sans-serif'],
+          },
+          boxShadow: { soft: '0 10px 30px -12px rgba(28,26,36,0.25)' }
+        }
+      }
+    }
+  </script>
+  <style>
+    html{scroll-behavior:smooth;}
+    body{font-family:'Mukta',sans-serif;background:#FBF7EE;color:#1C1A24;}
+    .font-display{font-family:'Baloo Da 2',sans-serif;}
+    .font-bangla{font-family:'Tiro Bangla',serif;}
+    ::selection{background:#C9972A;color:#1C1A24;}
+
+    .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+    .reveal.in{opacity:1; transform:translateY(0);}
+
+    .glow-pulse{ box-shadow:0 0 0 0 rgba(201,151,42,.5); animation:pulse 2.6s infinite; }
+    @keyframes pulse{
+      0%{box-shadow:0 0 0 0 rgba(201,151,42,.45);}
+      70%{box-shadow:0 0 0 14px rgba(201,151,42,0);}
+      100%{box-shadow:0 0 0 0 rgba(201,151,42,0);}
+    }
+
+    .scallop-cream{ background: radial-gradient(circle at 10px -6px, transparent 14px, #F6EEDF 15px) 0 0/24px 24px repeat-x; }
+
+    input[type=text], input[type=tel], select, textarea{
+      width:100%; background:#fff; border:1px solid rgba(122,31,43,.18); border-radius:0.85rem;
+      padding:.75rem 1rem !important; margin:0; font-family:'Mukta',sans-serif; font-size:16px; color:#1C1A24;
+      box-sizing:border-box; transition:border-color .25s ease, box-shadow .25s ease;
+    }
+    input:focus, select:focus{
+      outline:none; border-color:#7A1F2B; box-shadow:0 0 0 3px rgba(122,31,43,.12);
+    }
+    input.field-error, select.field-error{
+      border-color:#B3261E !important; box-shadow:0 0 0 3px rgba(179,38,30,.12) !important;
+    }
+    .upload-zone{ border:2px dashed rgba(122,31,43,.3); transition: all .25s ease; cursor:pointer;}
+    .upload-zone:hover{ border-color:#C9972A; background:rgba(201,151,42,.06); }
+    .upload-zone.field-error{
+      border-color:#B3261E !important; box-shadow:0 0 0 3px rgba(179,38,30,.12) !important;
+    }
+    label.field-label{ display:block; font-family:'Baloo Da 2',sans-serif; font-weight:600; font-size:.85rem; color:#1C1A24; margin-bottom:.4rem; }
+
+    /* ---- Toast ---- */
+    #toastStack{
+      position:fixed !important; left:50% !important; right:auto !important; top:auto !important;
+      bottom:calc(1rem + env(safe-area-inset-bottom)) !important;
+      transform:translateX(-50%); z-index:9999; width:calc(100% - 2rem); max-width:26rem;
+      display:flex; flex-direction:column-reverse; gap:.5rem; pointer-events:none;
+    }
+    .toast{
+      pointer-events:auto; background:#1C1A24; color:#FBF7EE; font-family:'Mukta',sans-serif; font-size:.9rem;
+      border-left:4px solid #B3261E; border-radius:0.75rem; padding:.85rem 1rem; box-shadow:0 10px 30px -8px rgba(28,26,36,.45);
+      display:flex; align-items:flex-start; gap:.6rem; opacity:0; transform:translateY(16px); transition:opacity .3s ease, transform .3s ease;
+    }
+    .toast.show{ opacity:1; transform:translateY(0); }
+    .toast.success{ border-left-color:#0E5C56; }
+    .toast-close{
+      pointer-events:auto; background:transparent; border:none; color:#FBF7EE; opacity:.65; cursor:pointer;
+      font-size:1rem; padding:0 0 0 .35rem; margin-left:auto;
+    }
+    
+    .subject-chip{ cursor:pointer; transition: all .25s ease; }
+    .subject-chip input{ display:none; }
+    .subject-chip .box{
+      width:20px; height:20px; border-radius:10px; border:2px solid rgba(122,31,43,.35);
+      display:flex; align-items:center; justify-content:center; transition: all .2s ease; flex-shrink:0;
+    }
+    .subject-chip input:checked ~ .box{ background:#7A1F2B; border-color:#7A1F2B; }
+    .subject-chip input:checked ~ .box svg{ opacity:1; transform:scale(1); }
+    .subject-chip .box svg{ opacity:0; transform:scale(.5); transition: all .2s ease; }
+    .subject-chip:has(input:checked){ background:rgba(122,31,43,.06); border-color:#7A1F2B; }
+    
+    .modal-overlay{ transition: opacity .3s ease; }
+    .modal-card{ transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; }
+  </style>
+</head>
+<body class="antialiased">
+
+<div id="toastStack" aria-live="assertive" aria-atomic="true"></div>
+
+<!-- ============ SUBMISSION LOADER ============ -->
+<div id="submitLoader" class="hidden fixed inset-0 z-[100] bg-ink/85 backdrop-blur-sm flex items-center justify-center p-4">
+  <div class="bg-paper rounded-3xl max-w-xs w-full p-8 text-center shadow-soft">
+    <svg class="animate-spin h-10 w-10 text-maroon mx-auto mb-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+    </svg>
+    <h3 class="font-display font-bold text-lg text-ink">Processing booking…</h3>
+    <p class="text-ink/60 font-body text-sm mt-2 leading-relaxed">Please wait while we secure your tickets.</p>
+  </div>
+</div>
+
+<div id="header-placeholder"></div>
+
+<!-- ============ EVENT DETAILS HERO ============ -->
+<section class="relative overflow-hidden bg-ink text-cream pt-14 pb-16">
+  <div class="absolute inset-0 opacity-[0.14]" style="background-image:radial-gradient(circle at 1px 1px, #C9972A 1px, transparent 1px); background-size:26px 26px;"></div>
+  <div class="absolute -right-24 -top-24 w-[380px] h-[380px] rounded-full bg-rose/30 blur-3xl"></div>
+  <div class="relative max-w-5xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
+    <div>
+      <p class="font-bangla text-rose text-base sm:text-lg mb-2">A MUSICAL EVENING FOR A CAUSE</p>
+      <h1 class="font-display font-extrabold text-4xl sm:text-5xl leading-tight text-white mb-4">Stand With Rupsha</h1>
+      <p class="text-cream/80 font-body text-sm sm:text-base leading-relaxed mb-6">
+        Our beloved Rupsha Chatterjee has been battling brain cancer for the past 3 years. Her regular check-ups every 3 months require a significant amount of money, which has become difficult for our family to manage. To raise funds towards her treatment, we are organizing a cultural programme in support of Rupsha. Let's stand together for a brighter tomorrow.
+      </p>
+      
+      <div class="bg-paper/10 rounded-2xl p-5 border border-cream/10 space-y-3 font-body text-sm sm:text-base">
+        <p class="flex items-center gap-3"><span class="text-rose text-xl">🗓️</span> Saturday, 26th December 2026</p>
+        <p class="flex items-center gap-3"><span class="text-rose text-xl">⏰</span> 5:00 PM - 9:00 PM</p>
+        <p class="flex items-center gap-3"><span class="text-rose text-xl">📍</span> Ichapur Bikash Basu Convention Hall</p>
+        <p class="flex items-start gap-3"><span class="text-rose text-xl shrink-0">📞</span> <span class="break-words">8420988994, 8697672487, 8282633160, 9165033733, 9830341831</span></p>
+      </div>
+    </div>
+    
+    <div class="bg-paper text-ink rounded-3xl p-6 sm:p-8 shadow-soft reveal">
+      <h3 class="font-display font-bold text-2xl text-maroon mb-4">Performers</h3>
+      <div class="space-y-4">
+        <div class="flex gap-4">
+          <div class="flex-1">
+            <h4 class="font-display font-bold text-lg">Ayush Gupta</h4>
+            <p class="text-sm text-ink/70">Zee Bangla Sa Re Ga Ma Pa 2026, Champion</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex-1">
+            <h4 class="font-display font-bold text-lg">Sayantani Ghosh</h4>
+            <p class="text-sm text-ink/70">Zee Bangla Sa Re Ga Ma Pa 2026, Finalist</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex-1">
+            <h4 class="font-display font-bold text-lg">Srijan Porel</h4>
+            <p class="text-sm text-ink/70">Zee Bangla Sa Re Ga Ma Pa 2026, Runner Up & Indian Idol Participant</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="flex-1">
+            <h4 class="font-display font-bold text-lg">Arijit Chakraborty</h4>
+            <p class="text-sm text-ink/70">Zee Bangla Sa Re Ga Ma Pa 2026 & Zee TV Back Vocalist</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="scallop-cream absolute bottom-0 left-0 right-0 translate-y-1/2"></div>
+</section>
+
+<!-- ============ ARTISTS BANNER ============ -->
+<section class="max-w-4xl mx-auto px-4 pt-16 -mb-8 reveal">
+  <img src="images/artists.png" alt="Artists Banner" class="w-full h-auto rounded-3xl shadow-soft border border-maroon/10">
+</section>
+
+<!-- ============ BOOKING FORM ============ -->
+<section class="max-w-4xl mx-auto px-4 py-16 pb-28">
+  <div class="text-center mb-10 reveal">
+    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink">Book Your Tickets</h2>
+    <p class="mt-3 text-ink/60 font-body">Reserve your seats for the musical evening. On successful booking, you will receive a Booking ID to collect your physical tickets.</p>
+  </div>
+
+  <form id="bookingForm" class="space-y-6 sm:space-y-8" novalidate>
+    
+    <!-- 1. Details & Tickets -->
+    <div class="reveal bg-paper border border-maroon/10 rounded-3xl p-5 sm:p-9">
+      <h3 class="font-display font-bold text-xl text-ink mb-6">1. Your Details & Ticket Selection</h3>
+      
+      <div class="grid sm:grid-cols-2 gap-5 mb-8">
+        <div>
+          <label class="field-label">Name <span class="text-maroon">*</span></label>
+          <input type="text" name="name" required placeholder="Full Name">
+        </div>
+        <div>
+          <label class="field-label">Phone Number <span class="text-maroon">*</span></label>
+          <input type="tel" name="phone" required inputmode="numeric" maxlength="10" pattern="[0-9]{10}" placeholder="10-digit mobile number">
+        </div>
+      </div>
+
+      <label class="field-label mb-3">Select Ticket Category <span class="text-maroon">*</span></label>
+      <div class="grid sm:grid-cols-3 gap-3" id="ticketGrid">
+        <label class="subject-chip flex items-center gap-3 border border-maroon/15 rounded-2xl p-4">
+          <input type="radio" name="ticketType" value="400" data-fee="400">
+          <span class="box"><svg class="w-3 h-3 text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+          <span class="flex-1">
+            <span class="block font-display font-semibold text-ink">Premium</span>
+            <span class="block text-ink/60 text-sm font-body">₹400 / seat</span>
+          </span>
+        </label>
+        <label class="subject-chip flex items-center gap-3 border border-maroon/15 rounded-2xl p-4">
+          <input type="radio" name="ticketType" value="300" data-fee="300">
+          <span class="box"><svg class="w-3 h-3 text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+          <span class="flex-1">
+            <span class="block font-display font-semibold text-ink">Standard</span>
+            <span class="block text-ink/60 text-sm font-body">₹300 / seat</span>
+          </span>
+        </label>
+        <label class="subject-chip flex items-center gap-3 border border-maroon/15 rounded-2xl p-4">
+          <input type="radio" name="ticketType" value="200" data-fee="200">
+          <span class="box"><svg class="w-3 h-3 text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+          <span class="flex-1">
+            <span class="block font-display font-semibold text-ink">General</span>
+            <span class="block text-ink/60 text-sm font-body">₹200 / seat</span>
+          </span>
+        </label>
+      </div>
+      
+      <div class="mt-4">
+        <label class="field-label">Number of Tickets <span class="text-maroon">*</span></label>
+        <select name="ticketCount" id="ticketCount" class="w-full bg-white border border-maroon/20 rounded-xl p-3" required>
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 2. Payment -->
+    <div class="reveal bg-paper border border-maroon/10 rounded-3xl p-5 sm:p-9">
+      <h3 class="font-display font-bold text-xl text-ink mb-6">2. Payment</h3>
+      
+      <div class="flex flex-wrap items-center justify-between gap-4 bg-ink rounded-2xl p-6 mb-7">
+        <div>
+          <p class="text-cream/50 text-xs font-body uppercase tracking-wide">Amount Payable</p>
+          <p id="amountDisplay" class="font-display font-extrabold text-4xl text-gold mt-1">₹0</p>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-7 sm:items-center">
+        <!-- QR -->
+        <div class="flex flex-col items-center text-center justify-self-center w-full">
+          <button type="button" id="qrOpenBtn" class="qr-frame w-44 h-44 rounded-2xl p-3 shadow-soft cursor-zoom-in transition-transform hover:scale-[1.02]" aria-label="View larger QR code">
+            <img src="/images/irca_qr.png" alt="Scan to pay via UPI" class="w-full h-full object-contain pointer-events-none">
+          </button>
+          <p class="font-display font-semibold text-ink text-sm mt-3">Scan to pay via UPI</p>
+          <p class="text-ink/40 text-xs font-body mt-0.5">Tap to enlarge</p>
+        </div>
+
+        <!-- UPI / Bank details -->
+        <div class="space-y-4">
+          <div class="bg-cream rounded-2xl p-4 flex items-center justify-between gap-3">
+            <div>
+              <p class="text-ink/45 text-xs font-body uppercase tracking-wide">UPI ID</p>
+              <p class="font-display font-semibold text-ink text-sm mt-0.5" id="upiId">
+                <a href="upi://pay?pa=7439548102@ptsbi">7439548102@ptsbi</a>
+              </p>
+              <p class="text-ink/50 text-xs font-body mt-1">Name: Goutam Chatterjee</p>
+            </div>
+            <button type="button" data-copy="upiId" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+          </div>
+          <div class="bg-cream rounded-2xl p-4 space-y-3">
+            <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Bank Transfer Details</p>
+
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Account Name</p>
+                <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="acctName">ICHAPUR RUPSA CULTURAL ASSOCIATION</p>
+              </div>
+              <button type="button" data-copy="acctName" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+            </div>
+
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-ink/45 text-xs font-body uppercase tracking-wide">Account No.</p>
+                <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="acctNo">4475 4935 246</p>
+              </div>
+              <button type="button" data-copy="acctNo" data-copy-strip-spaces="true" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+            </div>
+
+            <div class="flex items-start justify-between gap-3">
+              <div class="min-w-0">
+                <p class="text-ink/45 text-xs font-body uppercase tracking-wide">IFSC Code</p>
+                <p class="font-semibold text-ink text-sm mt-0.5 break-words" id="ifsc">SBIN0001797</p>
+              </div>
+              <button type="button" data-copy="ifsc" class="copy-btn shrink-0 text-xs font-body font-semibold text-maroon border border-maroon/25 rounded-full px-3 py-1.5 hover:bg-maroon hover:text-cream transition-colors">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-7">
+        <label class="field-label">Upload Payment Screenshot (Optional)</label>
+        <label for="paymentUpload" id="paymentUploadZone" class="upload-zone rounded-2xl flex items-center gap-4 p-4">
+          <span class="w-14 h-14 rounded-xl bg-teal/10 text-teal flex items-center justify-center text-xl shrink-0">🧾</span>
+          <span class="flex-1">
+            <span class="block font-display font-semibold text-ink text-sm" id="paymentLabel">Tap to upload your payment screenshot</span>
+            <span class="block text-ink/45 text-xs font-body mt-0.5">Helps us verify faster</span>
+          </span>
+          <input id="paymentUpload" name="paymentScreenshot" type="file" accept="image/*" class="hidden">
+        </label>
+        <p class="text-ink/45 text-xs font-body mt-2">Enter the UTR / transaction reference number below:</p>
+        <input type="text" name="utr" class="mt-2" placeholder="UTR / Transaction ID (Optional)">
+      </div>
+    </div>
+
+    <button type="submit" class="reveal w-full bg-maroon hover:bg-maroon-dark text-cream font-display font-bold text-lg py-4 rounded-full shadow-soft transition-colors glow-pulse">
+      Confirm Booking
+    </button>
+  </form>
+</section>
+
+<!-- ============ QR ZOOM MODAL ============ -->
+<div id="qrModal" class="hidden fixed inset-0 z-[70] modal-overlay bg-ink/85 backdrop-blur-sm flex items-center justify-center p-4">
+  <div id="qrModalCard" class="modal-card relative w-full max-w-md">
+    <button id="qrCloseBtn" type="button" aria-label="Close" class="absolute -top-12 right-0 sm:-right-2 w-10 h-10 rounded-full bg-paper/90 text-ink flex items-center justify-center text-xl shadow-soft">✕</button>
+    <div class="bg-white rounded-3xl p-5 shadow-soft">
+      <img src="/images/irca_qr_details.png" alt="Scan to pay via UPI" class="w-full h-auto rounded-xl">
+    </div>
+  </div>
+</div>
+
+<!-- ============ SUCCESS MODAL ============ -->
+<div id="successModal" class="hidden fixed inset-0 z-[60] modal-overlay bg-ink/70 backdrop-blur-sm flex items-center justify-center p-4">
+  <div id="successCard" class="modal-card bg-paper rounded-3xl max-w-sm w-full p-8 text-center shadow-soft">
+    <div class="w-16 h-16 rounded-full bg-teal/10 text-teal flex items-center justify-center text-3xl mx-auto mb-5">✓</div>
+    <h3 class="font-display font-extrabold text-2xl text-ink">Booking Initiated!</h3>
+    <p class="text-ink/60 font-body text-sm mt-3 leading-relaxed">Thank you. Your booking details have been received.</p>
+    <p class="mt-4 font-display font-semibold text-maroon text-lg">Booking ID: <span id="refNo" class="text-ink bg-paper/10 px-2 rounded"></span></p>
+    <div class="mt-5 p-4 bg-cream border border-maroon/10 rounded-xl text-sm font-body text-ink/80 text-left">
+        <strong>Important:</strong> Please use this Booking ID to collect your physical ticket from the event counter on the event day or contact the management on phone to collect it earlier.
+    </div>
+    <button id="closeModal" class="mt-6 w-full bg-maroon text-cream font-display font-semibold py-3 rounded-full">Done</button>
+  </div>
+</div>
+
+<div id="footer-placeholder"></div>
+<script src="/scripts/layout.js"></script>
+
+<script>
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Amount calculation
+  const amountDisplay = document.getElementById('amountDisplay');
+  const form = document.getElementById('bookingForm');
+  const ticketCountSelect = document.getElementById('ticketCount');
+
+  function recalcAmount() {
+    const selectedTicket = form.querySelector('input[name="ticketType"]:checked');
+    if (selectedTicket) {
+      const fee = Number(selectedTicket.dataset.fee);
+      const count = Number(ticketCountSelect.value);
+      amountDisplay.textContent = `₹${fee * count}`;
+    } else {
+      amountDisplay.textContent = '₹0';
+    }
+  }
+
+  form.querySelectorAll('input[name="ticketType"]').forEach(el => el.addEventListener('change', recalcAmount));
+  ticketCountSelect.addEventListener('change', recalcAmount);
+
+  // File upload label
+  const paymentUpload = document.getElementById('paymentUpload');
+  const paymentLabel = document.getElementById('paymentLabel');
+  paymentUpload.addEventListener('change', () => {
+    paymentLabel.textContent = paymentUpload.files[0] ? paymentUpload.files[0].name : 'Tap to upload your payment screenshot';
+  });
+
+  // QR Modal
+  const qrModal = document.getElementById('qrModal');
+  const qrModalCard = document.getElementById('qrModalCard');
+  function openQrModal() {
+    qrModal.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      qrModalCard.style.transform = 'scale(1)';
+      qrModalCard.style.opacity = '1';
+    });
+  }
+  function closeQrModal() {
+    qrModal.classList.add('hidden');
+  }
+  document.getElementById('qrOpenBtn').addEventListener('click', openQrModal);
+  document.getElementById('qrCloseBtn').addEventListener('click', closeQrModal);
+
+  // Copy details
+  document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      let text = document.getElementById(btn.dataset.copy).textContent.trim();
+      if (btn.dataset.copyStripSpaces === 'true') text = text.replace(/\s+/g, '');
+      navigator.clipboard?.writeText(text);
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = original; }, 1500);
+    });
+  });
+
+  // Toast
+  function showToast(message) {
+    const stack = document.getElementById('toastStack');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `<span>⚠️</span><span>${message}</span><button type="button" class="toast-close">✕</button>`;
+    stack.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('show'));
+    setTimeout(() => toast.remove(), 4000);
+  }
+
+  const PHONE_REGEX = /^[6-9]\d{9}$/;
+  
+  const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxakcPfiovpOKtST01fz6L1nQddnp-zRHVCq90D-lrUOOYXEhyb9jTY6kZRF2lObbQTvw/exec';
+
+  function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+      if (!file) { resolve(null); return; }
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+  
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Clear errors
+    form.querySelectorAll('.field-error').forEach(el => el.classList.remove('field-error'));
+
+    let errors = [];
+    if (!form.name.value.trim()) { errors.push("Please enter your name."); form.name.classList.add('field-error'); }
+    if (!PHONE_REGEX.test(form.phone.value.trim())) { errors.push("Enter a valid 10-digit phone number."); form.phone.classList.add('field-error'); }
+    const selectedTicket = form.querySelector('input[name="ticketType"]:checked');
+    if (!selectedTicket) { errors.push("Please select a ticket category."); }
+
+    if (errors.length > 0) {
+      showToast(errors[0]);
+      return;
+    }
+
+    if (GOOGLE_SCRIPT_URL.includes('PASTE_YOUR_WEB_APP_URL_HERE')) {
+      showToast('Google Sheets isn\'t configured yet — add the Apps Script Web App URL in the code.', 'error');
+      return;
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const loader = document.getElementById('submitLoader');
+    submitBtn.disabled = true;
+    loader.classList.remove('hidden');
+
+    try {
+      const paymentFile = paymentUpload.files[0];
+      const paymentBase64 = paymentFile ? await fileToBase64(paymentFile) : null;
+      const paymentFileName = paymentFile ? paymentFile.name : '';
+      
+      const categoryMap = { '400': 'Premium', '300': 'Standard', '200': 'General' };
+      const ticketCategoryName = categoryMap[selectedTicket.value] || selectedTicket.value;
+      const ticketCount = ticketCountSelect.value;
+      const amountPayable = Number(selectedTicket.dataset.fee) * Number(ticketCount);
+      const bookingId = 'TKT-' + Math.floor(100000 + Math.random() * 900000);
+
+      const payload = {
+        isEventBooking: true,
+        submittedAt: new Date().toISOString(),
+        bookingId: bookingId,
+        name: form.name.value.trim(),
+        phone: form.phone.value.trim(),
+        ticketCategory: ticketCategoryName,
+        ticketCount: ticketCount,
+        amountPayable: amountPayable,
+        utr: form.utr.value.trim(),
+        paymentBase64: paymentBase64,
+        paymentFileName: paymentFileName
+      };
+
+      const response = await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      // no-cors means we can't read response.ok or response.json(), so we just assume success if it didn't throw network error.
+      document.getElementById('refNo').textContent = bookingId;
+      
+      const successModal = document.getElementById('successModal');
+      const successCard = document.getElementById('successCard');
+      successModal.classList.remove('hidden');
+      requestAnimationFrame(() => {
+          successCard.style.transform = 'scale(1)';
+          successCard.style.opacity = '1';
+      });
+
+    } catch (err) {
+      console.error(err);
+      showToast('Submission failed. Please check your internet connection or try again later.');
+    } finally {
+      loader.classList.add('hidden');
+      submitBtn.disabled = false;
+    }
+  });
+
+  document.getElementById('closeModal').addEventListener('click', () => {
+      document.getElementById('successModal').classList.add('hidden');
+      form.reset();
+      recalcAmount();
+  });
+</script>
+</body>
+</html>

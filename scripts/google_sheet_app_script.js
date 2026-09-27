@@ -1,13 +1,14 @@
 /**
  * IRCA Google Apps Script backend
  * ----------------------------------------------------------
- * Handles submissions from both student-registration.html
- * and the new donation page, routing uploads to separate folders.
+ * Handles submissions from student-registration, donation page,
+ * and the event booking page.
  */
 
 // ---- Drive Folder Settings ----
 const ADMISSION_FOLDER_NAME = 'IRCA Admission Uploads';
 const DONATION_FOLDER_NAME = 'IRCA Donation Uploads';
+const EVENT_FOLDER_NAME = 'IRCA Event Uploads';
 
 // ---- Email notification settings ----
 const ADMIN_EMAIL = 'irca.admin@gmail.com,riyadeb.work@gmail.com,dipsraj.kundu@gmail.com';
@@ -19,8 +20,9 @@ function doPost(e) {
     const data = JSON.parse(e.postData.contents);
 
     // Route the submission based on the payload data
-    // If donorName exists, it's from the donation page. Otherwise, it's an admission.
-    if (data.donorName !== undefined) {
+    if (data.isEventBooking) {
+      return processEventBooking(data);
+    } else if (data.donorName !== undefined) {
       return processDonation(data);
     } else {
       return processAdmission(data);
@@ -76,7 +78,6 @@ function processDonation(data) {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('donation') || createDonationsSheet();
   const folder = getOrCreateFolder(DONATION_FOLDER_NAME);
 
-  // Donations don't generate a referenceNo on the frontend, so we use the phone number to name the file
   const filePrefix = data.donorPhone || new Date().getTime();
   const paymentUrl = saveFile(folder, data.paymentFileName, data.paymentBase64, filePrefix, 'donation_receipt');
 
@@ -95,6 +96,52 @@ function processDonation(data) {
   sendDonationNotificationEmail(data, paymentUrl);
 
   return ContentService.createTextOutput(JSON.stringify({ result: 'success' }))
+      .setMimeType(ContentService.MimeType.JSON);
+}
+
+// ==========================================
+// 3. EVENT BOOKING HANDLER
+// ==========================================
+function processEventBooking(data) {
+  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('EventBookings') || createEventBookingsSheet();
+  const folder = getOrCreateFolder(EVENT_FOLDER_NAME);
+
+  const paymentUrl = saveFile(folder, data.paymentFileName, data.paymentBase64, data.bookingId, 'event_payment');
+
+  sheet.appendRow([
+    data.submittedAt,
+    data.bookingId,
+    data.name,
+    data.phone,
+    data.ticketCategory,
+    data.ticketCount,
+    data.amountPayable,
+    data.utr,
+    paymentUrl
+  ]);
+
+  if (SEND_ADMIN_EMAIL && ADMIN_EMAIL) {
+    try {
+      const summary = [
+        'Booking ID: ' + data.bookingId,
+        'Name: ' + data.name,
+        'Phone: ' + data.phone,
+        'Ticket Category: ' + data.ticketCategory,
+        'Number of Tickets: ' + data.ticketCount,
+        'Amount Payable: ' + data.amountPayable,
+        'UTR: ' + (data.utr || 'N/A'),
+        'Payment Screenshot: ' + (paymentUrl || 'not uploaded')
+      ].join('\n');
+      
+      MailApp.sendEmail({
+        to: ADMIN_EMAIL,
+        subject: 'IRCA - New Event Booking - ' + data.name + ' (' + data.bookingId + ')',
+        body: 'A new event booking was submitted.\n\n' + summary
+      });
+    } catch (err) {}
+  }
+
+  return ContentService.createTextOutput(JSON.stringify({ result: 'success', bookingId: data.bookingId }))
       .setMimeType(ContentService.MimeType.JSON);
 }
 
@@ -198,6 +245,17 @@ function createDonationsSheet() {
   return sheet;
 }
 
+function createEventBookingsSheet() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.insertSheet('EventBookings');
+  sheet.appendRow([
+    'Submitted At', 'Booking ID', 'Name', 'Phone', 'Ticket Category',
+    'Ticket Count', 'Amount Payable', 'UTR', 'Payment Screenshot Link'
+  ]);
+  sheet.setFrozenRows(1);
+  return sheet;
+}
+
 function getOrCreateFolder(name) {
   const folders = DriveApp.getFoldersByName(name);
   return folders.hasNext() ? folders.next() : DriveApp.createFolder(name);
@@ -209,7 +267,6 @@ function saveFile(folder, fileName, base64Data, reference, kind) {
     const contentType = guessContentType(fileName);
     const blob = Utilities.newBlob(Utilities.base64Decode(base64Data), contentType, `${reference}_${kind}_${fileName}`);
     const file = folder.createFile(blob);
-    // Note: Leaving file permissions to inherit from the parent folder is safer for privacy.
     return file.getUrl();
   } catch (err) {
     return 'Upload failed: ' + err.message;

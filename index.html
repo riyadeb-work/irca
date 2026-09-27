@@ -144,7 +144,27 @@
 
 <div id="header-placeholder"></div>
 
-<!-- ============ HERO ============ -->
+<!-- ============ EVENT POPUP ============ -->
+<div id="eventPopup" class="hidden fixed inset-0 z-[100] modal-overlay bg-ink/85 backdrop-blur-sm flex items-center justify-center p-4">
+  <div id="eventPopupCard" class="modal-card relative w-full max-w-lg bg-paper rounded-3xl overflow-hidden shadow-2xl p-6 sm:p-10 border border-maroon/10">
+    <button id="closeEventPopup" type="button" aria-label="Close" class="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-maroon/10 text-maroon hover:bg-maroon hover:text-cream transition-colors flex items-center justify-center text-xl shadow-sm z-10">✕</button>
+
+    <div class="text-center">
+      <div class="w-16 h-16 rounded-full bg-rose/10 flex items-center justify-center text-3xl mx-auto mb-5 shadow-soft">🎵</div>
+      <p class="text-sm font-body font-semibold text-rose uppercase tracking-wide">Upcoming Event</p>
+      <h3 class="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-2 leading-tight">Stand With Rupsha</h3>
+      <p class="text-ink/70 text-base font-body mt-4 leading-relaxed px-2">
+        A musical evening for a cause. Join us on 26th December 2026 to support her fight against brain cancer.
+      </p>
+      <div class="mt-8">
+        <a href="/event/stand-with-rupsha" class="inline-flex items-center justify-center w-full sm:w-auto gap-2 bg-maroon hover:bg-maroon-dark text-cream font-display font-bold px-8 py-4 rounded-full shadow-soft transition-colors glow-pulse-rose text-lg">
+          Book Tickets Now
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 <section id="home" class="relative overflow-hidden bg-ink">
   <div class="absolute inset-0 opacity-[0.14]" style="background-image:radial-gradient(circle at 1px 1px, #C9972A 1px, transparent 1px); background-size:26px 26px;"></div>
   <div class="absolute -right-24 -top-24 w-[420px] h-[420px] rounded-full bg-maroon/30 blur-3xl"></div>
@@ -506,46 +526,41 @@
 </section>
 
 <!-- ============ EVENTS ============ -->
-<!--<section id="events" class="bg-cream py-20">-->
-<!--  <div class="max-w-7xl mx-auto px-4">-->
-<!--    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 reveal">-->
-<!--      <div>-->
-<!--        <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-teal bg-teal/10 px-3 py-1 rounded-full">📅 Events</span>-->
-<!--        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-4">What's coming up at IRCA</h2>-->
-<!--      </div>-->
-<!--      <a href="/events" class="coming-soon-link font-body font-semibold text-maroon hover:text-maroon-dark inline-flex items-center gap-1">View full calendar-->
-<!--        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>-->
-<!--      </a>-->
-<!--    </div>-->
+<section id="events" class="bg-cream py-20">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 reveal">
+      <div>
+        <span class="inline-block font-body font-semibold text-xs tracking-[0.2em] uppercase text-teal bg-teal/10 px-3 py-1 rounded-full">📅 Upcoming Event</span>
+        <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-ink mt-4">A Musical Evening For A Cause</h2>
+      </div>
+      <a href="/event/stand-with-rupsha" class="font-body font-semibold text-maroon hover:text-maroon-dark inline-flex items-center gap-1">View details & Book Tickets
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
 
-<!--    <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">-->
-<!--      <div class="reveal card-hover bg-paper rounded-2xl overflow-hidden border border-maroon/10">-->
-<!--        <div class="h-36 bg-gradient-to-br from-maroon to-maroon-dark flex items-center justify-center text-cream text-4xl">🎨</div>-->
-<!--        <div class="p-6">-->
-<!--          <p class="text-xs font-body font-semibold text-maroon uppercase tracking-wide">Workshop</p>-->
-<!--          <h3 class="font-display font-bold text-ink text-lg mt-1">Weekend Sketching Masterclass</h3>-->
-<!--          <p class="text-ink/55 text-sm font-body mt-1.5">Guest faculty session on light & composition.</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="reveal card-hover bg-paper rounded-2xl overflow-hidden border border-maroon/10" style="transition-delay:.06s">-->
-<!--        <div class="h-36 bg-gradient-to-br from-teal to-teal-dark flex items-center justify-center text-cream text-4xl">🎶</div>-->
-<!--        <div class="p-6">-->
-<!--          <p class="text-xs font-body font-semibold text-teal uppercase tracking-wide">Cultural Festival</p>-->
-<!--          <h3 class="font-display font-bold text-ink text-lg mt-1">Rupsa Sangeet Sandhya</h3>-->
-<!--          <p class="text-ink/55 text-sm font-body mt-1.5">An evening of classical & folk performances.</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="reveal card-hover bg-paper rounded-2xl overflow-hidden border border-maroon/10" style="transition-delay:.12s">-->
-<!--        <div class="h-36 bg-gradient-to-br from-gold-dark to-gold flex items-center justify-center text-ink text-4xl">🏆</div>-->
-<!--        <div class="p-6">-->
-<!--          <p class="text-xs font-body font-semibold text-gold-dark uppercase tracking-wide">Annual Function</p>-->
-<!--          <h3 class="font-display font-bold text-ink text-lg mt-1">IRCA Annual Day 2026</h3>-->
-<!--          <p class="text-ink/55 text-sm font-body mt-1.5">Student showcase, awards & felicitation.</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</section>-->
+    <div class="mt-10 reveal bg-paper rounded-2xl overflow-hidden border border-maroon/10 shadow-soft grid lg:grid-cols-2">
+      <div class="p-8 sm:p-10">
+        <p class="text-xs font-body font-semibold text-rose uppercase tracking-wide">Fundraiser Concert</p>
+        <h3 class="font-display font-extrabold text-ink text-3xl mt-2 leading-snug">Stand With Rupsha</h3>
+        <p class="text-ink/70 text-sm font-body mt-4 leading-relaxed">
+          Join us for a cultural programme in support of Rupsha Chatterjee, who is battling brain cancer. All funds raised will go towards her ongoing treatment. Let's stand together for a brighter tomorrow.
+        </p>
+        <div class="mt-6 space-y-3 font-body text-sm text-ink/80">
+          <p class="flex items-center gap-2"><span class="text-maroon">📅</span> Saturday, 26th December 2026</p>
+          <p class="flex items-center gap-2"><span class="text-maroon">🕒</span> 5:00 PM - 9:00 PM</p>
+          <p class="flex items-center gap-2"><span class="text-maroon">📍</span> Ichapur Bikash Basu Convention Hall</p>
+        </div>
+        <a href="/event/stand-with-rupsha" class="mt-8 inline-flex items-center gap-2 bg-maroon hover:bg-maroon-dark text-cream font-display font-bold px-8 py-3.5 rounded-full shadow-soft transition-colors glow-pulse-rose">
+          View Details & Book Tickets
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+      <div class="relative h-64 lg:h-auto bg-ink/5">
+        <img src="images/rupsha_event_banner.jpeg" alt="Stand With Rupsha Event Banner" class="absolute inset-0 w-full h-full object-cover">
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ============ FACULTY SECTION ============ -->
 <section id="faculty" class="bg-ink py-20">
@@ -944,6 +959,42 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   revealEls.forEach(el => io.observe(el));
+
+  // Event Popup Configuration
+  const SHOW_EVENT_POPUP = true;
+  
+  if (SHOW_EVENT_POPUP) {
+    setTimeout(() => {
+      const popup = document.getElementById('eventPopup');
+      const popupCard = document.getElementById('eventPopupCard');
+      if (popup && !sessionStorage.getItem('eventPopupClosed_v2')) {
+        popup.style.opacity = '0';
+        popup.classList.remove('hidden');
+        popupCard.style.transform = 'scale(.9)';
+        popupCard.style.opacity = '0';
+        
+        // Trigger reflow
+        requestAnimationFrame(() => {
+          popup.style.opacity = '1';
+          popupCard.style.transform = 'scale(1)';
+          popupCard.style.opacity = '1';
+        });
+        document.body.style.overflow = 'hidden';
+        
+        document.getElementById('closeEventPopup').addEventListener('click', () => {
+          popupCard.style.transform = 'scale(.9)';
+          popupCard.style.opacity = '0';
+          popup.style.opacity = '0';
+          setTimeout(() => {
+            popup.classList.add('hidden');
+            document.body.style.overflow = '';
+          }, 300);
+          sessionStorage.setItem('eventPopupClosed_v2', 'true');
+        });
+      }
+    }, 1000); // Show after 1 second
+  }
+
 
 
   // ==========================================
