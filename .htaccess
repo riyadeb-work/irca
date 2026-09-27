@@ -1,5 +1,9 @@
 RewriteEngine On
 
+# Redirect /event or /event/ to /event/stand-with-rupsha
+RedirectMatch 301 ^/event/?$ /event/stand-with-rupsha
+
+
 # 1. If someone explicitly types the .html extension, redirect to the clean URL
 #    e.g. /menu.html -> /menu  (302/301 redirect, visible in the browser bar)
 RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/+([^.]+)\.html[\s?] [NC]
