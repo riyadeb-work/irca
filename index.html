@@ -964,35 +964,36 @@
   const SHOW_EVENT_POPUP = true;
   
   if (SHOW_EVENT_POPUP) {
-    setTimeout(() => {
-      const popup = document.getElementById('eventPopup');
-      const popupCard = document.getElementById('eventPopupCard');
-      if (popup && !sessionStorage.getItem('eventPopupClosed_v2')) {
-        popup.style.opacity = '0';
-        popup.classList.remove('hidden');
-        popupCard.style.transform = 'scale(.9)';
-        popupCard.style.opacity = '0';
-        
-        // Trigger reflow
-        requestAnimationFrame(() => {
-          popup.style.opacity = '1';
-          popupCard.style.transform = 'scale(1)';
-          popupCard.style.opacity = '1';
-        });
-        document.body.style.overflow = 'hidden';
-        
-        document.getElementById('closeEventPopup').addEventListener('click', () => {
+    window.addEventListener('pageshow', () => {
+      setTimeout(() => {
+        const popup = document.getElementById('eventPopup');
+        const popupCard = document.getElementById('eventPopupCard');
+        if (popup) {
+          popup.style.opacity = '0';
+          popup.classList.remove('hidden');
           popupCard.style.transform = 'scale(.9)';
           popupCard.style.opacity = '0';
-          popup.style.opacity = '0';
-          setTimeout(() => {
-            popup.classList.add('hidden');
-            document.body.style.overflow = '';
-          }, 300);
-          sessionStorage.setItem('eventPopupClosed_v2', 'true');
-        });
-      }
-    }, 1000); // Show after 1 second
+          
+          // Trigger reflow
+          requestAnimationFrame(() => {
+            popup.style.opacity = '1';
+            popupCard.style.transform = 'scale(1)';
+            popupCard.style.opacity = '1';
+          });
+          document.body.style.overflow = 'hidden';
+          
+          document.getElementById('closeEventPopup').onclick = () => {
+            popupCard.style.transform = 'scale(.9)';
+            popupCard.style.opacity = '0';
+            popup.style.opacity = '0';
+            setTimeout(() => {
+              popup.classList.add('hidden');
+              document.body.style.overflow = '';
+            }, 300);
+          };
+        }
+      }, 1000); // Show after 1 second
+    });
   }
 
 
