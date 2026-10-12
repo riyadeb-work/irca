@@ -98,6 +98,7 @@
     .subject-chip input:checked ~ .box svg{ opacity:1; transform:scale(1); }
     .subject-chip .box svg{ opacity:0; transform:scale(.5); transition: all .2s ease; }
     .subject-chip:has(input:checked){ background:rgba(122,31,43,.06); border-color:#7A1F2B; }
+    .subject-chip.disabled, .subject-chip:has(input:disabled){ cursor:not-allowed; opacity:0.6; pointer-events:none; }
     
     .modal-overlay{ transition: opacity .3s ease; }
     .modal-card{ transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; }
@@ -221,12 +222,15 @@
             <span class="block text-ink/60 text-sm font-body">₹300 / seat</span>
           </span>
         </label>
-        <label class="subject-chip flex items-center gap-3 border border-maroon/15 rounded-2xl p-4">
-          <input type="radio" name="ticketType" value="200" data-fee="200">
-          <span class="box"><svg class="w-3 h-3 text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
-          <span class="flex-1">
-            <span class="block font-display font-semibold text-ink">General</span>
-            <span class="block text-ink/60 text-sm font-body">₹200 / seat</span>
+        <label class="subject-chip disabled flex items-center gap-3 border border-ink/20 rounded-2xl p-4 cursor-not-allowed bg-ink/10 select-none">
+          <input type="radio" name="ticketType" value="200" data-fee="200" disabled>
+          <span class="box !border-ink/30 bg-ink/5 opacity-50"><svg class="w-3 h-3 text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg></span>
+          <span class="flex-1 opacity-60">
+            <span class="flex items-center justify-between gap-1">
+              <span class="block font-display font-semibold text-ink/70">General</span>
+              <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-ink/70 bg-ink/15 border border-ink/20 px-2 py-0.5 rounded-full">All Booked</span>
+            </span>
+            <span class="block text-ink/50 text-sm font-body line-through">₹200 / seat</span>
           </span>
         </label>
       </div>
@@ -455,7 +459,9 @@
     if (!form.name.value.trim()) { errors.push("Please enter your name."); form.name.classList.add('field-error'); }
     if (!PHONE_REGEX.test(form.phone.value.trim())) { errors.push("Enter a valid 10-digit phone number."); form.phone.classList.add('field-error'); }
     const selectedTicket = form.querySelector('input[name="ticketType"]:checked');
-    if (!selectedTicket) { errors.push("Please select a ticket category."); }
+    if (!selectedTicket || selectedTicket.disabled || selectedTicket.value === '200') {
+      errors.push("Please select an available ticket category. General seats are fully booked.");
+    }
 
     if (errors.length > 0) {
       showToast(errors[0]);
