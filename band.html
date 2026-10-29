@@ -133,6 +133,74 @@
 
     .modal-overlay{ transition: opacity .3s ease; }
     .modal-card{ transition: transform .35s cubic-bezier(.34,1.56,.64,1), opacity .3s ease; }
+
+    /* ── Practice Calendar ── */
+    .cal-wrap{ user-select:none; width:fit-content; margin:0 auto; }
+    .cal-nav{
+      display:flex; align-items:center; justify-content:space-between; margin-bottom:.65rem;
+    }
+    .cal-nav-btn{
+      width:2.1rem; height:2.1rem; border-radius:50%; border:1.5px solid rgba(122,31,43,.2);
+      background:#fff; display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:1.25rem; line-height:1; color:#7A1F2B;
+      transition:background .2s, border-color .2s, color .2s; flex-shrink:0;
+    }
+    .cal-nav-btn:hover:not(:disabled){ background:#7A1F2B; color:#F6EEDF; border-color:#7A1F2B; }
+    .cal-nav-btn:disabled{ opacity:.3; cursor:not-allowed; }
+    .cal-month-label{
+      font-family:'Baloo Da 2',sans-serif; font-weight:700; font-size:1rem; color:#1C1A24;
+    }
+    .cal-dow-row{
+      display:grid; grid-template-columns:repeat(7, 2.5rem); gap:.3rem; margin-bottom:.3rem;
+    }
+    .cal-dow-row span{
+      text-align:center; font-size:.58rem; font-weight:700; text-transform:uppercase;
+      letter-spacing:.06em; font-family:'Baloo Da 2',sans-serif; padding:.2rem 0;
+      color:rgba(28,26,36,.38);
+    }
+    .cal-dow-row span.cal-dow-we{ color:rgba(28,26,36,.2); }
+    .cal-body{
+      display:grid; grid-template-columns:repeat(7, 2.5rem); gap:.3rem;
+    }
+    .cal-cell{
+      aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+      border-radius:.45rem; font-family:'Baloo Da 2',sans-serif;
+      font-size:.82rem; font-weight:600; border:1.5px solid transparent;
+      transition:all .15s ease; position:relative; cursor:default;
+    }
+    .cal-cell.cal-avail{
+      background:#fff; border-color:rgba(122,31,43,.15); color:#1C1A24; cursor:pointer;
+    }
+    .cal-cell.cal-avail:hover{
+      border-color:#7A1F2B; box-shadow:0 0 0 3px rgba(122,31,43,.1); color:#7A1F2B;
+    }
+    .cal-cell.cal-selected{
+      background:#7A1F2B !important; border-color:#7A1F2B !important; color:#F6EEDF !important;
+      box-shadow:0 4px 14px -4px rgba(122,31,43,.45);
+    }
+    .cal-cell.cal-today:not(.cal-selected){
+      border-color:#C9972A; color:#C9972A; font-weight:800;
+    }
+    .cal-cell.cal-past,.cal-cell.cal-future-max{
+      color:rgba(28,26,36,.18);
+    }
+    .cal-cell.cal-weekend{ color:rgba(28,26,36,.18); }
+    .cal-cell.cal-blocked{
+      background:#F9F0F1; color:rgba(122,31,43,.28);
+      border-color:rgba(122,31,43,.08); text-decoration:line-through;
+    }
+    /* legend row */
+    .cal-legend{
+      display:flex; flex-wrap:wrap; gap:.45rem 1rem; margin-top:.75rem;
+    }
+    .cal-legend span{
+      display:flex; align-items:center; gap:.3rem;
+      font-family:'Mukta',sans-serif; font-size:.72rem; color:rgba(28,26,36,.5);
+    }
+    .cal-legend .dot{
+      width:.55rem; height:.55rem; border-radius:50%; flex-shrink:0;
+    }
+    /* Time slots – keep existing .time-chip styles, no change needed */
   </style>
 </head>
 <body class="antialiased pb-16 lg:pb-0">
@@ -221,20 +289,42 @@
         <h2 class="font-display font-bold text-xl text-ink mb-5">Select Practice Slot</h2>
 
         <div class="grid gap-6">
+          <!-- Calendar Date Picker -->
           <div>
-            <label class="field-label">Select Date (<span id="dynamicDayNameLabel">Upcoming Practice Days</span>) <span class="text-maroon">*</span></label>
-            <select name="slotDate" id="slotDateSelect" required>
-              <option value="" selected disabled>Select an available date...</option>
-              <!-- Options populated by JS -->
-            </select>
+            <label class="field-label">Select Date <span class="text-xs font-body font-normal text-ink/40">(Mon–Fri only · up to 60 days ahead)</span> <span class="text-maroon">*</span></label>
+            <!-- hidden input carries the selected date value for form submission -->
+            <input type="hidden" name="slotDate" id="slotDateHidden" required>
+            <div class="cal-wrap mt-3">
+              <!-- Month navigation -->
+              <div class="cal-nav">
+                <button type="button" id="calPrevBtn" class="cal-nav-btn" aria-label="Previous month">&#8249;</button>
+                <span id="calMonthLabel" class="cal-month-label"></span>
+                <button type="button" id="calNextBtn" class="cal-nav-btn" aria-label="Next month">&#8250;</button>
+              </div>
+              <!-- Day-of-week headers -->
+              <div class="cal-dow-row">
+                <span class="cal-dow-we">Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span>
+                <span class="cal-dow-we">Sat</span>
+              </div>
+              <!-- Calendar body – cells injected by JS -->
+              <div id="calBody" class="cal-body"></div>
+              <!-- Legend -->
+              <div class="cal-legend">
+                <span><span class="dot" style="background:#7A1F2B"></span>Selected</span>
+                <span><span class="dot" style="background:#C9972A"></span>Today</span>
+                <span><span class="dot" style="background:#F9F0F1;border:1px solid rgba(122,31,43,.15)"></span>Unavailable</span>
+              </div>
+            </div>
           </div>
-          <div>
+
+          <!-- Time Slot Picker -->
+          <div id="timeSlotSection" class="hidden">
             <label class="field-label">Select Time Slot <span class="text-maroon">*</span></label>
             <div id="timeSlotContainer" class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-1">
               <!-- Radios populated by JS -->
             </div>
-            <p id="noSlotMsg" class="hidden text-sm text-maroon mt-2 font-medium">Please select a date first to see available times.</p>
           </div>
+          <p id="noSlotMsg" class="text-sm text-ink/50 mt-0 font-medium">← Pick a date above to see available time slots.</p>
         </div>
       </div>
 
@@ -400,37 +490,55 @@
     // Phone number to receive WhatsApp messages (include country code, no +)
     whatsappNumber: "918420998994",
 
-    // Optional: Set a specific starting date (Format: "YYYY-MM-DD").
-    // If set, this overrides the 15-day advance notice logic below.
-    manualStartDate: "2026-10-04",
+    // ── Date Settings ─────────────────────────────────────────────────────────
+    // How many upcoming Mon–Fri working days to show (max 10 recommended)
+    maxDaysToShow: 10,
 
-    // Booking requires 15 days advance notice (used if manualStartDate is empty)
-    advanceNoticeDays: 15,
-
-    // Day of the week for practice (0 = Sunday, 1 = Monday, 2 = Tuesday, etc.)
-    practiceDayOfWeek: 0,
-
-    // How many upcoming practice days to show in the dropdown
-    maxDaysToShow: 6,
-
-    // Default time slots available
-    timeSlots: [
-      "4:00 PM - 5:00 PM",
-      "5:00 PM - 6:00 PM",
-      "6:00 PM - 7:00 PM",
-      "7:00 PM - 8:00 PM",
-      "8:00 PM - 9:00 PM"
-    ],
-
-    // Completely disable specific dates (Format: "YYYY-MM-DD")
+    // ── Blocked Dates ─────────────────────────────────────────────────────────
+    // Disable specific single dates.  Format: "YYYY-MM-DD"
     disabledDates: [
-      // e.g., "2026-10-12"
+      // e.g., "2026-11-05"
     ],
 
-    // Disable specific time slots for specific dates
-    // Format: { "YYYY-MM-DD": ["Slot String 1", "Slot String 2"] }
+    // Disable date ranges (both start and end are inclusive).
+    // Format: { start: "YYYY-MM-DD", end: "YYYY-MM-DD" }
+    disabledRanges: [
+      // e.g., { start: "2026-12-24", end: "2026-01-01" }
+      { start: "2026-11-24", end: "2026-12-06" }
+    ],
+
+    // ── Time Slot Settings ────────────────────────────────────────────────────
+    // Default slots: Mon–Fri, 10:00 AM → 2:00 PM in 30-min blocks
+    slotStartHour:   10,   // 24-h hour when first slot begins  (10 = 10:00 AM)
+    slotStartMinute:  0,   // minute of first slot start
+    slotEndHour:     14,   // 24-h hour when last slot must end (14 = 2:00 PM)
+    slotEndMinute:    0,   // minute of last slot end
+    slotDurationMin: 30,   // duration of each slot in minutes
+
+    // ── Per-date slot overrides ───────────────────────────────────────────────
+    // Disable specific generated time slots for a given date.
+    // Key = "YYYY-MM-DD", value = array of slot strings (must match generated format)
     disabledSlots: {
-      // e.g., "2026-09-28": ["6:00 PM - 7:00 PM", "7:00 PM - 8:00 PM"]
+      // Disable one or more time slots for a specific date.
+      // Key   = "YYYY-MM-DD"
+      // Value = array of slot strings (must match the generated format exactly,
+      //         using an en-dash – not a hyphen -)
+      //
+      // Single slot:
+      //   "2026-11-03": ["10:00 AM – 10:30 AM"],
+      //
+      // Multiple slots on the same day:
+      //   "2026-11-10": [
+      //     "10:30 AM – 11:00 AM",
+      //     "11:00 AM – 11:30 AM",
+      //     "1:00 PM – 1:30 PM"
+      //   ],
+      //
+      // Full slot list (default 10 AM–2 PM, 30-min blocks):
+      //   "10:00 AM – 10:30 AM"  |  "10:30 AM – 11:00 AM"
+      //   "11:00 AM – 11:30 AM"  |  "11:30 AM – 12:00 PM"
+      //   "12:00 PM – 12:30 PM"  |  "12:30 PM – 1:00 PM"
+      //   "1:00 PM – 1:30 PM"    |  "1:30 PM – 2:00 PM"
     }
   };
 
@@ -467,101 +575,217 @@
   }
 
   // ==========================================
-  // SLOT GENERATION LOGIC
+  // PRACTICE CALENDAR LOGIC
   // ==========================================
-  const dateSelect = document.getElementById('slotDateSelect');
+
+  // ── Helpers ────────────────────────────────────────────────────────────────
+
+  /** Zero-pad a number to 2 digits */
+  function pad2(n){ return String(n).padStart(2,'0'); }
+
+  /** Return "YYYY-MM-DD" for a Date object (local time) */
+  function fmtKey(d){
+    return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}`;
+  }
+
+  /** Return true if the date key falls in any disabled single date or range */
+  function isDateBlocked(dateKey){
+    if(BAND_CONFIG.disabledDates.includes(dateKey)) return true;
+    for(const r of BAND_CONFIG.disabledRanges){
+      if(dateKey >= r.start && dateKey <= r.end) return true;
+    }
+    return false;
+  }
+
+  /** Format a 24-h {h,m} pair → "10:30 AM" / "2:00 PM" */
+  function fmtAmPm(h, m){
+    const suffix = h < 12 ? 'AM' : 'PM';
+    const hh = h % 12 === 0 ? 12 : h % 12;
+    return `${hh}:${pad2(m)} ${suffix}`;
+  }
+
+  /** Generate the array of time-slot label strings from config */
+  function buildSlotLabels(){
+    const slots = [];
+    let h = BAND_CONFIG.slotStartHour;
+    let m = BAND_CONFIG.slotStartMinute;
+    const endTotalMin = BAND_CONFIG.slotEndHour * 60 + BAND_CONFIG.slotEndMinute;
+    while(true){
+      const nextM = m + BAND_CONFIG.slotDurationMin;
+      const nh = h + Math.floor(nextM / 60);
+      const nm = nextM % 60;
+      if(nh * 60 + nm > endTotalMin) break;
+      slots.push(`${fmtAmPm(h,m)} \u2013 ${fmtAmPm(nh,nm)}`);
+      h = nh; m = nm;
+    }
+    return slots;
+  }
+
+  // ── Calendar rendering ──────────────────────────────────────────────────────
+
+  const slotDateInput = document.getElementById('slotDateHidden');
   const timeContainer = document.getElementById('timeSlotContainer');
-  const noSlotMsg = document.getElementById('noSlotMsg');
+  const timeSection   = document.getElementById('timeSlotSection');
+  const noSlotMsg     = document.getElementById('noSlotMsg');
 
-  // Format date to YYYY-MM-DD for configuration mapping
-  function formatDateKey(dateObj) {
-    const yyyy = dateObj.getFullYear();
-    const mm = String(dateObj.getMonth() + 1).padStart(2, '0');
-    const dd = String(dateObj.getDate()).padStart(2, '0');
-    return `${yyyy}-${mm}-${dd}`;
-  }
+  const CAL_TODAY = new Date();
+  CAL_TODAY.setHours(0, 0, 0, 0);
 
-  // Generate upcoming practice days honoring the 15-day advance notice
-  function generateUpcomingDays() {
-    const dayNamesPlural = ['Sundays', 'Mondays', 'Tuesdays', 'Wednesdays', 'Thursdays', 'Fridays', 'Saturdays'];
-    const dynamicDayLabel = document.getElementById('dynamicDayNameLabel');
-    if (dynamicDayLabel) {
-      dynamicDayLabel.textContent = `Upcoming ${dayNamesPlural[BAND_CONFIG.practiceDayOfWeek]}`;
+  const CAL_MAX = new Date(CAL_TODAY);
+  CAL_MAX.setDate(CAL_TODAY.getDate() + 60); // up to 60 days ahead
+
+  const MONTH_NAMES = ['January','February','March','April','May','June',
+                       'July','August','September','October','November','December'];
+
+  let selectedDateKey = '';
+  let calViewYear  = CAL_TODAY.getFullYear();
+  let calViewMonth = CAL_TODAY.getMonth();
+
+  /** Render the full calendar for a given year/month */
+  function renderCalendar(year, month) {
+    const calBody      = document.getElementById('calBody');
+    const calMonthLbl  = document.getElementById('calMonthLabel');
+    const calPrevBtn   = document.getElementById('calPrevBtn');
+    const calNextBtn   = document.getElementById('calNextBtn');
+
+    calMonthLbl.textContent = `${MONTH_NAMES[month]} ${year}`;
+
+    // Disable prev when already on today's month; disable next when on max month
+    calPrevBtn.disabled = (year === CAL_TODAY.getFullYear() && month === CAL_TODAY.getMonth());
+    calNextBtn.disabled = (year === CAL_MAX.getFullYear()   && month === CAL_MAX.getMonth());
+
+    calBody.innerHTML = '';
+
+    // Monday-first offset: getDay() returns 0=Sun…6=Sat → convert to Mon=0…Sun=6
+    const firstDay    = new Date(year, month, 1);
+    const startOffset = firstDay.getDay(); // Sun=0, Mon=1 … Sat=6 — Sunday-first, no adjustment needed
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    // Blank leading cells
+    for (let i = 0; i < startOffset; i++) {
+      const blank = document.createElement('div');
+      blank.className = 'cal-cell';
+      calBody.appendChild(blank);
     }
 
-    let minBookingDate;
+    // Day cells
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date    = new Date(year, month, d);
+      const key     = fmtKey(date);
+      const dow     = date.getDay();           // 0=Sun … 6=Sat
+      const isWE    = (dow === 0 || dow === 6);
+      const isPast  = date < CAL_TODAY;
+      const isFuMax = date > CAL_MAX;
+      const isToday = date.getTime() === CAL_TODAY.getTime();
+      const isBlk   = !isWE && !isPast && !isFuMax && isDateBlocked(key);
+      const isSel   = key === selectedDateKey;
 
-    if (BAND_CONFIG.manualStartDate) {
-      // Use the manually configured start date
-      minBookingDate = new Date(BAND_CONFIG.manualStartDate);
-      minBookingDate.setHours(0, 0, 0, 0); // Reset time to midnight
-    } else {
-      // Move to the earliest allowable booking date (today + advance days)
-      const today = new Date();
-      minBookingDate = new Date(today);
-      minBookingDate.setDate(today.getDate() + BAND_CONFIG.advanceNoticeDays);
-      minBookingDate.setHours(0, 0, 0, 0); // Reset time to midnight
-    }
+      const cell = document.createElement('div');
+      cell.textContent = d;
 
-    let daysFound = 0;
-    let currentDate = new Date(minBookingDate);
-
-    // Find the very first practice day on or after the minBookingDate
-    while (currentDate.getDay() !== BAND_CONFIG.practiceDayOfWeek) {
-      currentDate.setDate(currentDate.getDate() + 1);
-    }
-
-    // Populate dropdown
-    while (daysFound < BAND_CONFIG.maxDaysToShow) {
-      const dateKey = formatDateKey(currentDate);
-
-      // Skip if this entire date is disabled in config
-      if (!BAND_CONFIG.disabledDates.includes(dateKey)) {
-        const option = document.createElement('option');
-        option.value = dateKey;
-        // Format for display: e.g., "Monday, Sept 28, 2026"
-        option.text = currentDate.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' });
-        dateSelect.appendChild(option);
-        daysFound++;
+      let cls = 'cal-cell';
+      if      (isWE)    cls += ' cal-weekend';
+      else if (isPast)  cls += ' cal-past';
+      else if (isFuMax) cls += ' cal-future-max';
+      else if (isBlk)   cls += ' cal-blocked';
+      else {
+        cls += ' cal-avail';
+        if (isSel)   cls += ' cal-selected';
+        if (isToday) cls += ' cal-today';
+        cell.addEventListener('click', () => selectCalDate(key, cell));
       }
+      // Today ring even if not selectable (past/future)
+      if (isToday && (isPast || isFuMax)) cls += ' cal-today';
 
-      // Move to next week
-      currentDate.setDate(currentDate.getDate() + 7);
+      cell.className = cls;
+      cell.setAttribute('aria-label',
+        date.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric', year:'numeric' })
+        + (isBlk ? ' (unavailable)' : ''));
+
+      calBody.appendChild(cell);
     }
   }
 
-  // Populate time slots based on selected date
-  function renderTimeSlots(selectedDateKey) {
-    timeContainer.innerHTML = ''; // clear previous
-    if (!selectedDateKey) {
+  /** Handle a date tile click */
+  function selectCalDate(key, cellEl) {
+    selectedDateKey  = key;
+    slotDateInput.value = key;
+    // Deselect all cells, then mark the clicked one
+    document.getElementById('calBody')
+      .querySelectorAll('.cal-cell').forEach(c => c.classList.remove('cal-selected'));
+    cellEl.classList.add('cal-selected');
+    renderTimeSlots(key);
+  }
+
+  /** Wire up month navigation and draw the initial month */
+  function initCalendar() {
+    document.getElementById('calPrevBtn').addEventListener('click', () => {
+      calViewMonth--;
+      if (calViewMonth < 0) { calViewMonth = 11; calViewYear--; }
+      renderCalendar(calViewYear, calViewMonth);
+    });
+    document.getElementById('calNextBtn').addEventListener('click', () => {
+      calViewMonth++;
+      if (calViewMonth > 11) { calViewMonth = 0; calViewYear++; }
+      renderCalendar(calViewYear, calViewMonth);
+    });
+    renderCalendar(calViewYear, calViewMonth);
+  }
+
+  // ── Time slots ──────────────────────────────────────────────────────────────
+
+  /**
+   * Parse the start time of a slot string like "10:30 AM – 11:00 AM"
+   * and return total minutes since midnight.
+   */
+  function slotStartMinutes(slotText){
+    const part = slotText.split('\u2013')[0].trim(); // e.g. "10:30 AM"
+    const [time, meridiem] = part.split(' ');
+    let [h, m] = time.split(':').map(Number);
+    if (meridiem === 'PM' && h !== 12) h += 12;
+    if (meridiem === 'AM' && h === 12) h = 0;
+    return h * 60 + m;
+  }
+
+  function renderTimeSlots(dateKey){
+    timeContainer.innerHTML = '';
+    if(!dateKey){
+      timeSection.classList.add('hidden');
       noSlotMsg.classList.remove('hidden');
       return;
     }
+    timeSection.classList.remove('hidden');
     noSlotMsg.classList.add('hidden');
 
-    const disabledTimesForDate = BAND_CONFIG.disabledSlots[selectedDateKey] || [];
+    const slotLabels      = buildSlotLabels();
+    const disabledForDate = BAND_CONFIG.disabledSlots[dateKey] || [];
+    const isToday         = dateKey === fmtKey(CAL_TODAY);
 
-    BAND_CONFIG.timeSlots.forEach((slotText, index) => {
-      const isConfigDisabled = disabledTimesForDate.includes(slotText);
+    // Current time in minutes (only relevant when today is selected)
+    const now = new Date();
+    const nowMinutes = now.getHours() * 60 + now.getMinutes();
+
+    slotLabels.forEach((slotText, index) => {
+      const configDisabled  = disabledForDate.includes(slotText);
+      // Disable if today and the slot's start time has already passed
+      const pastDisabled    = isToday && slotStartMinutes(slotText) <= nowMinutes;
+      const isDisabled      = configDisabled || pastDisabled;
+
       const id = `slot_${index}`;
-
       const label = document.createElement('label');
       label.className = 'time-chip';
       label.innerHTML = `
-        <input type="radio" name="slotTime" value="${slotText}" required ${isConfigDisabled ? 'disabled' : ''}>
-        <span class="box">${slotText}</span>
+        <input type="checkbox" name="slotTime" id="${id}" value="${slotText}" ${isDisabled ? 'disabled' : ''}>
+        <span class="box">${slotText}${pastDisabled ? '<span style="font-size:.65rem;display:block;opacity:.6;font-weight:400">Past</span>' : ''}</span>
       `;
       timeContainer.appendChild(label);
     });
   }
 
-  // Listen for date selection changes
-  dateSelect.addEventListener('change', (e) => {
-    renderTimeSlots(e.target.value);
-  });
-
-  // Initialize
-  generateUpcomingDays();
+  // Initialize calendar
+  initCalendar();
+  // Show the "pick a date" hint on load
+  renderTimeSlots(null);
 
   // ==========================================
   // UTILS & VALIDATION
@@ -652,11 +876,11 @@
     if (!PHONE_REGEX.test(form.slotPhone.value.trim())) flag(form.slotPhone, 'Valid 10-digit phone required.');
     if (!PHONE_REGEX.test(form.slotWhatsapp.value.trim())) flag(form.slotWhatsapp, 'Valid 10-digit WhatsApp required.');
 
-    if (!form.slotDate.value) flag(form.slotDate, 'Please select a date.');
+    if (!form.slotDate.value) { errors.push('Please select a practice date.'); }
 
-    const selectedTime = form.querySelector('input[name="slotTime"]:checked');
-    if (!selectedTime) {
-      errors.push('Please select an available time slot.');
+    const selectedTimes = [...form.querySelectorAll('input[name="slotTime"]:checked')].map(i => i.value);
+    if (selectedTimes.length === 0) {
+      errors.push('Please select at least one time slot.');
     }
 
     if (errors.length > 0) {
@@ -665,8 +889,10 @@
       return;
     }
 
-    // Convert raw YYYY-MM-DD back to readable string for the message
-    const dateObj = new Date(form.slotDate.value);
+    // Convert raw YYYY-MM-DD to a readable string for the WhatsApp message
+    // Parse as local date (split to avoid UTC offset issues)
+    const [yr, mo, dy] = form.slotDate.value.split('-').map(Number);
+    const dateObj = new Date(yr, mo - 1, dy);
     const readableDate = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' });
 
     // Build WhatsApp Message
@@ -675,7 +901,7 @@
             + `*Phone:* ${form.slotPhone.value.trim()}\n`
             + `*WhatsApp:* ${form.slotWhatsapp.value.trim()}\n\n`
             + `*Booked Date:* ${readableDate}\n`
-            + `*Booked Time:* ${selectedTime.value}\n\n`
+            + `*Booked Slot(s):*\n${selectedTimes.map(t => `  • ${t}`).join('\n')}\n\n`
             + `*Transaction ID:* ${form.slotTxn.value.trim() || 'Not Provided'}`;
 
     const url = `https://wa.me/${BAND_CONFIG.whatsappNumber}?text=${encodeURIComponent(message)}`;
